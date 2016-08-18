@@ -1,4 +1,3 @@
-#include <iostream>
 #include "array_stack.h"
 
 template<typename T>
@@ -29,8 +28,7 @@ void structures::ArrayStack<T>::push(const T& data)
 	if (full()) {
 		throw std::out_of_range("Stack is full");
 	} else {
-		top_++;
-		contents[top_] = data;
+		contents[top_++] = data;
 	}
 }
 
