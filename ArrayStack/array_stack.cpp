@@ -28,7 +28,7 @@ void structures::ArrayStack<T>::push(const T& data)
 	if (full()) {
 		throw std::out_of_range("Stack is full");
 	} else {
-		contents[top_++] = data;
+		contents[++top_] = data;
 	}
 }
 

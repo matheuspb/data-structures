@@ -4,7 +4,7 @@ template<typename T>
 structures::ArrayQueue<T>::ArrayQueue()
 {
 	contents = new T[DEFAULT_SIZE];
-	size_ = -1;
+	size_ = 0;
 	max_size_ = DEFAULT_SIZE;
 }
 
@@ -12,10 +12,9 @@ template<typename T>
 structures::ArrayQueue<T>::ArrayQueue(std::size_t max)
 {
 	contents = new T[max];
-	size_ = -1;
+	size_ = 0;
 	max_size_ = max;
 }
-
 
 template<typename T>
 structures::ArrayQueue<T>::~ArrayQueue()
@@ -23,14 +22,13 @@ structures::ArrayQueue<T>::~ArrayQueue()
 	delete[] contents;
 }
 
-
 template<typename T>
 void structures::ArrayQueue<T>::enqueue(const T& data)
 {
 	if (full()) {
 		throw std::out_of_range("Queue is full");
 	} else {
-		contents[++size_] = data;
+		contents[size_++] = data;
 	}
 }
 
@@ -55,20 +53,20 @@ T& structures::ArrayQueue<T>::back()
 	if (empty()) {
 		throw std::out_of_range("Queue is empty");
 	} else {
-		return contents[size_];
+		return contents[size_-1];
 	}
 }
 
 template<typename T>
 void structures::ArrayQueue<T>::clear()
 {
-	size_ = -1;
+	size_ = 0;
 }
 
 template<typename T>
 std::size_t structures::ArrayQueue<T>::size()
 {
-	return size_ + 1;
+	return size_;
 }
 
 template<typename T>
@@ -80,11 +78,11 @@ std::size_t structures::ArrayQueue<T>::max_size()
 template<typename T>
 bool structures::ArrayQueue<T>::empty()
 {
-	return size_ == -1;
+	return size_ == 0;
 }
 
 template<typename T>
 bool structures::ArrayQueue<T>::full()
 {
-	return size_ + 1 == max_size_;
+	return size_ == max_size_;
 }
