@@ -6,6 +6,14 @@
 
 namespace structures {
 
+/**
+ * @brief Implements a stack(data structure), using arrays.
+ * @details This data structure works just like a real 'stack', you add elements
+ * to the top of the stack (push), and you remove from the top (pop).
+ * It follows the 'LIFO' (last in, first out) principle.
+ *
+ * @tparam T This is the data type of the elements of the stack.
+ */
 template<typename T>
 class ArrayStack {
 public:
@@ -32,13 +40,19 @@ public:
     bool full(); // cheia
 
 private:
-    T* contents;
-    int top_;
-    std::size_t max_size_;
+    T* contents; ///< The array that'll contain the elements
+    int top_; ///< The position on the array of the top element
+    std::size_t max_size_; ///< Stack maximum size
 
-    const static auto DEFAULT_SIZE = 10u;
+    const static auto DEFAULT_SIZE = 10u; ///< Default size of the stack
 };
 
+/**
+ * @brief Default constructor
+ * @details Constructs the stack with the dafault size
+ *
+ * @tparam T Data types of the elements
+ */
 template<typename T>
 ArrayStack<T>::ArrayStack()
 {
@@ -47,6 +61,13 @@ ArrayStack<T>::ArrayStack()
     max_size_ = DEFAULT_SIZE;
 }
 
+/**
+ * @brief Constructor with a given maximum size of the stack
+ * @details Constructs the stack with 'max' size
+ *
+ * @param max Maximum size of the stack
+ * @tparam T Data types of the elements
+ */
 template<typename T>
 ArrayStack<T>::ArrayStack(std::size_t max)
 {
@@ -55,12 +76,23 @@ ArrayStack<T>::ArrayStack(std::size_t max)
     max_size_ = max;
 }
 
+/**
+ * @brief Destructor
+ * @details Deletes the 'contents' array
+ */
 template<typename T>
 ArrayStack<T>::~ArrayStack()
 {
     delete[] contents;
 }
 
+/**
+ * @brief Adds 'data' to the top of the stack
+ * @details Checks if the stack is not full, then puts 'data' at 'top_' position
+ * of the array 'contents', and increments 'top_'
+ *
+ * @param data The element that'll be added to the stack
+ */
 template<typename T>
 void ArrayStack<T>::push(const T& data)
 {
@@ -71,6 +103,13 @@ void ArrayStack<T>::push(const T& data)
     }
 }
 
+/**
+ * @brief Removes the element at the top of the stack
+ * @details Checks if the stack is not empty, then returns the top element of
+ * the stack, and decrements 'top_'
+ *
+ * @return The element that was removed
+ */
 template<typename T>
 T ArrayStack<T>::pop()
 {
@@ -81,6 +120,13 @@ T ArrayStack<T>::pop()
     }
 }
 
+/**
+ * @brief Returns a reference to the top element of the stack
+ * @details Checks if stack is not empty, then returns the element at 'top_'
+ * position of the array 'contents'
+ *
+ * @return A reference to the top element of the stack
+ */
 template<typename T>
 T& ArrayStack<T>::top()
 {
@@ -91,30 +137,48 @@ T& ArrayStack<T>::top()
     }
 }
 
+/**
+ * @brief Clears the stack
+ * @details Sets 'top_' to -1
+ */
 template<typename T>
 void ArrayStack<T>::clear()
 {
     top_ = -1;
 }
 
+/**
+ * @brief Returns the number of elements on the stack
+ */
 template<typename T>
 std::size_t ArrayStack<T>::size()
 {
     return top_ + 1;
 }
 
+/**
+ * @brief Returns the maximum size of the stack
+ */
 template<typename T>
 std::size_t ArrayStack<T>::max_size()
 {
     return max_size_;
 }
 
+/**
+ * @brief Checks if stack is empty
+ * @return True if stack is empty
+ */
 template<typename T>
 bool ArrayStack<T>::empty()
 {
     return top_ == -1;
 }
 
+/**
+ * @brief Checks if stack is full
+ * @return True if stack is full
+ */
 template<typename T>
 bool ArrayStack<T>::full()
 {
