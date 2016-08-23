@@ -49,7 +49,7 @@ private:
 
 /**
  * @brief Default constructor
- * @details Constructs the stack with the dafault size
+ * @details Constructs the stack with the default size
  *
  * @tparam T Data type of the elements
  */
@@ -144,6 +144,8 @@ T& ArrayStack<T>::top()
 
 /**
  * @brief Clears the stack
+ *
+ * @tparam T Data type of the elements
  */
 template<typename T>
 void ArrayStack<T>::clear()
