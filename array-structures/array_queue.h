@@ -17,34 +17,34 @@ namespace structures {
 template<typename T>
 class ArrayQueue {
 public:
-    ArrayQueue();
+	ArrayQueue();
 
-    ArrayQueue(std::size_t max);
+	ArrayQueue(std::size_t max);
 
-    ~ArrayQueue();
+	~ArrayQueue();
 
-    void enqueue(const T& data);
+	void enqueue(const T& data);
 
-    T dequeue();
+	T dequeue();
 
-    T& back();
+	T& back();
 
-    void clear();
+	void clear();
 
-    std::size_t size();
+	std::size_t size();
 
-    std::size_t max_size();
+	std::size_t max_size();
 
-    bool empty();
+	bool empty();
 
-    bool full();
+	bool full();
 
 private:
-    T* contents; /**< The array that'll contain the elements */
-    std::size_t size_; /**< Current size of the queue */
-    std::size_t max_size_; /**< Maximum size of the queue */
+	T* contents; /**< The array that'll contain the elements */
+	std::size_t size_; /**< Current size of the queue */
+	std::size_t max_size_; /**< Maximum size of the queue */
 
-    const static auto DEFAULT_SIZE = 10u;
+	const static auto DEFAULT_SIZE = 10u;
 };
 
 /**
@@ -56,9 +56,9 @@ private:
 template<typename T>
 ArrayQueue<T>::ArrayQueue()
 {
-    contents = new T[DEFAULT_SIZE];
-    size_ = 0;
-    max_size_ = DEFAULT_SIZE;
+	contents = new T[DEFAULT_SIZE];
+	size_ = 0;
+	max_size_ = DEFAULT_SIZE;
 }
 
 /**
@@ -71,9 +71,9 @@ ArrayQueue<T>::ArrayQueue()
 template<typename T>
 ArrayQueue<T>::ArrayQueue(std::size_t max)
 {
-    contents = new T[max];
-    size_ = 0;
-    max_size_ = max;
+	contents = new T[max];
+	size_ = 0;
+	max_size_ = max;
 }
 
 /**
@@ -85,7 +85,7 @@ ArrayQueue<T>::ArrayQueue(std::size_t max)
 template<typename T>
 ArrayQueue<T>::~ArrayQueue()
 {
-    delete[] contents;
+	delete[] contents;
 }
 
 /**
@@ -99,11 +99,11 @@ ArrayQueue<T>::~ArrayQueue()
 template<typename T>
 void ArrayQueue<T>::enqueue(const T& data)
 {
-    if (full()) {
-        throw std::out_of_range("Queue is full");
-    } else {
-        contents[size_++] = data;
-    }
+	if (full()) {
+		throw std::out_of_range("Queue is full");
+	} else {
+		contents[size_++] = data;
+	}
 }
 
 /**
@@ -117,16 +117,16 @@ void ArrayQueue<T>::enqueue(const T& data)
 template<typename T>
 T ArrayQueue<T>::dequeue()
 {
-    if (empty()) {
-        throw std::out_of_range("Queue is empty");
-    } else {
-        T first = contents[0];
-        for (int i = 1; i < size(); ++i) {
-            contents[i-1] = contents[i];
-        }
-        size_--;
-        return first;
-    }
+	if (empty()) {
+		throw std::out_of_range("Queue is empty");
+	} else {
+		T first = contents[0];
+		for (int i = 1; i < size(); ++i) {
+			contents[i-1] = contents[i];
+		}
+		size_--;
+		return first;
+	}
 }
 
 /**
@@ -141,11 +141,11 @@ T ArrayQueue<T>::dequeue()
 template<typename T>
 T& ArrayQueue<T>::back()
 {
-    if (empty()) {
-        throw std::out_of_range("Queue is empty");
-    } else {
-        return contents[size_-1];
-    }
+	if (empty()) {
+		throw std::out_of_range("Queue is empty");
+	} else {
+		return contents[size_-1];
+	}
 }
 
 /**
@@ -156,7 +156,7 @@ T& ArrayQueue<T>::back()
 template<typename T>
 void ArrayQueue<T>::clear()
 {
-    size_ = 0;
+	size_ = 0;
 }
 
 /**
@@ -167,7 +167,7 @@ void ArrayQueue<T>::clear()
 template<typename T>
 std::size_t ArrayQueue<T>::size()
 {
-    return size_;
+	return size_;
 }
 
 /**
@@ -178,7 +178,7 @@ std::size_t ArrayQueue<T>::size()
 template<typename T>
 std::size_t ArrayQueue<T>::max_size()
 {
-    return max_size_;
+	return max_size_;
 }
 
 /**
@@ -190,7 +190,7 @@ std::size_t ArrayQueue<T>::max_size()
 template<typename T>
 bool ArrayQueue<T>::empty()
 {
-    return size_ == 0;
+	return size_ == 0;
 }
 
 /**
@@ -202,7 +202,7 @@ bool ArrayQueue<T>::empty()
 template<typename T>
 bool ArrayQueue<T>::full()
 {
-    return size_ == max_size_;
+	return size_ == max_size_;
 }
 
 }

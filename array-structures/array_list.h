@@ -270,8 +270,8 @@ template<typename T>
 std::size_t ArrayList<T>::find(const T& data) const
 {
 	for (std::size_t i = 0; i < size_; ++i) {
-	    if (contents[i] == data)
-	        return i;
+		if (contents[i] == data)
+			return i;
 	}
 	return size_;
 }

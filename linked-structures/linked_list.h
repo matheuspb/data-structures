@@ -272,6 +272,7 @@ bool LinkedList<T>::empty() const
  * @brief Checks if the list contains an element(data)
  *
  * @param data The element that'll be checked if it is contained by the list
+ *
  * @return True if the list contains 'data'
  */
 template<typename T>

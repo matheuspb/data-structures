@@ -17,34 +17,34 @@ namespace structures {
 template<typename T>
 class ArrayStack {
 public:
-    ArrayStack();
+	ArrayStack();
 
-    ArrayStack(std::size_t max);
+	ArrayStack(std::size_t max);
 
-    ~ArrayStack();
+	~ArrayStack();
 
-    void push(const T& data); // empilha
+	void push(const T& data); // empilha
 
-    T pop(); // desempilha
+	T pop(); // desempilha
 
-    T& top();
+	T& top();
 
-    void clear(); // limpa
+	void clear(); // limpa
 
-    std::size_t size(); // tamanho
+	std::size_t size(); // tamanho
 
-    std::size_t max_size();
+	std::size_t max_size();
 
-    bool empty(); // vazia
+	bool empty(); // vazia
 
-    bool full(); // cheia
+	bool full(); // cheia
 
 private:
-    T* contents; /**< The array that'll contain the elements */
-    int top_; /**< The position on the array of the top element */
-    std::size_t max_size_; /**< Stack maximum size */
+	T* contents; /**< The array that'll contain the elements */
+	int top_; /**< The position on the array of the top element */
+	std::size_t max_size_; /**< Stack maximum size */
 
-    const static auto DEFAULT_SIZE = 10u; /**< Default size of the stack */
+	const static auto DEFAULT_SIZE = 10u; /**< Default size of the stack */
 };
 
 /**
@@ -56,9 +56,9 @@ private:
 template<typename T>
 ArrayStack<T>::ArrayStack()
 {
-    contents = new T[DEFAULT_SIZE];
-    top_ = -1;
-    max_size_ = DEFAULT_SIZE;
+	contents = new T[DEFAULT_SIZE];
+	top_ = -1;
+	max_size_ = DEFAULT_SIZE;
 }
 
 /**
@@ -71,9 +71,9 @@ ArrayStack<T>::ArrayStack()
 template<typename T>
 ArrayStack<T>::ArrayStack(std::size_t max)
 {
-    contents = new T[max];
-    top_ = -1;
-    max_size_ = max;
+	contents = new T[max];
+	top_ = -1;
+	max_size_ = max;
 }
 
 /**
@@ -85,7 +85,7 @@ ArrayStack<T>::ArrayStack(std::size_t max)
 template<typename T>
 ArrayStack<T>::~ArrayStack()
 {
-    delete[] contents;
+	delete[] contents;
 }
 
 /**
@@ -99,11 +99,11 @@ ArrayStack<T>::~ArrayStack()
 template<typename T>
 void ArrayStack<T>::push(const T& data)
 {
-    if (full()) {
-        throw std::out_of_range("Stack is full");
-    } else {
-        contents[++top_] = data;
-    }
+	if (full()) {
+		throw std::out_of_range("Stack is full");
+	} else {
+		contents[++top_] = data;
+	}
 }
 
 /**
@@ -117,11 +117,11 @@ void ArrayStack<T>::push(const T& data)
 template<typename T>
 T ArrayStack<T>::pop()
 {
-    if (empty()) {
-        throw std::out_of_range("Stack is empty");
-    } else {
-        return contents[top_--];
-    }
+	if (empty()) {
+		throw std::out_of_range("Stack is empty");
+	} else {
+		return contents[top_--];
+	}
 }
 
 /**
@@ -135,11 +135,11 @@ T ArrayStack<T>::pop()
 template<typename T>
 T& ArrayStack<T>::top()
 {
-    if (empty()) {
-        throw std::out_of_range("Stack is empty");
-    } else {
-        return contents[top_];
-    }
+	if (empty()) {
+		throw std::out_of_range("Stack is empty");
+	} else {
+		return contents[top_];
+	}
 }
 
 /**
@@ -150,7 +150,7 @@ T& ArrayStack<T>::top()
 template<typename T>
 void ArrayStack<T>::clear()
 {
-    top_ = -1;
+	top_ = -1;
 }
 
 /**
@@ -161,7 +161,7 @@ void ArrayStack<T>::clear()
 template<typename T>
 std::size_t ArrayStack<T>::size()
 {
-    return top_ + 1;
+	return top_ + 1;
 }
 
 /**
@@ -172,7 +172,7 @@ std::size_t ArrayStack<T>::size()
 template<typename T>
 std::size_t ArrayStack<T>::max_size()
 {
-    return max_size_;
+	return max_size_;
 }
 
 /**
@@ -184,7 +184,7 @@ std::size_t ArrayStack<T>::max_size()
 template<typename T>
 bool ArrayStack<T>::empty()
 {
-    return top_ == -1;
+	return top_ == -1;
 }
 
 /**
@@ -196,7 +196,7 @@ bool ArrayStack<T>::empty()
 template<typename T>
 bool ArrayStack<T>::full()
 {
-    return top_ == max_size_ - 1;
+	return top_ == max_size_ - 1;
 }
 
 }
