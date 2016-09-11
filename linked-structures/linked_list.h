@@ -1,3 +1,5 @@
+// Copyright 2016 Matheus Bittencourt
+
 #ifndef STRUCTURES_LINKED_LIST_H
 #define STRUCTURES_LINKED_LIST_H
 
@@ -16,7 +18,7 @@ namespace structures {
  */
 template<typename T>
 class LinkedList {
-public:
+	public:
 	LinkedList() = default;
 	~LinkedList();
 	void clear();
@@ -33,17 +35,13 @@ public:
 	bool contains(const T& data) const;
 	std::size_t find(const T& data) const;
 	std::size_t size() const;
-private:
-	class Node {
-	public:
-		Node(const T& data):
-			data_{data}
-		{}
 
-		Node(const T& data, Node* next):
-			data_{data},
-			next_{next}
-		{}
+	private:
+	class Node {
+		public:
+		explicit Node(const T& data): data_{data} {}
+
+		Node(const T& data, Node* next): data_{data}, next_{next} {}
 
 		T& data() {
 			return data_;
@@ -64,7 +62,8 @@ private:
 		void next(Node* node) {
 			next_ = node;
 		}
-	private:
+
+		private:
 		T data_;
 		Node* next_{nullptr};
 	};
@@ -85,8 +84,7 @@ private:
  * @brief Destructor
  */
 template<typename T>
-LinkedList<T>::~LinkedList()
-{
+LinkedList<T>::~LinkedList() {
 	while(!empty()) {
 		pop_front();
 	}
@@ -96,8 +94,7 @@ LinkedList<T>::~LinkedList()
  * @brief Clears the list
  */
 template<typename T>
-void LinkedList<T>::clear()
-{
+void LinkedList<T>::clear() {
 	while(!empty()) {
 		pop_front();
 	}
@@ -109,8 +106,7 @@ void LinkedList<T>::clear()
  * @param data The element that'll be inserted
  */
 template<typename T>
-void LinkedList<T>::push_back(const T& data)
-{
+void LinkedList<T>::push_back(const T& data) {
 	insert(data, size_);
 }
 
@@ -120,8 +116,7 @@ void LinkedList<T>::push_back(const T& data)
  * @param data The element that'll be inserted
  */
 template<typename T>
-void LinkedList<T>::push_front(const T& data)
-{
+void LinkedList<T>::push_front(const T& data) {
 	head = new Node(data, head);
 	++size_;
 }
@@ -133,8 +128,7 @@ void LinkedList<T>::push_front(const T& data)
  * @param index The position where 'data' will be inserted
  */
 template<typename T>
-void LinkedList<T>::insert(const T& data, std::size_t index)
-{
+void LinkedList<T>::insert(const T& data, std::size_t index) {
 	if (index == 0) return push_front(data);
 	if (index > size_) throw std::out_of_range("Invalid index");
 	Node* it = head;
@@ -151,8 +145,7 @@ void LinkedList<T>::insert(const T& data, std::size_t index)
  * @param data The element that'll be inserted
  */
 template<typename T>
-void LinkedList<T>::insert_sorted(const T& data)
-{
+void LinkedList<T>::insert_sorted(const T& data) {
 	if (empty() || data <= head->data())
 		return push_front(data);
 	Node* it = head;
@@ -172,8 +165,7 @@ void LinkedList<T>::insert_sorted(const T& data)
  * @return A reference to the element at the given index
  */
 template<typename T>
-T& LinkedList<T>::at(std::size_t index)
-{
+T& LinkedList<T>::at(std::size_t index) {
 	if (index >= size_) throw std::out_of_range("Index out of bounds");
 	Node* it = head;
 	for (std::size_t i = 0; i < index; ++i) {
@@ -190,8 +182,7 @@ T& LinkedList<T>::at(std::size_t index)
  * @return The element that was removed
  */
 template<typename T>
-T LinkedList<T>::pop(std::size_t index)
-{
+T LinkedList<T>::pop(std::size_t index) {
 	if (index >= size_) throw std::out_of_range("Index out of bounds");
 	if (index == 0) return pop_front();
 	Node* it = head;
@@ -212,8 +203,7 @@ T LinkedList<T>::pop(std::size_t index)
  * @return The removed element
  */
 template<typename T>
-T LinkedList<T>::pop_back()
-{
+T LinkedList<T>::pop_back() {
 	return pop(size_ - 1);
 }
 
@@ -223,8 +213,7 @@ T LinkedList<T>::pop_back()
  * @return The removed element
  */
 template<typename T>
-T LinkedList<T>::pop_front()
-{
+T LinkedList<T>::pop_front() {
 	if (empty()) throw std::out_of_range("List is empty");
 	T removed = head->data();
 	Node* old_head = head;
@@ -240,8 +229,7 @@ T LinkedList<T>::pop_front()
  * @param data The element that'll be removed
  */
 template<typename T>
-void LinkedList<T>::remove(const T& data)
-{
+void LinkedList<T>::remove(const T& data) {
 	if (head->data() == data) {
 		pop_front();
 		return;
@@ -263,8 +251,7 @@ void LinkedList<T>::remove(const T& data)
  * @return True if the list is empty
  */
 template<typename T>
-bool LinkedList<T>::empty() const
-{
+bool LinkedList<T>::empty() const {
 	return size_ == 0;
 }
 
@@ -276,8 +263,7 @@ bool LinkedList<T>::empty() const
  * @return True if the list contains 'data'
  */
 template<typename T>
-bool LinkedList<T>::contains(const T& data) const
-{
+bool LinkedList<T>::contains(const T& data) const {
 	for (Node* it = head; it->next() != nullptr; it = it->next()) {
 		if (it->data() == data) return true;
 	}
@@ -292,8 +278,7 @@ bool LinkedList<T>::contains(const T& data) const
  * @return The index of 'data' on the list
  */
 template<typename T>
-std::size_t LinkedList<T>::find(const T& data) const
-{
+std::size_t LinkedList<T>::find(const T& data) const {
 	std::size_t index = 0;
 	for (Node* it = head; it != nullptr; it = it->next()) {
 		if (it->data() == data)
@@ -309,12 +294,11 @@ std::size_t LinkedList<T>::find(const T& data) const
  * @return Size of the list
  */
 template<typename T>
-std::size_t LinkedList<T>::size() const
-{
+std::size_t LinkedList<T>::size() const {
 	return size_;
 }
 
-}
+}  // namespace structures
 
 #endif
 
