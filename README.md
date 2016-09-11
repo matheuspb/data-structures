@@ -7,3 +7,6 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
   * [List](array-structures/array_list.h)
 * [Linked structures](linked-structures):
   * [Linked list](linked-structures/linked_list.h)
+  * [Linked stack](linked-structures/linked_stack.h)
+  * [Linked queue](linked-structures/linked_queue.h)
+
