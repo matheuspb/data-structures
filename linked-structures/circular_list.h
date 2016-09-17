@@ -95,8 +95,8 @@ public:
 	}
 
 	/**
-	 * @brief Checks if the index is valid, then returns a reference to the element
-	 * at the given index of the list
+	 * @brief Checks if the index is valid, then returns a reference to the
+	 * element at the given index of the list
 	 *
 	 * @param index The index on the list of the element that'll be returned
 	 *
@@ -219,7 +219,7 @@ public:
 
 private:
 	class Node {
-		public:
+	public:
 		explicit Node(const T& data): data_{data} {}
 
 		Node(const T& data, Node* next): data_{data}, next_{next} {}
@@ -228,15 +228,7 @@ private:
 			return data_;
 		}
 
-		const T& data() const {
-			return data_;
-		}
-
-		Node* next() {
-			return next_;
-		}
-
-		const Node* next() const {
+		Node* next() const {
 			return next_;
 		}
 
@@ -244,12 +236,12 @@ private:
 			next_ = node;
 		}
 
-		private:
+	private:
 		T data_;
 		Node* next_{nullptr};
 	};
 
-	Node* head{nullptr};
+	Node* head;
 	std::size_t size_{0u};
 };
 

@@ -10,4 +10,5 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 	* [Linked stack](linked-structures/linked_stack.h)
 	* [Linked queue](linked-structures/linked_queue.h)
 	* [Doubly linked list](linked-structures/doubly_linked_list.h)
+	* [Circular list](linked-structures/circular_list.h)
 
