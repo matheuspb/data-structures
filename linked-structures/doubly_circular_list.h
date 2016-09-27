@@ -68,7 +68,8 @@ public:
 	*/
 	void insert(const T& data, std::size_t index) {
 		if (index == 0) {
-			return push_back(data);
+			push_back(data);
+			head = head->prev();
 		} else if (index > size_) {
 			throw std::out_of_range("Invalid index (insert())");
 		} else {
