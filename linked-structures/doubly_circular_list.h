@@ -9,7 +9,7 @@ namespace structures {
 
 /**
 * @brief Implementation of a doubly linked list
-* @tparam Data type of the elements
+* @tparam T Data type of the elements
 */
 template<typename T>
 class DoublyCircularList {

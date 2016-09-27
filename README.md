@@ -11,4 +11,9 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 	* [Linked queue](linked-structures/linked_queue.h)
 	* [Doubly linked list](linked-structures/doubly_linked_list.h)
 	* [Circular list](linked-structures/circular_list.h)
+	* [Doubly Circular list](linked-structures/doubly_circular_list.h)
+
+Documentations for all classes can be generated using
+[doxygen](http://www.stack.nl/~dimitri/doxygen/). All classes use the C++11
+standard.
 
