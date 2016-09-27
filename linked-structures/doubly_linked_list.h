@@ -169,6 +169,7 @@ public:
 		delete toDelete;
 		--size_;
 	}
+
 	/**
 	 * @brief Checks if the list is empty
 	 *
