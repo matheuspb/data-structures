@@ -1,0 +1,105 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{indentfirst}
+\usepackage[top=1in, bottom=1in]{geometry}
+
+\title{Análise de complexidade do Algoritmo de Floyd Modificado}
+\author{Matheus Silva Pinheiro Bittencourt}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Algoritmo}
+\begin{verbatim}
+FloydModificado ()
+início
+    para i = 1 até n faça
+        para j = 1 até n faça
+            A[i,j] <- D[i,j];
+            R[i,j] <- 0;
+        fim para
+    fim para
+
+    para i = 1 até n faça
+        A[i,i] <- 0;
+    fim para
+
+    para k = 1 até n faça
+        para i = 1 até n faça
+            para j = 1 até n faça
+                se A[i,k] + A[k,j] < A[i,j] então
+                    A[i,j] <- A[i,k] + A[k,j];
+                    R[i,j] <- k;
+            fim para
+        fim para
+    fim para
+fim
+\end{verbatim}
+
+\section*{Análise}
+
+No primeiro \verb|for|, analisando de dentro para fora:
+\begin{itemize}
+    \item As duas operações de atribuição custarão $2n$, o \verb|for| terá que
+    fazer $n$ incrementos e $n+1$ testes, e mais $1$ da atribuição
+    \verb|j = 1|. Logo $T_{interno}(n) = 2n + n + n + 1 + 1 = 4n + 2$
+    \item No for externo, serão feitos $n$ incrementos, $n+1$ testes, mais $1$
+    de custo para a atribuição de \verb|i|, isso adicionado a $n*T_{interno}(n)
+    $. Logo:
+
+    \begin{math}
+    T_{externo}(n) = n + n + 1 + 1 + n*T_{interno}(n) \\
+    T_{externo}(n) = 2n + 2 + 4n^2 + 2n \\
+    T_{externo}(n) = \mathbf{T_{for1}(n) = 4n^2 + 4n + 2}
+    \end{math}
+\end{itemize}
+
+No segundo \verb|for|, o custo do \verb|for| será $n$, pois só é feito uma
+atribuição dentro do loop, também terá $n+1$ de custo dos testes, $1$ da
+atribuição de \verb|i|, e $n$ dos incrementos de \verb|i|. Logo, para esse
+\verb|for|, $\mathbf{T_{for2}(n) = 3n + 2}$.
+
+\mbox{}
+
+Para o terceiro \verb|for|, sabemos que cada \verb|for| custa $2n + 2 + n*T(n)$
+onde $T(n)$ é o custo de execução da parte interna do \verb|for|. Expandindo
+essa ``fórmula'' temos:
+
+\mbox{}
+
+\noindent
+\begin{math}
+T_{for3}(n) = 2n + 2 + n(2n + 2 + n(2n + 2 + n*5))\\
+T_{for3}(n) = 2n + 2 + n(2n + 2 + 2n^2 + 2n + 5n^2)\\
+T_{for3}(n) = 2n + 2 + n(7n^2 + 4n + 2)\\
+T_{for3}(n) = 2n + 2 + 7n^3 + 4n^2 + 2n\\
+\mathbf{T_{for3}(n) = 7n^3 + 4n^2 + 4n + 2}
+\end{math}
+
+\mbox{}
+
+No final $T(n) = 5$ pois no \verb|for| interno são feitas duas somas, duas
+atribuições, e um teste, logo, para esse \verb|for| temos $T(n) = 2n + 2 + 5n$,
+terminando essa espécie de chamada recursiva a $T(n)$.
+
+\section*{Conclusão}
+
+Somando todos os T(n) temos:
+
+\mbox{}
+
+\noindent
+\begin{math}
+T_{total}(n) = T_{for1}(n) + T_{for2}(n) + T_{for3}(n)\\
+T_{total}(n) = 4n^2 + 4n + 2 + 3n + 2 + 7n^3 + 4n^2 + 4n + 2\\
+T_{total}(n) = 7n^3 + 8n^2 + 11n + 6
+\end{math}
+
+\mbox{}
+
+\noindent
+Portanto a complexidade assintótica do algoritmo é $\mathcal{O}(n^3)$.
+
+\end{document}
