@@ -13,6 +13,8 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 	* [Circular list](linked-structures/circular_list.h)
 	* [Doubly Circular list](linked-structures/doubly_circular_list.h)
 
+[Floyd algorithm comlexity analysis](algorithm-complexity/floyd.tex)
+
 Documentations for all classes can be generated using
 [doxygen](http://www.stack.nl/~dimitri/doxygen/). All classes use the C++11
 standard.

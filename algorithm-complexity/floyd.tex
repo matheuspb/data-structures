@@ -3,6 +3,12 @@
 \usepackage[brazilian]{babel}
 \usepackage{indentfirst}
 \usepackage[top=1in, bottom=1in]{geometry}
+\usepackage{listings}
+
+\lstdefinestyle{mystyle}{
+	tabsize=4
+}
+\lstset{style=mystyle}
 
 \title{Análise de complexidade do Algoritmo de Floyd Modificado}
 \author{Matheus Silva Pinheiro Bittencourt}
@@ -12,48 +18,48 @@
 \maketitle
 
 \section*{Algoritmo}
-\begin{verbatim}
+\begin{lstlisting}
 FloydModificado ()
-início
-    para i = 1 até n faça
-        para j = 1 até n faça
-            A[i,j] <- D[i,j];
-            R[i,j] <- 0;
-        fim para
-    fim para
+inicio
+	para i = 1 ate n faca
+		para j = 1 ate n faca
+			A[i,j] <- D[i,j];
+			R[i,j] <- 0;
+		fim para
+	fim para
 
-    para i = 1 até n faça
-        A[i,i] <- 0;
-    fim para
+	para i = 1 ate n faca
+		A[i,i] <- 0;
+	fim para
 
-    para k = 1 até n faça
-        para i = 1 até n faça
-            para j = 1 até n faça
-                se A[i,k] + A[k,j] < A[i,j] então
-                    A[i,j] <- A[i,k] + A[k,j];
-                    R[i,j] <- k;
-            fim para
-        fim para
-    fim para
+	para k = 1 ate n faca
+		para i = 1 ate n faca
+			para j = 1 ate n faca
+				se A[i,k] + A[k,j] < A[i,j] entao
+					A[i,j] <- A[i,k] + A[k,j];
+					R[i,j] <- k;
+			fim para
+		fim para
+	fim para
 fim
-\end{verbatim}
+\end{lstlisting}
 
 \section*{Análise}
 
 No primeiro \verb|for|, analisando de dentro para fora:
 \begin{itemize}
-    \item As duas operações de atribuição custarão $2n$, o \verb|for| terá que
-    fazer $n$ incrementos e $n+1$ testes, e mais $1$ da atribuição
-    \verb|j = 1|. Logo $T_{interno}(n) = 2n + n + n + 1 + 1 = 4n + 2$
-    \item No for externo, serão feitos $n$ incrementos, $n+1$ testes, mais $1$
-    de custo para a atribuição de \verb|i|, isso adicionado a $n*T_{interno}(n)
-    $. Logo:
+	\item As duas operações de atribuição custarão $2n$, o \verb|for| terá que
+		fazer $n$ incrementos e $n+1$ testes, e mais $1$ da atribuição
+		\verb|j = 1|. Logo $T_{interno}(n) = 2n + n + n + 1 + 1 = 4n + 2$
+	\item No for externo, serão feitos $n$ incrementos, $n+1$ testes, mais $1$
+		de custo para a atribuição de \verb|i|, isso adicionado a
+		$n*T_{interno}(n)$. Logo:
 
-    \begin{math}
-    T_{externo}(n) = n + n + 1 + 1 + n*T_{interno}(n) \\
-    T_{externo}(n) = 2n + 2 + 4n^2 + 2n \\
-    T_{externo}(n) = \mathbf{T_{for1}(n) = 4n^2 + 4n + 2}
-    \end{math}
+		\begin{math}
+			T_{externo}(n) = n + n + 1 + 1 + n*T_{interno}(n) \\
+			T_{externo}(n) = 2n + 2 + 4n^2 + 2n \\
+			T_{externo}(n) = \mathbf{T_{for1}(n) = 4n^2 + 4n + 2}
+		\end{math}
 \end{itemize}
 
 No segundo \verb|for|, o custo do \verb|for| será $n$, pois só é feito uma
@@ -71,11 +77,11 @@ essa ``fórmula'' temos:
 
 \noindent
 \begin{math}
-T_{for3}(n) = 2n + 2 + n(2n + 2 + n(2n + 2 + n*5))\\
-T_{for3}(n) = 2n + 2 + n(2n + 2 + 2n^2 + 2n + 5n^2)\\
-T_{for3}(n) = 2n + 2 + n(7n^2 + 4n + 2)\\
-T_{for3}(n) = 2n + 2 + 7n^3 + 4n^2 + 2n\\
-\mathbf{T_{for3}(n) = 7n^3 + 4n^2 + 4n + 2}
+	T_{for3}(n) = 2n + 2 + n(2n + 2 + n(2n + 2 + n*5))\\
+	T_{for3}(n) = 2n + 2 + n(2n + 2 + 2n^2 + 2n + 5n^2)\\
+	T_{for3}(n) = 2n + 2 + n(7n^2 + 4n + 2)\\
+	T_{for3}(n) = 2n + 2 + 7n^3 + 4n^2 + 2n\\
+	\mathbf{T_{for3}(n) = 7n^3 + 4n^2 + 4n + 2}
 \end{math}
 
 \mbox{}
@@ -92,9 +98,9 @@ Somando todos os T(n) temos:
 
 \noindent
 \begin{math}
-T_{total}(n) = T_{for1}(n) + T_{for2}(n) + T_{for3}(n)\\
-T_{total}(n) = 4n^2 + 4n + 2 + 3n + 2 + 7n^3 + 4n^2 + 4n + 2\\
-T_{total}(n) = 7n^3 + 8n^2 + 11n + 6
+	T_{total}(n) = T_{for1}(n) + T_{for2}(n) + T_{for3}(n)\\
+	T_{total}(n) = 4n^2 + 4n + 2 + 3n + 2 + 7n^3 + 4n^2 + 4n + 2\\
+	T_{total}(n) = 7n^3 + 8n^2 + 11n + 6
 \end{math}
 
 \mbox{}
