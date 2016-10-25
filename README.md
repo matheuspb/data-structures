@@ -12,8 +12,10 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 	* [Doubly linked list](linked-structures/doubly_linked_list.h)
 	* [Circular list](linked-structures/circular_list.h)
 	* [Doubly Circular list](linked-structures/doubly_circular_list.h)
+* [Tree strcutures](tree-structures):
+	* [Binary search tree](tree-structures/binary_tree.h)
 
-[Floyd algorithm comlexity analysis](algorithm-complexity/floyd.tex)
+[Floyd algorithm comlexity analysis](floyd.tex)
 
 Documentations for all classes can be generated using
 [doxygen](http://www.stack.nl/~dimitri/doxygen/). All classes use the C++11
