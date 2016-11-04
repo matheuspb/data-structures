@@ -1,3 +1,6 @@
+#ifndef STRUCTURES_BINARY_TREE_H
+#define STRUCTURES_BINARY_TREE_H
+
 #include "../array-structures/array_list.h"
 
 namespace structures {
@@ -232,3 +235,5 @@ private:
 };
 
 }
+
+#endif
