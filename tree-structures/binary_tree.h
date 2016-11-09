@@ -1,3 +1,5 @@
+// Copyright 2016 Matheus Bittencourt
+
 #ifndef STRUCTURES_BINARY_TREE_H
 #define STRUCTURES_BINARY_TREE_H
 
@@ -11,6 +13,11 @@ namespace structures {
 template<typename T>
 class BinaryTree {
 public:
+	/**
+	@brief Default constructor
+	*/
+	BinaryTree() = default;
+
 	/**
 	@brief Destructor
 	*/
@@ -111,9 +118,8 @@ public:
 
 private:
 	struct Node {
-		Node(const T& data_):
-			data{data_}
-		{}
+		explicit Node(const T& data_):
+			data{data_} {}
 
 		void insert(const T& data_) {
 			if (data_ < data) {
@@ -234,6 +240,6 @@ private:
 	std::size_t size_{0u};
 };
 
-}
+}  // namespace structures
 
 #endif
