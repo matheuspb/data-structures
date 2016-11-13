@@ -1,4 +1,5 @@
 # data-structures
+
 Data structures implemented for my data structures course (INE5408) at UFSC.
 
 * [Array structures](array-structures):

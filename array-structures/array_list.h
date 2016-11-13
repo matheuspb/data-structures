@@ -1,3 +1,5 @@
+// Copyright 2016 Matheus Bittencourt
+
 #ifndef STRUCTURES_ARRAY_LIST_H
 #define STRUCTURES_ARRAY_LIST_H
 
@@ -15,7 +17,7 @@ template<typename T>
 class ArrayList {
 public:
 	ArrayList();
-	ArrayList(std::size_t max_size);
+	explicit ArrayList(std::size_t max_size);
 	~ArrayList();
 
 	void clear();
@@ -43,7 +45,7 @@ private:
 	std::size_t size_;
 	std::size_t max_size_;
 
-	const static auto DEFAULT_MAX = 10u;
+	static const auto DEFAULT_MAX = 10u;
 };
 
 /**
@@ -53,8 +55,7 @@ private:
  * @tparam T Data type of the elements
  */
 template<typename T>
-ArrayList<T>::ArrayList()
-{
+ArrayList<T>::ArrayList() {
 	contents = new T[DEFAULT_MAX];
 	size_ = 0;
 	max_size_ = DEFAULT_MAX;
@@ -67,8 +68,7 @@ ArrayList<T>::ArrayList()
  * @tparam T Data type of the elements
  */
 template<typename T>
-ArrayList<T>::ArrayList(std::size_t max_size)
-{
+ArrayList<T>::ArrayList(std::size_t max_size) {
 	contents = new T[max_size];
 	size_ = 0;
 	max_size_ = max_size;
@@ -80,8 +80,7 @@ ArrayList<T>::ArrayList(std::size_t max_size)
  * @tparam T Data type of the elements
  */
 template<typename T>
-ArrayList<T>::~ArrayList()
-{
+ArrayList<T>::~ArrayList() {
 	delete [] contents;
 }
 
@@ -91,8 +90,7 @@ ArrayList<T>::~ArrayList()
  * @tparam T Data type of the elements
  */
 template<typename T>
-void ArrayList<T>::clear()
-{
+void ArrayList<T>::clear() {
 	size_ = 0;
 }
 
@@ -103,8 +101,7 @@ void ArrayList<T>::clear()
  * @param data The element that'll be added
  */
 template<typename T>
-void ArrayList<T>::push_back(T data)
-{
+void ArrayList<T>::push_back(T data) {
 	insert(data, size_);
 }
 
@@ -115,8 +112,7 @@ void ArrayList<T>::push_back(T data)
  * @param data The element that'll be added
  */
 template<typename T>
-void ArrayList<T>::push_front(T data)
-{
+void ArrayList<T>::push_front(T data) {
 	insert(data, 0);
 }
 
@@ -128,11 +124,10 @@ void ArrayList<T>::push_front(T data)
  * @param index The position where 'data' will be inserted
  */
 template<typename T>
-void ArrayList<T>::insert(T data, std::size_t index)
-{
+void ArrayList<T>::insert(T data, std::size_t index) {
 	if (full()) {
 		throw std::out_of_range("List is full");
-	} else if(index > size_) {
+	} else if (index > size_) {
 		throw std::out_of_range("Index out of bounds");
 	} else {
 		for (std::size_t i = size_; i > index; i--) {
@@ -150,8 +145,7 @@ void ArrayList<T>::insert(T data, std::size_t index)
  * @param data The element that'll be inserted
  */
 template<typename T>
-void ArrayList<T>::insert_sorted(T data)
-{
+void ArrayList<T>::insert_sorted(T data) {
 	std::size_t i = 0;
 	while (data >= contents[i] && i < size_)
 		i++;
@@ -166,12 +160,11 @@ void ArrayList<T>::insert_sorted(T data)
  * @return The element that was removed
  */
 template<typename T>
-T ArrayList<T>::pop(std::size_t index)
-{
+T ArrayList<T>::pop(std::size_t index) {
 	T deleted = contents[index];
 	if (empty()) {
 		throw std::out_of_range("List is empty");
-	} else if(index >= size_) {
+	} else if (index >= size_) {
 		throw std::out_of_range("Index out of bounds");
 	} else {
 		for (std::size_t i = index; i < size_ - 1; ++i) {
@@ -189,8 +182,7 @@ T ArrayList<T>::pop(std::size_t index)
  * @return The element that was removed
  */
 template<typename T>
-T ArrayList<T>::pop_back()
-{
+T ArrayList<T>::pop_back() {
 	return pop(size_ - 1);
 }
 
@@ -201,8 +193,7 @@ T ArrayList<T>::pop_back()
  * @return The element that was removed
  */
 template<typename T>
-T ArrayList<T>::pop_front()
-{
+T ArrayList<T>::pop_front() {
 	return pop(0);
 }
 
@@ -213,8 +204,7 @@ T ArrayList<T>::pop_front()
  * @param data The element that'll be removed
  */
 template<typename T>
-void ArrayList<T>::remove(T data)
-{
+void ArrayList<T>::remove(T data) {
 	pop(find(data));
 }
 
@@ -225,8 +215,7 @@ void ArrayList<T>::remove(T data)
  * @return True if the list is full
  */
 template<typename T>
-bool ArrayList<T>::full() const
-{
+bool ArrayList<T>::full() const {
 	return size_ == max_size_;
 }
 
@@ -237,8 +226,7 @@ bool ArrayList<T>::full() const
  * @return True if the list is empty
  */
 template<typename T>
-bool ArrayList<T>::empty() const
-{
+bool ArrayList<T>::empty() const {
 	return size_ == 0;
 }
 
@@ -250,8 +238,7 @@ bool ArrayList<T>::empty() const
  * @return True if the list contains 'data'
  */
 template<typename T>
-bool ArrayList<T>::contains(const T& data) const
-{
+bool ArrayList<T>::contains(const T& data) const {
 	for (std::size_t i = 0; i < size_ + 1; ++i) {
 		if (contents[i] == data)
 			return true;
@@ -267,8 +254,7 @@ bool ArrayList<T>::contains(const T& data) const
  * @return The position of 'data' on the list
  */
 template<typename T>
-std::size_t ArrayList<T>::find(const T& data) const
-{
+std::size_t ArrayList<T>::find(const T& data) const {
 	for (std::size_t i = 0; i < size_; ++i) {
 		if (contents[i] == data)
 			return i;
@@ -283,8 +269,7 @@ std::size_t ArrayList<T>::find(const T& data) const
  * @return Size of the list
  */
 template<typename T>
-std::size_t ArrayList<T>::size() const
-{
+std::size_t ArrayList<T>::size() const {
 	return size_;
 }
 
@@ -295,8 +280,7 @@ std::size_t ArrayList<T>::size() const
  * @return Maximum size of the list
  */
 template<typename T>
-std::size_t ArrayList<T>::max_size() const
-{
+std::size_t ArrayList<T>::max_size() const {
 	return max_size_;
 }
 
@@ -309,8 +293,7 @@ std::size_t ArrayList<T>::max_size() const
  * @return A reference to the element at the given index
  */
 template<typename T>
-T& ArrayList<T>::at(std::size_t index)
-{
+T& ArrayList<T>::at(std::size_t index) {
 	if (index >= size_) {
 		throw std::out_of_range("Index out of bounds");
 	} else {
@@ -327,8 +310,7 @@ T& ArrayList<T>::at(std::size_t index)
  * @return A reference to the element at the given index
  */
 template<typename T>
-T& ArrayList<T>::operator[](std::size_t index)
-{
+T& ArrayList<T>::operator[](std::size_t index) {
 	return contents[index];
 }
 
@@ -341,8 +323,7 @@ T& ArrayList<T>::operator[](std::size_t index)
  * @return A reference to the element at the given index
  */
 template<typename T>
-const T& ArrayList<T>::at(std::size_t index) const
-{
+const T& ArrayList<T>::at(std::size_t index) const {
 	if (index >= size_) {
 		throw std::out_of_range("Index out of bounds");
 	} else {
@@ -359,11 +340,10 @@ const T& ArrayList<T>::at(std::size_t index) const
  * @return A reference to the element at the given index
  */
 template<typename T>
-const T& ArrayList<T>::operator[](std::size_t index) const
-{
+const T& ArrayList<T>::operator[](std::size_t index) const {
 	return contents[index];
 }
 
-}
+}  // namespace structures
 
 #endif
