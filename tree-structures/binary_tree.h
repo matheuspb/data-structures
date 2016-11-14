@@ -22,9 +22,7 @@ public:
 	@brief Destructor
 	*/
 	~BinaryTree() {
-		while (!empty()) {
-			remove(root->data);
-		}
+		root->destruct();
 	}
 
 	/**
@@ -40,27 +38,30 @@ public:
 	}
 
 	/**
-	@brief Removes 'data' from the tree
+	@brief Removes 'data' from the tree, if it exists in the tree
 	*/
 	void remove(const T& data) {
 		if (root == nullptr) {
 			return;
 		} else if (root->data == data) {
 			if (root->left == nullptr) {
-				Node* oldRoot = root;
-				root = root->right;
-				delete oldRoot;
+				if (root->right == nullptr) {
+					delete root;
+					root = nullptr;
+				} else {
+					Node* oldRoot = root;
+					root = root->right;
+					root->parent = nullptr;
+					delete oldRoot;
+				}
 			} else if (root->right == nullptr) {
 				Node* oldRoot = root;
 				root = root->left;
+				root->parent = nullptr;
 				delete oldRoot;
 			} else {
-				Node* it = root->right;
-				while (it->left != nullptr) {
-					it = it->left;
-				}
-				root->data = it->data;
-				root->remove(it->data);
+				root->data = root->substitute();
+				root->right->remove(root->data);
 			}
 			--size_;
 		} else if (root->remove(data)) {
@@ -72,7 +73,10 @@ public:
 	@brief Returns true if the tree contains 'data'
 	*/
 	bool contains(const T& data) const {
-		return root->contains(data);
+		if (root == nullptr)
+			return false;
+		else
+			return root->contains(data);
 	}
 
 	/**
@@ -121,18 +125,22 @@ private:
 		explicit Node(const T& data_):
 			data{data_} {}
 
+		Node(const T& data_, Node* parent_):
+			data{data_},
+			parent{parent_} {}
+
 		void insert(const T& data_) {
 			if (data_ < data) {
 				// insert left
 				if (left == nullptr) {
-					left = new Node(data_);
+					left = new Node(data_, this);
 				} else {
 					left->insert(data_);
 				}
 			} else {
 				// insert right
 				if (right == nullptr) {
-					right = new Node(data_);
+					right = new Node(data_, this);
 				} else {
 					right->insert(data_);
 				}
@@ -140,52 +148,54 @@ private:
 		}
 
 		bool remove(const T& data_) {
-			if (left != nullptr && data_ == left->data) {
-				if (left->right == nullptr) {
-					Node* oldLeft = left;
-					left = left->left;
-					delete oldLeft;
-				} else if (left->left == nullptr) {
-					Node* oldLeft = left;
-					left = left->right;
-					delete oldLeft;
-				} else {
-					Node* it = left->right;
-					while (it->left != nullptr) {
-						it = it->left;
+			if (data == data_) {
+				if (right == nullptr) {
+					if (left == nullptr) {
+						if (parent->right == this) {
+							parent->right = nullptr;
+							delete this;
+						} else {
+							parent->left = nullptr;
+							delete this;
+						}
+					} else {
+						if (parent->right == this) {
+							parent->right = left;
+							left->parent = parent;
+							delete this;
+						} else {
+							parent->left = left;
+							left->parent = parent;
+							delete this;
+						}
 					}
-					left->data = it->data;
-					left->remove(it->data);
-				}
-				return true;
-			} else if (right != nullptr && data_ == right->data) {
-				if (right->right == nullptr) {
-					Node* oldRight = right;
-					right = right->left;
-					delete oldRight;
-				} else if (right->left == nullptr) {
-					Node* oldRight = right;
-					right = right->right;
-					delete oldRight;
-				} else {
-					Node* it = right->right;
-					while (it->left != nullptr) {
-						it = it->left;
+				} else if (left == nullptr) {
+					if (parent->right == this) {
+						parent->right = right;
+						right->parent = parent;
+						delete this;
+					} else {
+						parent->left = right;
+						right->parent = parent;
+						delete this;
 					}
-					right->data = it->data;
-					right->remove(it->data);
+				} else {
+					data = substitute();
+					right->remove(data);
 				}
 				return true;
 			} else if (data_ < data) {
-				if (left != nullptr)
-					return left->remove(data_);
-				else
+				if (left != nullptr && left->remove(data_)) {
+					return true;
+				} else {
 					return false;
+				}
 			} else {
-				if (right != nullptr)
-					return right->remove(data_);
-				else
+				if (right != nullptr && right->remove(data_)) {
+					return true;
+				} else {
 					return false;
+				}
 			}
 		}
 
@@ -231,7 +241,25 @@ private:
 			v.push_back(data);
 		}
 
+		// returns the smallest value of the right sub-tree
+		T substitute() const {
+			Node* it = right;
+			while (it->left != nullptr) {
+				it = it->left;
+			}
+			return it->data;
+		}
+
+		void destruct() {
+			if (left != nullptr)
+				left->destruct();
+			if (right != nullptr)
+				right->destruct();
+			delete this;
+		}
+
 		T data;
+		Node* parent{nullptr};
 		Node* left{nullptr};
 		Node* right{nullptr};
 	};
