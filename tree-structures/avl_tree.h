@@ -1,11 +1,11 @@
 // Copyright 2016 Matheus Bittencourt
 
-#ifndef STRUCTURES_BINARY_TREE_H
-#define STRUCTURES_BINARY_TREE_H
+#ifndef STRUCTURES_AVL_TREE_H
+#define STRUCTURES_AVL_TREE_H
 
-#include "../array-structures/array_list.h"
 #include <iostream>
 #include <algorithm>
+#include "../array-structures/array_list.h"
 
 namespace structures {
 
