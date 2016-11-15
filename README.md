@@ -15,6 +15,7 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 	* [Doubly Circular list](linked-structures/doubly_circular_list.h)
 * [Tree structures](tree-structures):
 	* [Binary search tree](tree-structures/binary_tree.h)
+	* [AVL Tree](tree-structures/avl_tree.h)
 
 [Floyd algorithm complexity analysis](floyd.tex)
 
