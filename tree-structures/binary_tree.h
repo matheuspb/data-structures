@@ -4,6 +4,7 @@
 #define STRUCTURES_BINARY_TREE_H
 
 #include "../array-structures/array_list.h"
+#include <iostream>
 
 namespace structures {
 
@@ -14,15 +15,11 @@ template<typename T>
 class BinaryTree {
 public:
 	/**
-	@brief Default constructor
-	*/
-	BinaryTree() = default;
-
-	/**
 	@brief Destructor
 	*/
 	~BinaryTree() {
-		root->destruct();
+		if (root != nullptr)
+			root->destruct();
 	}
 
 	/**
@@ -98,7 +95,8 @@ public:
 	*/
 	ArrayList<T> pre_order() const {
 		ArrayList<T> out(size_);
-		root->pre_order(out);
+		if (root != nullptr)
+			root->pre_order(out);
 		return out;
 	}
 
@@ -107,7 +105,8 @@ public:
 	*/
 	ArrayList<T> in_order() const {
 		ArrayList<T> out(size_);
-		root->in_order(out);
+		if (root != nullptr)
+			root->in_order(out);
 		return out;
 	}
 
@@ -116,8 +115,22 @@ public:
 	*/
 	ArrayList<T> post_order() const {
 		ArrayList<T> out(size_);
-		root->post_order(out);
+		if (root != nullptr)
+			root->post_order(out);
 		return out;
+	}
+
+	/**
+	@brief Prints the tree sideways
+	*/
+	void print() const {
+		if (root != nullptr) {
+			root->print(0);
+			for (int i = 0; i < 80; ++i) {
+				std::cout << "-";
+			}
+			std::cout << std::endl;
+		}
 	}
 
 private:
@@ -256,6 +269,16 @@ private:
 			if (right != nullptr)
 				right->destruct();
 			delete this;
+		}
+
+		void print(int indent) const {
+			if (right != nullptr)
+				right->print(indent + 1);
+			for (int i = 0; i < indent; ++i)
+				std::cout << "    ";
+			std::cout << data << std::endl;
+			if (left != nullptr)
+				left->print(indent + 1);
 		}
 
 		T data;
