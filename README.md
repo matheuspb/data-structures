@@ -7,15 +7,15 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 	* [Queue](array-structures/array_queue.h)
 	* [List](array-structures/array_list.h)
 * [Linked structures](linked-structures):
-	* [Linked list](linked-structures/linked_list.h)
-	* [Linked stack](linked-structures/linked_stack.h)
-	* [Linked queue](linked-structures/linked_queue.h)
+	* [List](linked-structures/linked_list.h)
+	* [Stack](linked-structures/linked_stack.h)
+	* [Queue](linked-structures/linked_queue.h)
 	* [Doubly linked list](linked-structures/doubly_linked_list.h)
 	* [Circular list](linked-structures/circular_list.h)
-	* [Doubly Circular list](linked-structures/doubly_circular_list.h)
+	* [Doubly circular list](linked-structures/doubly_circular_list.h)
 * [Tree structures](tree-structures):
 	* [Binary search tree](tree-structures/binary_tree.h)
-	* [AVL Tree](tree-structures/avl_tree.h)
+	* [AVL tree](tree-structures/avl_tree.h)
 
 [Floyd algorithm complexity analysis](floyd.tex)
 
