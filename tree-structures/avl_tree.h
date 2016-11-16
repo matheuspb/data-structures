@@ -19,7 +19,7 @@ public:
 	@brief Destructor
 	*/
 	~AVLTree() {
-		if (root != nullptr)
+		if (root)
 			root->destruct();
 	}
 
@@ -27,10 +27,10 @@ public:
 	@brief Inserts 'data' into the tree
 	*/
 	void insert(const T& data) {
-		if (root == nullptr) {
-			root = new Node(data);
-		} else {
+		if (root) {
 			root->insert(data);
+		} else {
+			root = new Node(data);
 		}
 		++size_;
 	}
@@ -39,31 +39,23 @@ public:
 	@brief Removes 'data' from the tree, if it exists in the tree
 	*/
 	void remove(const T& data) {
-		if (root == nullptr) {
-			return;
-		} else if (root->data == data) {
-			if (root->left == nullptr) {
-				if (root->right == nullptr) {
-					delete root;
-					root = nullptr;
+		if (root) {
+			if (root->data == data) {
+				if (root->right && root->left) {
+					root->data = root->substitute();
+					root->right->remove(root->data);
 				} else {
-					Node* oldRoot = root;
-					root = root->right;
-					root->parent = nullptr;
-					delete oldRoot;
+					Node* n = root->right ? root->right : root->left;
+
+					delete root;
+					root = n;
+					if (root)
+						root->parent = nullptr;
 				}
-			} else if (root->right == nullptr) {
-				Node* oldRoot = root;
-				root = root->left;
-				root->parent = nullptr;
-				delete oldRoot;
-			} else {
-				root->data = root->substitute();
-				root->right->remove(root->data);
+				--size_;
+			} else if (root->remove(data)) {
+				--size_;
 			}
-			--size_;
-		} else if (root->remove(data)) {
-			--size_;
 		}
 	}
 
@@ -71,10 +63,7 @@ public:
 	@brief Returns true if the tree contains 'data'
 	*/
 	bool contains(const T& data) const {
-		if (root == nullptr)
-			return false;
-		else
-			return root->contains(data);
+		return root ? root->contains(data) : false;
 	}
 
 	/**
@@ -95,8 +84,8 @@ public:
 	@brief Returns a pre-ordered list of the tree
 	*/
 	ArrayList<T> pre_order() const {
-		ArrayList<T> out(size_);
-		if (root != nullptr)
+		ArrayList<T> out{size_};
+		if (root)
 			root->pre_order(out);
 		return out;
 	}
@@ -105,8 +94,8 @@ public:
 	@brief Returns a in-ordered list of the tree
 	*/
 	ArrayList<T> in_order() const {
-		ArrayList<T> out(size_);
-		if (root != nullptr)
+		ArrayList<T> out{size_};
+		if (root)
 			root->in_order(out);
 		return out;
 	}
@@ -115,8 +104,8 @@ public:
 	@brief Returns a post-ordered list of the tree
 	*/
 	ArrayList<T> post_order() const {
-		ArrayList<T> out(size_);
-		if (root != nullptr)
+		ArrayList<T> out{size_};
+		if (root)
 			root->post_order(out);
 		return out;
 	}
@@ -125,17 +114,16 @@ public:
 	@brief Prints the tree sideways
 	*/
 	void print() const {
-		if (root != nullptr) {
-			for (int i = 0; i < 80; ++i) {
-				std::cout << "-";
-			}
-			std::cout << std::endl;
+		std::cout << "Tree size = " << size_;
+		if (root) {
+			std::cout << ", height = " << root->height;
+			std::cout << std::endl << std::endl;
 			root->print(0);
 			for (int i = 0; i < 80; ++i) {
 				std::cout << "-";
 			}
-			std::cout << std::endl;
 		}
+		std::cout << std::endl;
 	}
 
 private:
@@ -150,68 +138,50 @@ private:
 		void insert(const T& data_) {
 			if (data_ < data) {
 				// insert left
-				if (left == nullptr) {
-					left = new Node(data_, this);
-				} else {
+				if (left) {
 					left->insert(data_);
+				} else {
+					left = new Node(data_, this);
 				}
 			} else {
 				// insert right
-				if (right == nullptr) {
-					right = new Node(data_, this);
-				} else {
+				if (right) {
 					right->insert(data_);
+				} else {
+					right = new Node(data_, this);
 				}
 			}
 			update();
 		}
 
 		bool remove(const T& data_) {
+			bool removed;
 			if (data == data_) {
-				if (right == nullptr) {
-					if (left == nullptr) {
-						if (parent->right == this) {
-							parent->right = nullptr;
-						} else {
-							parent->left = nullptr;
-						}
-					} else {
-						if (parent->right == this) {
-							parent->right = left;
-						} else {
-							parent->left = left;
-						}
-						left->parent = parent;
-					}
-					delete this;
-				} else if (left == nullptr) {
-					if (parent->right == this) {
-						parent->right = right;
-					} else {
-						parent->left = right;
-					}
-					right->parent = parent;
-					delete this;
-				} else {
+				if (right && left) {
 					data = substitute();
 					right->remove(data);
-				}
-				return true;
-			} else if (data_ < data) {
-				if (left != nullptr && left->remove(data_)) {
-					update();
-					return true;
 				} else {
-					return false;
+					Node* n = right ? right : left;
+
+					if (parent->right == this) {
+						parent->right = n;
+					} else {
+						parent->left = n;
+					}
+
+					if (n)
+						n->parent = parent;
+
+					delete this;
 				}
+				removed = true;
 			} else {
-				if (right != nullptr && right->remove(data_)) {
+				Node* n = data_ < data ? left : right;
+				removed = n ? n->remove(data_) : false;
+				if (removed)
 					update();
-					return true;
-				} else {
-					return false;
-				}
 			}
+			return removed;
 		}
 
 		bool contains(const T& data_) const {
@@ -219,39 +189,33 @@ private:
 				return true;
 			} else {
 				if (data_ < data) {
-					if (left == nullptr)
-						return false;
-					else
-						return left->contains(data_);
+					return left ? left->contains(data_) : false;
 				} else {
-					if (right == nullptr)
-						return false;
-					else
-						return right->contains(data_);
+					return right ? right->contains(data_) : false;
 				}
 			}
 		}
 
 		void pre_order(ArrayList<T>& v) const {
 			v.push_back(data);
-			if (left != nullptr)
+			if (left)
 				left->pre_order(v);
-			if (right != nullptr)
+			if (right)
 				right->pre_order(v);
 		}
 
 		void in_order(ArrayList<T>& v) const {
-			if (left != nullptr)
+			if (left)
 				left->in_order(v);
 			v.push_back(data);
-			if (right != nullptr)
+			if (right)
 				right->in_order(v);
 		}
 
 		void post_order(ArrayList<T>& v) const {
-			if (left != nullptr)
+			if (left)
 				left->post_order(v);
-			if (right != nullptr)
+			if (right)
 				right->post_order(v);
 			v.push_back(data);
 		}
@@ -259,7 +223,7 @@ private:
 		// returns the smallest value of the right sub-tree
 		T substitute() const {
 			Node* it = right;
-			while (it->left != nullptr) {
+			while (it->left) {
 				it = it->left;
 			}
 			return it->data;
@@ -276,19 +240,19 @@ private:
 
 			// rotates if needed
 			if (getBF() < -1) {
-				// left heavy
+				// node is left heavy
 				if (left->getBF() > 0)
 					left->rotateLeft();
 				rotateRight();
 			} else if (getBF() > 1) {
-				// right heavy
+				// node is right heavy
 				if (right->getBF() < 0)
 					right->rotateRight();
 				rotateLeft();
 			}
 		}
 
-		// returns the balance factor
+		// Returns the balance factor
 		int getBF() const {
 			int rh = right ? right->height : 0;
 			int lh = left ? left->height : 0;
@@ -335,30 +299,30 @@ private:
 			updateHeight();
 		}
 
-		// updates sons parent pointer
+		// Updates sons' parent pointer
 		void updateSons() {
-			if (left != nullptr)
+			if (left)
 				left->parent = this;
-			if (right != nullptr)
+			if (right)
 				right->parent = this;
 		}
 
 		// Destructs the sub-tree
 		void destruct() {
-			if (left != nullptr)
+			if (left)
 				left->destruct();
-			if (right != nullptr)
+			if (right)
 				right->destruct();
 			delete this;
 		}
 
 		void print(int indent) const {
-			if (right != nullptr)
+			if (right)
 				right->print(indent + 1);
 			for (int i = 0; i < indent; ++i)
 				std::cout << "    ";
 			std::cout << data << std::endl;
-			if (left != nullptr)
+			if (left)
 				left->print(indent + 1);
 		}
 
