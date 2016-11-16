@@ -16,7 +16,10 @@ namespace structures {
 template<typename T>
 class ArrayList {
 public:
-	ArrayList();
+	/**
+	@brief Default constructor
+	*/
+	ArrayList() = default;
 	explicit ArrayList(std::size_t max_size);
 	~ArrayList();
 
@@ -41,25 +44,12 @@ public:
 	const T& operator[](std::size_t index) const;
 
 private:
-	T* contents;
-	std::size_t size_;
-	std::size_t max_size_;
+	T* contents{new T[DEFAULT_MAX]};
+	std::size_t size_{0u};
+	std::size_t max_size_{DEFAULT_MAX};
 
-	static const auto DEFAULT_MAX = 10u;
+	static const auto DEFAULT_MAX{10u};
 };
-
-/**
- * @brief Default constructor
- * @details Constructs the list with the default size
- *
- * @tparam T Data type of the elements
- */
-template<typename T>
-ArrayList<T>::ArrayList() {
-	contents = new T[DEFAULT_MAX];
-	size_ = 0;
-	max_size_ = DEFAULT_MAX;
-}
 
 /**
  * @brief Constructor with a given maximum size
@@ -68,11 +58,9 @@ ArrayList<T>::ArrayList() {
  * @tparam T Data type of the elements
  */
 template<typename T>
-ArrayList<T>::ArrayList(std::size_t max_size) {
-	contents = new T[max_size];
-	size_ = 0;
-	max_size_ = max_size;
-}
+ArrayList<T>::ArrayList(std::size_t max_size):
+	contents{new T[max_size]},
+	max_size_{max_size} {}
 
 /**
  * @brief Destroys the list
@@ -147,7 +135,7 @@ void ArrayList<T>::insert(T data, std::size_t index) {
 template<typename T>
 void ArrayList<T>::insert_sorted(T data) {
 	std::size_t i = 0;
-	while (data >= contents[i] && i < size_)
+	while (i < size_ && data >= contents[i])
 		i++;
 	insert(data, i);
 }

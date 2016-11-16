@@ -17,9 +17,12 @@ namespace structures {
 template<typename T>
 class ArrayQueue {
 public:
-	ArrayQueue();
+	/**
+	@brief Default constructor
+	*/
+	ArrayQueue() = default;
 
-	ArrayQueue(std::size_t max);
+	explicit ArrayQueue(std::size_t max);
 
 	~ArrayQueue();
 
@@ -27,39 +30,25 @@ public:
 
 	T dequeue();
 
-	T& back();
+	T& back() const;
 
 	void clear();
 
-	std::size_t size();
+	std::size_t size() const;
 
-	std::size_t max_size();
+	std::size_t max_size() const;
 
-	bool empty();
+	bool empty() const;
 
-	bool full();
+	bool full() const;
 
 private:
-	T* contents; /**< The array that'll contain the elements */
-	std::size_t size_; /**< Current size of the queue */
-	std::size_t max_size_; /**< Maximum size of the queue */
+	T* contents{new T[DEFAULT_SIZE]}; /**< The array that'll contain the elements */
+	std::size_t size_{0u}; /**< Current size of the queue */
+	std::size_t max_size_{DEFAULT_SIZE}; /**< Maximum size of the queue */
 
-	const static auto DEFAULT_SIZE = 10u;
+	const static auto DEFAULT_SIZE{10u};
 };
-
-/**
- * @brief Default constructor
- * @details Constructs the queue with the default size
- *
- * @tparam T Data type of the elements
- */
-template<typename T>
-ArrayQueue<T>::ArrayQueue()
-{
-	contents = new T[DEFAULT_SIZE];
-	size_ = 0;
-	max_size_ = DEFAULT_SIZE;
-}
 
 /**
  * @brief Constructor with a given maximum size of the queue
@@ -69,12 +58,9 @@ ArrayQueue<T>::ArrayQueue()
  * @tparam T Data type of the elements
  */
 template<typename T>
-ArrayQueue<T>::ArrayQueue(std::size_t max)
-{
-	contents = new T[max];
-	size_ = 0;
-	max_size_ = max;
-}
+ArrayQueue<T>::ArrayQueue(std::size_t max):
+	contents{new T[max]},
+	max_size_{max} {}
 
 /**
  * @brief Destructor
@@ -139,7 +125,7 @@ T ArrayQueue<T>::dequeue()
  * @return A reference to the alst element of the queue
  */
 template<typename T>
-T& ArrayQueue<T>::back()
+T& ArrayQueue<T>::back() const
 {
 	if (empty()) {
 		throw std::out_of_range("Queue is empty");
@@ -165,7 +151,7 @@ void ArrayQueue<T>::clear()
  * @tparam T Data type of the elements
  */
 template<typename T>
-std::size_t ArrayQueue<T>::size()
+std::size_t ArrayQueue<T>::size() const
 {
 	return size_;
 }
@@ -176,7 +162,7 @@ std::size_t ArrayQueue<T>::size()
  * @tparam T Data type of the elements
  */
 template<typename T>
-std::size_t ArrayQueue<T>::max_size()
+std::size_t ArrayQueue<T>::max_size() const
 {
 	return max_size_;
 }
@@ -188,7 +174,7 @@ std::size_t ArrayQueue<T>::max_size()
  * @return True if queue is empty
  */
 template<typename T>
-bool ArrayQueue<T>::empty()
+bool ArrayQueue<T>::empty() const
 {
 	return size_ == 0;
 }
@@ -200,7 +186,7 @@ bool ArrayQueue<T>::empty()
  * @return True if queue is full
  */
 template<typename T>
-bool ArrayQueue<T>::full()
+bool ArrayQueue<T>::full() const
 {
 	return size_ == max_size_;
 }

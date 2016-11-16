@@ -17,49 +17,38 @@ namespace structures {
 template<typename T>
 class ArrayStack {
 public:
-	ArrayStack();
+	/**
+	@brief Default constructor
+	*/
+	ArrayStack() = default;
 
-	ArrayStack(std::size_t max);
+	explicit ArrayStack(std::size_t max);
 
 	~ArrayStack();
 
-	void push(const T& data); // empilha
+	void push(const T& data);
 
-	T pop(); // desempilha
+	T pop();
 
-	T& top();
+	T& top() const;
 
-	void clear(); // limpa
+	void clear();
 
-	std::size_t size(); // tamanho
+	std::size_t size() const;
 
-	std::size_t max_size();
+	std::size_t max_size() const;
 
-	bool empty(); // vazia
+	bool empty() const;
 
-	bool full(); // cheia
+	bool full() const;
 
 private:
-	T* contents; /**< The array that'll contain the elements */
-	int top_; /**< The position on the array of the top element */
-	std::size_t max_size_; /**< Stack maximum size */
+	T* contents{new T[DEFAULT_SIZE]}; /**< The array that'll contain the elements */
+	int top_{-1}; /**< The position on the array of the top element */
+	std::size_t max_size_{DEFAULT_SIZE}; /**< Stack maximum size */
 
-	const static auto DEFAULT_SIZE = 10u; /**< Default size of the stack */
+	const static auto DEFAULT_SIZE{10u}; /**< Default size of the stack */
 };
-
-/**
- * @brief Default constructor
- * @details Constructs the stack with the default size
- *
- * @tparam T Data type of the elements
- */
-template<typename T>
-ArrayStack<T>::ArrayStack()
-{
-	contents = new T[DEFAULT_SIZE];
-	top_ = -1;
-	max_size_ = DEFAULT_SIZE;
-}
 
 /**
  * @brief Constructor with a given maximum size of the stack
@@ -69,12 +58,9 @@ ArrayStack<T>::ArrayStack()
  * @tparam T Data type of the elements
  */
 template<typename T>
-ArrayStack<T>::ArrayStack(std::size_t max)
-{
-	contents = new T[max];
-	top_ = -1;
-	max_size_ = max;
-}
+ArrayStack<T>::ArrayStack(std::size_t max):
+	contents{new T[max]},
+	max_size_{max} {}
 
 /**
  * @brief Destructor
@@ -133,7 +119,7 @@ T ArrayStack<T>::pop()
  * @return A reference to the top element of the stack
  */
 template<typename T>
-T& ArrayStack<T>::top()
+T& ArrayStack<T>::top() const
 {
 	if (empty()) {
 		throw std::out_of_range("Stack is empty");
@@ -159,7 +145,7 @@ void ArrayStack<T>::clear()
  * @tparam T Data type of the elements
  */
 template<typename T>
-std::size_t ArrayStack<T>::size()
+std::size_t ArrayStack<T>::size() const
 {
 	return top_ + 1;
 }
@@ -170,7 +156,7 @@ std::size_t ArrayStack<T>::size()
  * @tparam T Data type of the elements
  */
 template<typename T>
-std::size_t ArrayStack<T>::max_size()
+std::size_t ArrayStack<T>::max_size() const
 {
 	return max_size_;
 }
@@ -182,7 +168,7 @@ std::size_t ArrayStack<T>::max_size()
  * @return True if stack is empty
  */
 template<typename T>
-bool ArrayStack<T>::empty()
+bool ArrayStack<T>::empty() const
 {
 	return top_ == -1;
 }
@@ -194,7 +180,7 @@ bool ArrayStack<T>::empty()
  * @return True if stack is full
  */
 template<typename T>
-bool ArrayStack<T>::full()
+bool ArrayStack<T>::full() const
 {
 	return top_ == max_size_ - 1;
 }
