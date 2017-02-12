@@ -28,7 +28,7 @@ public:
 
 	@param max Maximum size of the queue
 	*/
-	ArrayQueue(std::size_t max):
+	explicit ArrayQueue(std::size_t max):
 		contents{new T[max]},
 		max_size_{max} {}
 
