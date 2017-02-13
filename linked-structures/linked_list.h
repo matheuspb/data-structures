@@ -121,6 +121,15 @@ public:
 
 	@return A reference to the element at the given index
 	*/
+	const T& at(std::size_t index) const {
+		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		Node* it = head;
+		for (std::size_t i = 0; i < index; i++) {
+			it = it->next;
+		}
+		return it->data;
+	}
+
 	T& at(std::size_t index) {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		Node* it = head;
