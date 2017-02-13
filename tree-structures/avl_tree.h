@@ -1,5 +1,3 @@
-// Copyright 2016 Matheus Bittencourt
-
 #ifndef STRUCTURES_AVL_TREE_H
 #define STRUCTURES_AVL_TREE_H
 

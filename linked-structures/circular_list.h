@@ -1,5 +1,3 @@
-// Copyright 2016 Matheus Bittencourt
-
 #ifndef STRUCTURES_CIRCULAR_LIST_H
 #define STRUCTURES_CIRCULAR_LIST_H
 

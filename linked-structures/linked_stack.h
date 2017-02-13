@@ -1,5 +1,3 @@
-// Copyright 2016 Matheus Bittencourt
-
 #ifndef STRUCTURES_LINKED_STACK_H
 #define STRUCTURES_LINKED_STACK_H
 

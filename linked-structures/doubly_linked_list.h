@@ -1,5 +1,3 @@
-// Copyright 2016 Matheus Bittencourt
-
 #ifndef STRUCTURES_DOUBLY_LINKED_LIST_H
 #define STRUCTURES_DOUBLY_LINKED_LIST_H
 
