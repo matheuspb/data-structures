@@ -16,8 +16,7 @@ public:
 	@brief Destructor
 	*/
 	~BinaryTree() {
-		if (root != nullptr)
-			root->destruct();
+		delete root;
 	}
 
 	/**
@@ -140,6 +139,11 @@ private:
 			data{data_},
 			parent{parent_} {}
 
+		~Node() {
+			delete left;
+			delete right;
+		}
+
 		void insert(const T& data_) {
 			if (data_ < data) {
 				// insert left
@@ -259,14 +263,6 @@ private:
 				it = it->left;
 			}
 			return it->data;
-		}
-
-		void destruct() {
-			if (left != nullptr)
-				left->destruct();
-			if (right != nullptr)
-				right->destruct();
-			delete this;
 		}
 
 		void print(int indent) const {

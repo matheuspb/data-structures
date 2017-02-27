@@ -17,8 +17,7 @@ public:
 	@brief Destructor
 	*/
 	~AVLTree() {
-		if (root)
-			root->destruct();
+		delete root;
 	}
 
 	/**
@@ -132,6 +131,11 @@ private:
 		Node(const T& data_, Node* parent_):
 			data{data_},
 			parent{parent_} {}
+
+		~Node() {
+			delete left;
+			delete right;
+		}
 
 		void insert(const T& data_) {
 			if (data_ < data) {
@@ -303,15 +307,6 @@ private:
 				left->parent = this;
 			if (right)
 				right->parent = this;
-		}
-
-		// Destructs the sub-tree
-		void destruct() {
-			if (left)
-				left->destruct();
-			if (right)
-				right->destruct();
-			delete this;
 		}
 
 		void print(int indent) const {
