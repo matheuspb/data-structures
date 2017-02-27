@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include "linked_list.h"
+#include "doubly_circular_list.h"
 
 namespace structures {
 
@@ -17,15 +17,15 @@ beginning(head). It follows the FIFO(first in, first out) principle.
 @tparam T This is the data type of the elements of the queue.
 */
 template<typename T>
-class LinkedQueue : private LinkedList<T> {
+class LinkedQueue : private DoublyCircularList<T> {
 
 public:
 
-	using LinkedList<T>::clear;
-	using LinkedList<T>::empty;
-	using LinkedList<T>::size;
+	using DoublyCircularList<T>::clear;
+	using DoublyCircularList<T>::empty;
+	using DoublyCircularList<T>::size;
 
-	LinkedQueue(): LinkedList<T>{} {}
+	LinkedQueue(): DoublyCircularList<T>{} {}
 
 	/**
 	@brief Adds 'data' to the end of the queue
@@ -33,7 +33,7 @@ public:
 	@param data The element that'll be added to the queue
 	*/
 	void enqueue(const T& data) {
-		LinkedList<T>::push_back(data);
+		DoublyCircularList<T>::push_back(data);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public:
 		if (empty()) {
 			throw std::out_of_range("Queue is empty");
 		} else {
-			return LinkedList<T>::pop_front();
+			return DoublyCircularList<T>::pop_front();
 		}
 	}
 
@@ -80,4 +80,3 @@ public:
 }  // namespace structures
 
 #endif
-
