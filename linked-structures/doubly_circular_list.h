@@ -40,12 +40,12 @@ public:
 	void push_back(const T& data) {
 		if (empty()) {
 			head = new Node(data);
-			head->next(head);
-			head->prev(head);
+			head->next = head;
+			head->prev = head;
 		} else {
-			auto newNode = new Node(data, head->prev(), head);
-			newNode->prev()->next(newNode);
-			head->prev(newNode);
+			auto newNode = new Node(data, head->prev, head);
+			newNode->prev->next = newNode;
+			head->prev = newNode;
 		}
 		++size_;
 	}
@@ -56,7 +56,7 @@ public:
 	*/
 	void push_front(const T& data) {
 		push_back(data);
-		head = head->prev();
+		head = head->prev;
 	}
 
 	/**
@@ -67,16 +67,16 @@ public:
 	void insert(const T& data, std::size_t index) {
 		if (index == 0) {
 			push_back(data);
-			head = head->prev();
+			head = head->prev;
 		} else if (index > size_) {
 			throw std::out_of_range("Invalid index (insert())");
 		} else {
 			auto it = head;
 			for (std::size_t i = 0; i < index - 1; ++i) {
-				it = it->next();
+				it = it->next;
 			}
-			it->next(new Node(data, it, it->next()));
-			it->next()->next()->prev(it->next());
+			it->next = new Node(data, it, it->next);
+			it->next->next->prev = it->next;
 			++size_;
 		}
 	}
@@ -86,15 +86,15 @@ public:
 	* @param data The element that'll be inserted
 	*/
 	void insert_sorted(const T& data) {
-		if (empty() || data <= head->data())
+		if (empty() || data <= head->data)
 			return push_front(data);
 		auto it = head;
-		while (it->next() != head && data > it->next()->data()) {
-			it = it->next();
+		while (it->next != head && data > it->next->data) {
+			it = it->next;
 		}
-		auto newNode = new Node(data, it, it->next());
-		it->next()->prev(newNode);
-		it->next(newNode);
+		auto newNode = new Node(data, it, it->next);
+		it->next->prev = newNode;
+		it->next = newNode;
 		++size_;
 	}
 
@@ -108,7 +108,7 @@ public:
 				"Index out of bounds (pop())");
 		auto oldHead = head;
 		for (std::size_t i = 0; i < index + 1; ++i) {
-			head = head->next();
+			head = head->next;
 		}
 		auto out = pop_back();
 		head = oldHead;
@@ -121,10 +121,10 @@ public:
 	*/
 	T pop_back() {
 		if (empty()) throw std::out_of_range("List is empty (pop_back())");
-		auto toDelete = head->prev();
-		head->prev(toDelete->prev());
-		toDelete->prev()->next(head);
-		T out = toDelete->data();
+		auto toDelete = head->prev;
+		head->prev = toDelete->prev;
+		toDelete->prev->next = head;
+		T out = toDelete->data;
 		delete toDelete;
 		--size_;
 		return out;
@@ -136,7 +136,7 @@ public:
 	*/
 	T pop_front() {
 		if (empty()) throw std::out_of_range("List is empty (pop_front())");
-		head = head->next();
+		head = head->next;
 		return pop_back();
 	}
 
@@ -145,13 +145,13 @@ public:
 	* @param data The element that'll be removed
 	*/
 	void remove(const T& data) {
-		auto it = head->next();
-		for (; it->data() != data; it = it->next()) {
+		auto it = head->next;
+		for (; it->data != data; it = it->next) {
 			if (it == head)
 				return;  // Reached end of the list
 		}
 		auto oldHead = head;
-		head = it->next();
+		head = it->next;
 		pop_back();
 		head = oldHead;
 	}
@@ -170,8 +170,8 @@ public:
 	* @return True if the list contains 'data'
 	*/
 	bool contains(const T& data) const {
-		for (auto it = head; it->next() != head; it = it->next()) {
-			if (it->data() == data) return true;
+		for (auto it = head; it->next != head; it = it->next) {
+			if (it->data == data) return true;
 		}
 		return false;
 	}
@@ -186,9 +186,9 @@ public:
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		auto it = head;
 		for (std::size_t i = 0; i < index; ++i) {
-			it = it->next();
+			it = it->next;
 		}
-		return it->data();
+		return it->data;
 	}
 
 	/**
@@ -197,11 +197,11 @@ public:
 	*/
 	std::size_t find(const T& data) const {
 		std::size_t index = 1;
-		if (head->data() == data)
+		if (head->data == data)
 			return 0;
 
-		for (auto it = head->next(); it != head; it = it->next()) {
-			if (it->data() == data)
+		for (auto it = head->next; it != head; it = it->next) {
+			if (it->data == data)
 				break;
 			++index;
 		}
@@ -216,41 +216,15 @@ public:
 	}
 
 private:
-	class Node {
-	public:
-		explicit Node(const T& data): data_{data} {}
-		Node(const T& data, Node* next): data_{data}, next_{next} {}
+	struct Node {
+		explicit Node(const T& data): data{data} {}
+		Node(const T& data, Node* next): data{data}, next{next} {}
 		Node(const T& data, Node* prev, Node* next):
-			data_{data}, prev_{prev}, next_{next} {}
+			data{data}, prev{prev}, next{next} {}
 
-		T& data() {
-			return data_;
-		}
-
-		const T& data() const {
-			return data_;
-		}
-
-		Node* prev() const {
-			return prev_;
-		}
-
-		void prev(Node* node) {
-			prev_ = node;
-		}
-
-		Node* next() const {
-			return next_;
-		}
-
-		void next(Node* node) {
-			next_ = node;
-		}
-
-	private:
-		T data_;
-		Node* prev_{nullptr};
-		Node* next_{nullptr};
+		T data;
+		Node* prev{nullptr};
+		Node* next{nullptr};
 	};
 
 	Node* head{nullptr};
