@@ -41,15 +41,7 @@ public:
 	@param data The element that'll be inserted
 	*/
 	void push_back(const T& data) {
-		auto newNode = new Node(data);
-		if (empty()) {
-			head = newNode;
-			tail = newNode;
-		} else {
-			tail->next = newNode;
-			tail = tail->next;
-		}
-		size_++;
+		insert(data, size_);
 	}
 
 	/**
@@ -58,12 +50,8 @@ public:
 	@param data The element that'll be inserted
 	*/
 	void push_front(const T& data) {
-		if (empty()) {
-			push_back(data);
-		} else {
-			head = new Node(data, head);
-			size_++;
-		}
+		head = new Node(data, head);
+		++size_;
 	}
 
 	/**
@@ -73,21 +61,16 @@ public:
 	@param index The position where 'data' will be inserted
 	*/
 	void insert(const T& data, std::size_t index) {
-		if (index == 0) {
-			return push_front(data);
-		} else if (index == size_ - 1) {
-			return push_back(data);
-		} else if (index > size_) {
-			throw std::out_of_range("Invalid index");
-		} else {
-			Node* it = head;
-			for (std::size_t i = 0; i < index - 1; i++) {
-				it = it->next;
-			}
-			it->next = new Node(data, it->next);
+		if (index == 0) return push_front(data);
+		if (index > size_) throw std::out_of_range("Invalid index");
 
-			size_++;
+		Node* it = head;
+		for (std::size_t i = 0; i < index - 1; ++i) {
+			it = it->next;
 		}
+		it->next = new Node(data, it->next);
+
+		++size_;
 	}
 
 	/**
@@ -96,11 +79,8 @@ public:
 	@param data The element that'll be inserted
 	*/
 	void insert_sorted(const T& data) {
-		if (empty() || data <= head->data) {
+		if (empty() || data <= head->data)
 			return push_front(data);
-		} else if (data > tail->data) {
-			return push_back(data);
-		}
 
 		Node* it = head;
 		while (it->next != nullptr && data > it->next->data) {
@@ -131,7 +111,7 @@ public:
 	T& at(std::size_t index) {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		Node* it = head;
-		for (std::size_t i = 0; i < index; i++) {
+		for (std::size_t i = 0; i < index; ++i) {
 			it = it->next;
 		}
 		return it->data;
@@ -145,27 +125,21 @@ public:
 	@return The element that was removed
 	*/
 	T pop(std::size_t index) {
-		if (index >= size_) {
-			throw std::out_of_range("Index out of bounds");
-		} else if (index == 0) {
-			return pop_front();
-		} else {
-			Node* it = head;
-			for (std::size_t i = 0; i < index - 1; ++i) {
-				it = it->next;
-			}
+		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		if (index == 0) return pop_front();
 
-			T removed = it->next->data;
-			Node* p_removed = it->next;
-			it->next = it->next->next;
-
-			if (p_removed == tail)
-				tail = it;
-
-			--size_;
-			delete p_removed;
-			return removed;
+		Node* it = head;
+		for (std::size_t i = 0; i < index - 1; ++i) {
+			it = it->next;
 		}
+
+		T removed = it->next->data;
+		Node* p_removed = it->next;
+		it->next = it->next->next;
+
+		--size_;
+		delete p_removed;
+		return removed;
 	}
 
 	/**
@@ -184,13 +158,11 @@ public:
 	*/
 	T pop_front() {
 		if (empty()) throw std::out_of_range("List is empty");
-
 		T removed = head->data;
 		Node* old_head = head;
 		head = head->next;
-
-		--size_;
 		delete old_head;
+		--size_;
 		return removed;
 	}
 
@@ -203,22 +175,19 @@ public:
 		if (head->data == data) {
 			pop_front();
 			return;
-		} else if (tail->data == data) {
-			pop_back();
-			return;
-		} else {
-			Node* it;
-			for (it = head; it->next->data != data; it = it->next) {
-				if (it->next == nullptr)
-					return;
-			}
-
-			Node* p_removed = it->next;
-			it->next = it->next->next;
-			delete p_removed;
-
-			--size_;
 		}
+
+		Node* it;
+		for (it = head; it->next->data != data; it = it->next) {
+			if (it->next == nullptr)
+				return;
+		}
+
+		Node* p_removed = it->next;
+		it->next = it->next->next;
+		delete p_removed;
+
+		--size_;
 	}
 
 	/**
@@ -284,7 +253,6 @@ private:
 	};
 
 	Node* head{nullptr};
-	Node* tail{nullptr};
 	std::size_t size_{0u};
 };
 
