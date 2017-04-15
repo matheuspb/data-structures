@@ -18,6 +18,7 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 	* [AVL tree](tree-structures/avl_tree.h)
 * [Other structures](other-structures):
 	* [Hash table](other-structures/hash_table.h)
+	* [Heap](other-structures/heap.h)
 
 [Floyd algorithm complexity analysis](floyd.tex)
 
