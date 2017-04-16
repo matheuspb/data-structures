@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <stdexcept>
+#include <memory>
 
 namespace structures {
 
@@ -19,6 +20,34 @@ public:
 	*/
 	ArrayList() = default;
 
+	ArrayList(const ArrayList<T>& other):
+		contents{copy_array(other.contents, other.max_size_)},
+		size_{other.size_},
+		max_size_{other.max_size_}
+	{}
+
+	ArrayList(ArrayList<T>&& other):
+		contents{std::move(other.contents)},
+		size_{std::move(other.size_)},
+		max_size_{std::move(other.max_size_)}
+	{}
+
+	ArrayList<T>& operator=(const ArrayList<T>& other) {
+		ArrayList<T> copy{other};
+		std::swap(contents, copy.contents);
+		std::swap(size_, copy.size_);
+		std::swap(max_size_, copy.max_size_);
+		return *this;
+	}
+
+	ArrayList<T>& operator=(ArrayList<T>&& other) {
+		ArrayList<T> copy{std::move(other)};
+		std::swap(contents, copy.contents);
+		std::swap(size_, copy.size_);
+		std::swap(max_size_, copy.max_size_);
+		return *this;
+	}
+
 	/**
 	@brief Constructor with a given maximum size
 
@@ -31,9 +60,7 @@ public:
 	/**
 	@brief Destroys the list
 	*/
-	~ArrayList() {
-		delete [] contents;
-	}
+	~ArrayList() = default;
 
 	/**
 	@brief Clears the contents of the list
@@ -264,7 +291,17 @@ public:
 	}
 
 private:
-	T* contents{new T[DEFAULT_MAX]};
+
+	static std::unique_ptr<T> copy_array(std::unique_ptr<T> original,
+			std::size_t size) {
+		std::unique_ptr<T> copy{new T[size]};
+		for (std::size_t i = 0; i < size; i++) {
+			copy[i] = original[i];
+		}
+		return copy;
+	}
+
+	std::unique_ptr<T[]> contents{new T[DEFAULT_MAX]};
 	std::size_t size_{0u};
 	std::size_t max_size_{DEFAULT_MAX};
 

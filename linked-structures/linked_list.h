@@ -207,10 +207,14 @@ public:
 	@return True if the list contains 'data'
 	*/
 	bool contains(const T& data) const {
-		for (Node* it = head; it->next != nullptr; it = it->next) {
-			if (it->data == data) return true;
+		if (size_ > 0) {
+			for (Node* it = head; it != nullptr; it = it->next) {
+				if (it->data == data) return true;
+			}
+			return false;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	/**

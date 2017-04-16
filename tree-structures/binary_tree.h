@@ -6,6 +6,8 @@
 
 namespace structures {
 
+template<typename T> class AVLNode;
+
 /**
 @brief BinaryTree node implementation
 */
