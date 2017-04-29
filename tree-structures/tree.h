@@ -39,7 +39,7 @@ public:
 	/**
 	@brief Removes 'data' from the tree, if it exists in the tree
 	*/
-	void remove(const T& data) {
+	bool remove(const T& data) {
 		if (root) {
 			if (root->data == data) {
 				if (root->right && root->left) {
@@ -61,10 +61,15 @@ public:
 						root->parent = nullptr;
 				}
 				--size_;
+				return true;
 			} else if (N::remove(root, data)) {
 				--size_;
+				return true;
+			} else {
+				return false;
 			}
 		}
+		return false;
 	}
 
 	/**
@@ -133,7 +138,7 @@ public:
 		std::cout << std::endl;
 	}
 
-private:
+protected:
 	N* root{nullptr};
 	std::size_t size_{0u};
 

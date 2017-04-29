@@ -16,6 +16,7 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 * [Tree structures](tree-structures):
 	* [Binary search tree](tree-structures/binary_tree.h)
 	* [AVL tree](tree-structures/avl_tree.h)
+	* [Red-Black tree](tree-structures/rb_tree.h)
 * [Other structures](other-structures):
 	* [Hash table](other-structures/hash_table.h)
 	* [Heap](other-structures/heap.h)

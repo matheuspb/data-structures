@@ -120,7 +120,7 @@ struct Node {
 		return it->data;
 	}
 
-	void print(int indent) const {
+	virtual void print(int indent) const {
 		if (right)
 			right->print(indent + 1);
 		for (int i = 0; i < indent; ++i)
@@ -134,6 +134,24 @@ struct Node {
 	Node* parent{nullptr};
 	Node* left{nullptr};
 	Node* right{nullptr};
+
+protected:
+
+	Node<T>* find_node_to_delete(const T& data_) {
+		if (data == data_) {
+			if (right && left) {
+				data = substitute();
+				return right->find_node_to_delete(data);
+			} else {
+				return this;
+			}
+		} else {
+			if (data_ < data)
+				return left ? left->find_node_to_delete(data_) : nullptr;
+			else
+				return right ? right->find_node_to_delete(data_) : nullptr;
+		}
+	}
 
 };
 

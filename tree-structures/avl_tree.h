@@ -7,11 +7,15 @@
 
 namespace structures {
 
+template<typename T> class RBNode;
+
 /**
 @brief AVLTree node implementation
 */
 template<typename T>
 class AVLNode : public Node<T> {
+
+	template<typename U> friend class RBNode;
 
 public:
 
@@ -31,6 +35,8 @@ public:
 		} else {
 			new_avl_node->parent->left = new_avl_node;
 		}
+
+		delete new_node;
 
 		update(new_avl_node);
 		return new_avl_node;
@@ -90,6 +96,13 @@ private:
 	*     y   z  <-----  x   y
 	*/
 	static void rotateRight(AVLNode<T>* n) {
+		simpleRight(n);
+
+		updateHeight((AVLNode<T>*) n->right);
+		updateHeight(n);
+	}
+
+	static void simpleRight(Node<T>* n) {
 		std::swap(n->data, n->left->data);
 
 		std::swap(n->left->left, n->left->right);
@@ -98,12 +111,16 @@ private:
 
 		updateSons(n);
 		updateSons(n->right);
-
-		updateHeight((AVLNode<T>*) n->right);
-		updateHeight(n);
 	}
 
 	static void rotateLeft(AVLNode<T>* n) {
+		simpleLeft(n);
+
+		updateHeight((AVLNode<T>*) n->left);
+		updateHeight(n);
+	}
+
+	static void simpleLeft(Node<T>* n) {
 		std::swap(n->data, n->right->data);
 
 		std::swap(n->right->right, n->right->left);
@@ -112,9 +129,6 @@ private:
 
 		updateSons(n);
 		updateSons(n->left);
-
-		updateHeight((AVLNode<T>*) n->left);
-		updateHeight(n);
 	}
 
 	// Updates sons' parent pointer
