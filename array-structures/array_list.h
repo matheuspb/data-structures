@@ -127,18 +127,18 @@ public:
 	@return The element that was removed
 	*/
 	T pop(std::size_t index) {
-		T deleted = contents[index];
 		if (empty()) {
 			throw std::out_of_range("List is empty");
 		} else if (index >= size_) {
 			throw std::out_of_range("Index out of bounds");
 		} else {
+			T deleted = contents[index];
 			for (std::size_t i = index; i < size_ - 1; ++i) {
 				contents[i] = contents[i+1];
 			}
 			size_--;
+			return deleted;
 		}
-		return deleted;
 	}
 
 	/**
@@ -194,11 +194,7 @@ public:
 	@return True if the list contains 'data'
 	*/
 	bool contains(const T& data) const {
-		for (std::size_t i = 0; i < size_ + 1; ++i) {
-			if (contents[i] == data)
-				return true;
-		}
-		return false;
+		return find(data) != size_;
 	}
 
 	/**
@@ -243,33 +239,9 @@ public:
 	@return A reference to the element at the given index
 	*/
 	T& at(std::size_t index) {
-		if (index >= size_) {
-			throw std::out_of_range("Index out of bounds");
-		} else {
-			return contents[index];
-		}
+		return const_cast<T&>(static_cast<const ArrayList*>(this)->at(index));
 	}
 
-	/**
-	@brief Overloads the operator '[]'
-	@details Returns a reference to the element at 'index' position of the list
-
-	@param index The index on the list of the element that'll be returned
-
-	@return A reference to the element at the given index
-	*/
-	T& operator[](std::size_t index) {
-		return contents[index];
-	}
-
-	/**
-	@brief Checks if the index is valid, then returns a reference to the element
-	at the given index of the list
-
-	@param index The index on the list of the element that'll be returned
-
-	@return A reference to the element at the given index
-	*/
 	const T& at(std::size_t index) const {
 		if (index >= size_) {
 			throw std::out_of_range("Index out of bounds");
@@ -286,6 +258,11 @@ public:
 
 	@return A reference to the element at the given index
 	*/
+	T& operator[](std::size_t index) {
+		return const_cast<T&>(
+				static_cast<const ArrayList*>(this)->operator[](index));
+	}
+
 	const T& operator[](std::size_t index) const {
 		return contents[index];
 	}
