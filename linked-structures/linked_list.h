@@ -19,10 +19,12 @@ class LinkedList {
 
 public:
 
+	// TODO rule of five
+
 	/**
 	@brief Destructor
 	*/
-	~LinkedList() {
+	virtual ~LinkedList() {
 		clear();
 	}
 
@@ -99,19 +101,14 @@ public:
 
 	@return A reference to the element at the given index
 	*/
+	T& at(std::size_t index) {
+		return const_cast<T&>(static_cast<const LinkedList*>(this)->at(index));
+	}
+
 	const T& at(std::size_t index) const {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		Node* it = head;
 		for (std::size_t i = 0; i < index; i++) {
-			it = it->next;
-		}
-		return it->data;
-	}
-
-	T& at(std::size_t index) {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
-		Node* it = head;
-		for (std::size_t i = 0; i < index; ++i) {
 			it = it->next;
 		}
 		return it->data;
@@ -207,14 +204,7 @@ public:
 	@return True if the list contains 'data'
 	*/
 	bool contains(const T& data) const {
-		if (size_ > 0) {
-			for (Node* it = head; it != nullptr; it = it->next) {
-				if (it->data == data) return true;
-			}
-			return false;
-		} else {
-			return false;
-		}
+		return find(data) != size_;
 	}
 
 	/**

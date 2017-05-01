@@ -25,8 +25,6 @@ public:
 	using LinkedList<T>::empty;
 	using LinkedList<T>::size;
 
-	LinkedStack(): LinkedList<T>{} {}
-
 	/**
 	@brief Adds 'data' to the top of the stack
 	@param data The element that'll be added to the stack
