@@ -269,9 +269,9 @@ public:
 
 private:
 
-	static std::unique_ptr<T> copy_array(std::unique_ptr<T> original,
+	static std::unique_ptr<T[]> copy_array(const std::unique_ptr<T[]>& original,
 			std::size_t size) {
-		std::unique_ptr<T> copy{new T[size]};
+		std::unique_ptr<T[]> copy{new T[size]};
 		for (std::size_t i = 0; i < size; i++) {
 			copy[i] = original[i];
 		}
