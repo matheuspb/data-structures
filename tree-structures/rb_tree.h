@@ -7,17 +7,22 @@
 
 namespace structures {
 
+/**
+ * @brief RBTree node implementation
+ */
 template<typename T>
 class RBNode : public Node<T> {
 
 	template<typename U> friend class RBTree;
 
-public:
+private:
 
 	typedef enum {
 		red,
 		black
 	} Color;
+
+public:
 
 	explicit RBNode(const T& data_):
 		Node<T>{data_}
@@ -222,6 +227,17 @@ private:
 
 };
 
+/**
+ * @brief A self-balancing tree
+ *
+ * @details This tree, like the AVL, rotates itself to keep balanced and
+ * guarantee O(log n) on all cases. But it has some different properties that
+ * makes the tree rotate less than the AVL, so it keeps balanced and has faster
+ * insert and removal operations than the AVL tree.
+ *
+ * The balancing of the tree is not perfect, but it is good enough to allow it
+ * to guarantee searching in O(log n) time.
+ */
 template<typename T>
 class RBTree : public Tree<T, RBNode<T>> {
 

@@ -6,30 +6,30 @@
 namespace structures {
 
 /**
-* @brief Implements a doubly linked list.
-* @details A doubly linked list, is a linked list where each node points to
-* both, the next and the previous node.
-*
-* @tparam T Data type of the elements.
-*/
+ * @brief Implements a doubly linked list.
+ * @details A doubly linked list, is a linked list where each node points to
+ * both, the next and the previous node.
+ *
+ * @tparam T Data type of the elements.
+ */
 template<typename T>
 class DoublyLinkedList {
 public:
 	/**
-	* @brief Default constructor
-	*/
+	 * @brief Default constructor
+	 */
 	DoublyLinkedList() = default;
 
 	/**
-	* @brief Destructor
-	*/
+	 * @brief Destructor
+	 */
 	~DoublyLinkedList() {
 		clear();
 	}
 
 	/**
-	* @brief Clears all the elements on the list
-	*/
+	 * @brief Clears all the elements on the list
+	 */
 	void clear() {
 		while (!empty()) {
 			pop_front();
@@ -37,19 +37,19 @@ public:
 	}
 
 	/**
-	* @brief Inserts at the end of the list
-	*
-	* @param data The element that'll be inserted
-	*/
+	 * @brief Inserts at the end of the list
+	 *
+	 * @param data The element that'll be inserted
+	 */
 	void push_back(const T& data) {
 		insert(data, size_);
 	}
 
 	/**
-	* @brief Inserts at the beginning of the list
-	*
-	* @param data The element that'll be inserted
-	*/
+	 * @brief Inserts at the beginning of the list
+	 *
+	 * @param data The element that'll be inserted
+	 */
 	void push_front(const T& data) {
 		head = new Node(data, head);
 		if (head->next != nullptr)
@@ -58,11 +58,11 @@ public:
 	}
 
 	/**
-	* @brief Inserts at a given position of the list
-	*
-	* @param data The element that'll be inserted
-	* @param index The position where 'data' will be inserted
-	*/
+	 * @brief Inserts at a given position of the list
+	 *
+	 * @param data The element that'll be inserted
+	 * @param index The position where 'data' will be inserted
+	 */
 	void insert(const T& data, std::size_t index) {
 		if (index == 0) return push_front(data);
 		if (index > size_) throw std::out_of_range("Invalid index");
@@ -78,10 +78,10 @@ public:
 	}
 
 	/**
-	* @brief Inserts the element sorted into the list
-	*
-	* @param data The element that'll be inserted
-	*/
+	 * @brief Inserts the element sorted into the list
+	 *
+	 * @param data The element that'll be inserted
+	 */
 	void insert_sorted(const T& data) {
 		if (empty() || data <= head->data)
 			return push_front(data);
@@ -97,12 +97,12 @@ public:
 	}
 
 	/**
-	* @brief Removes the element at the given index
-	*
-	* @param index The index of the element that'll be removed
-	*
-	* @return The element that was removed
-	*/
+	 * @brief Removes the element at the given index
+	 *
+	 * @param index The index of the element that'll be removed
+	 *
+	 * @return The element that was removed
+	 */
 	T pop(std::size_t index) {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		if (index == 0) return pop_front();
@@ -121,19 +121,19 @@ public:
 	}
 
 	/**
-	* @brief Removes the element at the end of the list
-	*
-	* @return The removed element
-	*/
+	 * @brief Removes the element at the end of the list
+	 *
+	 * @return The removed element
+	 */
 	T pop_back() {
 		return pop(size_ - 1);
 	}
 
 	/**
-	* @brief Removes the element at the beginning of the list
-	*
-	* @return The removed element
-	*/
+	 * @brief Removes the element at the beginning of the list
+	 *
+	 * @return The removed element
+	 */
 	T pop_front() {
 		if (empty()) throw std::out_of_range("List is empty");
 		Node* toDelete = head;
@@ -147,10 +147,10 @@ public:
 	}
 
 	/**
-	* @brief Removes 'data' from the list, if it exists
-	*
-	* @param data The element that'll be removed
-	*/
+	 * @brief Removes 'data' from the list, if it exists
+	 *
+	 * @param data The element that'll be removed
+	 */
 	void remove(const T& data) {
 		if (head->data == data) {
 			pop_front();
@@ -169,21 +169,22 @@ public:
 	}
 
 	/**
-	* @brief Checks if the list is empty
-	*
-	* @return True if the list is empty
-	*/
+	 * @brief Checks if the list is empty
+	 *
+	 * @return True if the list is empty
+	 */
 	bool empty() const {
 		return size_ == 0;
 	}
 
 	/**
-	* @brief Checks if the list contains an element(data)
-	*
-	* @param data The element that'll be checked if it is contained by the list
-	*
-	* @return True if the list contains 'data'
-	*/
+	 * @brief Checks if the list contains an element(data)
+	 *
+	 * @param data The element that'll be checked if it is contained by the
+	 * list
+	 *
+	 * @return True if the list contains 'data'
+	 */
 	bool contains(const T& data) const {
 		for (Node* it = head; it->next != nullptr; it = it->next) {
 			if (it->data == data) return true;
@@ -192,12 +193,12 @@ public:
 	}
 
 	/**
-	* @brief Returns a reference to the element at a given index
-	* @details If index is out of the list's bounds, it throws an
-	* std::out_of_range exception
-	*
-	* @param index The index on the list of the element that'll be returned
-	*/
+	 * @brief Returns a reference to the element at a given index
+	 * @details If index is out of the list's bounds, it throws an
+	 * std::out_of_range exception
+	 *
+	 * @param index The index on the list of the element that'll be returned
+	 */
 	T& at(std::size_t index) {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		Node* it = head;
@@ -208,8 +209,8 @@ public:
 	}
 
 	/**
-	* @brief const version of 'at()'
-	*/
+	 * @brief const version of 'at()'
+	 */
 	const T& at(std::size_t index) const {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		Node* it = head;
@@ -220,10 +221,10 @@ public:
 	}
 
 	/**
-	* @brief Returns the position of 'data' on the list
-	*
-	* @param data The element that'll be searched
-	*/
+	 * @brief Returns the position of 'data' on the list
+	 *
+	 * @param data The element that'll be searched
+	 */
 	std::size_t find(const T& data) const {
 		std::size_t index = 0;
 		for (Node* it = head; it != nullptr; it = it->next) {
@@ -235,8 +236,8 @@ public:
 	}
 
 	/**
-	* @brief Returns the size of the list
-	*/
+	 * @brief Returns the size of the list
+	 */
 	std::size_t size() const {
 		return size_;
 	}

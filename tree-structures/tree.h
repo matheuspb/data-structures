@@ -6,27 +6,28 @@
 namespace structures {
 
 /**
-@brief Binary search tree basic operations are implemented here, the Node
-implementations may be custom, e.g. you can use the AVLNode class to have an
-AVLTree.
-
-@tparam T Data type of the elements
-@tparam N Class of the nodes of the tree
-*/
+ * @brief Binary search tree basic operations are implemented here, the Node
+ * implementations may be custom, e.g. you can use the AVLNode class to have an
+ * AVLTree.
+ *
+ * @tparam T Data type of the elements
+ * @tparam N Class of the nodes of the tree
+ */
 template<typename T, typename N>
 class Tree {
 
 public:
+
 	/**
-	@brief Destructor
-	*/
+	 * @brief Destructor
+	 */
 	~Tree() {
 		delete root;
 	}
 
 	/**
-	@brief Inserts 'data' into the tree
-	*/
+	 * @brief Inserts 'data' into the tree
+	 */
 	void insert(const T& data) {
 		if (root) {
 			N::insert(root, data);
@@ -37,8 +38,8 @@ public:
 	}
 
 	/**
-	@brief Removes 'data' from the tree, if it exists in the tree
-	*/
+	 * @brief Removes 'data' from the tree, if it exists in the tree
+	 */
 	bool remove(const T& data) {
 		if (root) {
 			if (root->data == data) {
@@ -73,29 +74,29 @@ public:
 	}
 
 	/**
-	@brief Returns true if the tree contains 'data'
-	*/
+	 * @brief Returns true if the tree contains 'data'
+	 */
 	bool contains(const T& data) const {
 		return root ? root->contains(data) : false;
 	}
 
 	/**
-	@brief Returns true if the tree is empty
-	*/
+	 * @brief Returns true if the tree is empty
+	 */
 	bool empty() const {
 		return size_ == 0;
 	}
 
 	/**
-	@brief Returns the size of the tree
-	*/
+	 * @brief Returns the size of the tree
+	 */
 	std::size_t size() const {
 		return size_;
 	}
 
 	/**
-	@brief Returns a pre-ordered list of the tree
-	*/
+	 * @brief Returns a pre-ordered list of the tree
+	 */
 	ArrayList<T> pre_order() const {
 		ArrayList<T> out{size_};
 		if (root)
@@ -104,8 +105,8 @@ public:
 	}
 
 	/**
-	@brief Returns a in-ordered list of the tree
-	*/
+	 * @brief Returns a in-ordered list of the tree
+	 */
 	ArrayList<T> in_order() const {
 		ArrayList<T> out{size_};
 		if (root)
@@ -114,8 +115,8 @@ public:
 	}
 
 	/**
-	@brief Returns a post-ordered list of the tree
-	*/
+	 * @brief Returns a post-ordered list of the tree
+	 */
 	ArrayList<T> post_order() const {
 		ArrayList<T> out{size_};
 		if (root)
@@ -124,8 +125,8 @@ public:
 	}
 
 	/**
-	@brief Prints the tree sideways
-	*/
+	 * @brief Prints the tree sideways
+	 */
 	void print() const {
 		std::cout << "Tree size = " << size_;
 		if (root) {
@@ -139,6 +140,7 @@ public:
 	}
 
 protected:
+
 	N* root{nullptr};
 	std::size_t size_{0u};
 

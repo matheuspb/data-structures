@@ -9,13 +9,13 @@
 namespace structures {
 
 /**
-@brief Implements a Queue(data structure), using arrrays.
-@details This data structure works like a real 'queue', you add(enqueue)
-elements to the end of the queue, and remove(dequeue) from the beginning.
-It follow the FIFO(first in, first out) principle.
-
-@tparam T Data type of the elements
-*/
+ * @brief Implements a Queue(data structure), using arrrays.
+ * @details This data structure works like a real 'queue', you add(enqueue)
+ * elements to the end of the queue, and remove(dequeue) from the beginning.
+ * It follow the FIFO(first in, first out) principle.
+ *
+ * @tparam T Data type of the elements
+ */
 template<typename T>
 class ArrayQueue : private ArrayList<T> {
 
@@ -30,17 +30,17 @@ public:
 	ArrayQueue(): ArrayList<T>{} {}
 
 	/**
-	@brief Constructor with a given maximum size of the queue
-
-	@param max Maximum size of the queue
-	*/
+	 * @brief Constructor with a given maximum size of the queue
+	 *
+	 * @param max Maximum size of the queue
+	 */
 	explicit ArrayQueue(std::size_t max): ArrayList<T>{max} {}
 
 	/**
-	@brief Adds 'data' to the end of the queue
+	 * @brief Adds 'data' to the end of the queue
 
-	@param data The element that'll be added to the queue
-	*/
+	 * @param data The element that'll be added to the queue
+	 */
 	void enqueue(const T& data) {
 		if (full()) {
 			throw std::out_of_range("Queue is full");
@@ -50,10 +50,10 @@ public:
 	}
 
 	/**
-	@brief Removes the element at the beginning of the queue
-
-	@return The element that was removed
-	*/
+	 * @brief Removes the element at the beginning of the queue
+	 *
+	 * @return The element that was removed
+	 */
 	T dequeue() {
 		if (empty()) {
 			throw std::out_of_range("Queue is empty");
@@ -63,10 +63,10 @@ public:
 	}
 
 	/**
-	@brief Returns a reference to the last element of the queue
-
-	@return A reference to the last element of the queue
-	*/
+	 * @brief Returns a reference to the last element of the queue
+	 *
+	 * @return A reference to the last element of the queue
+	 */
 	const T& back() const {
 		if (empty()) {
 			throw std::out_of_range("Queue is empty");

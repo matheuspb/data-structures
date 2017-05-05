@@ -10,8 +10,8 @@ namespace structures {
 template<typename T> class RBNode;
 
 /**
-@brief AVLTree node implementation
-*/
+ * @brief AVLTree node implementation
+ */
 template<typename T>
 class AVLNode : public Node<T> {
 
@@ -88,13 +88,13 @@ private:
 	}
 
 	/* Rotations:
-	*
-	*     a       left       b
-	*    / \     ----->     / \
-	*   x   b              a   z
-	*      / \    right   / \
-	*     y   z  <-----  x   y
-	*/
+	 *
+	 *     a       left       b
+	 *    / \     ----->     / \
+	 *   x   b              a   z
+	 *      / \    right   / \
+	 *     y   z  <-----  x   y
+	 */
 	static void rotateRight(AVLNode<T>* n) {
 		simpleRight(n);
 
@@ -144,11 +144,11 @@ private:
 };
 
 /**
-@brief Implements an AVL tree, a self balancing tree
-
-@details This tree provides log(n) operations on all cases, because it rotates
-as necessary to keep itself balanced.
-*/
+ * @brief A self-balancing tree
+ *
+ * @details This tree provides O(log n) operations on all cases, because it
+ * rotates as necessary to keep itself balanced.
+ */
 template<typename T>
 class AVLTree : public Tree<T, AVLNode<T>> {};
 

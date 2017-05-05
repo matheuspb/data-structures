@@ -8,16 +8,16 @@
 namespace structures {
 
 /**
-@brief Implements a list(data structure), using arrays
-
-@tparam T Data type of the elements
-*/
+ * @brief Implements a list(data structure), using arrays
+ *
+ * @tparam T Data type of the elements
+ */
 template<typename T>
 class ArrayList {
 public:
 	/**
-	@brief Default constructor
-	*/
+	 * @brief Default constructor
+	 */
 	ArrayList() = default;
 
 	ArrayList(const ArrayList<T>& other):
@@ -49,50 +49,50 @@ public:
 	}
 
 	/**
-	@brief Constructor with a given maximum size
-
-	@param max_size The maximum size of the list
-	*/
+	 * @brief Constructor with a given maximum size
+	 *
+	 * @param max_size The maximum size of the list
+	 */
 	explicit ArrayList(std::size_t max_size):
 		contents{new T[max_size]},
 		max_size_{max_size} {}
 
 	/**
-	@brief Destroys the list
-	*/
+	 * @brief Destroys the list
+	 */
 	~ArrayList() = default;
 
 	/**
-	@brief Clears the contents of the list
-	*/
+	 * @brief Clears the contents of the list
+	 */
 	void clear() {
 		size_ = 0;
 	}
 
 	/**
-	@brief Adds 'data' to the end of the list
-
-	@param data The element that'll be added
-	*/
+	 * @brief Adds 'data' to the end of the list
+	 *
+	 * @param data The element that'll be added
+	 */
 	void push_back(T data) {
 		insert(data, size_);
 	}
 
 	/**
-	@brief Adds 'data' to the beginning of the list
-
-	@param data The element that'll be added
-	*/
+	 * @brief Adds 'data' to the beginning of the list
+	 *
+	 * @param data The element that'll be added
+	 */
 	void push_front(T data) {
 		insert(data, 0);
 	}
 
 	/**
-	@brief Inserts at a given position of the list
-
-	@param data The element that'll be inserted
-	@param index The position where 'data' will be inserted
-	*/
+	 * @brief Inserts at a given position of the list
+	 *
+	 * @param data The element that'll be inserted
+	 * @param index The position where 'data' will be inserted
+	 */
 	void insert(T data, std::size_t index) {
 		if (full()) {
 			throw std::out_of_range("List is full");
@@ -108,10 +108,10 @@ public:
 	}
 
 	/**
-	@brief Inserts the element sorted into the list
-
-	@param data The element that'll be inserted
-	*/
+	 * @brief Inserts the element sorted into the list
+	 *
+	 * @param data The element that'll be inserted
+	 */
 	void insert_sorted(T data) {
 		std::size_t i = 0;
 		while (i < size_ && data >= contents[i])
@@ -120,12 +120,12 @@ public:
 	}
 
 	/**
-	@brief Removes the element at the given position
-
-	@param index The position of the element that'll be removed
-
-	@return The element that was removed
-	*/
+	 * @brief Removes the element at the given position
+	 *
+	 * @param index The position of the element that'll be removed
+	 *
+	 * @return The element that was removed
+	 */
 	T pop(std::size_t index) {
 		if (empty()) {
 			throw std::out_of_range("List is empty");
@@ -142,68 +142,68 @@ public:
 	}
 
 	/**
-	@brief Removes the element at the end of the list
-
-	@return The element that was removed
-	*/
+	 * @brief Removes the element at the end of the list
+	 *
+	 * @return The element that was removed
+	 */
 	T pop_back() {
 		return pop(size_ - 1);
 	}
 
 	/**
-	@brief Removes the element at the beginning of the list
-
-	@return The element that was removed
-	*/
+	 * @brief Removes the element at the beginning of the list
+	 *
+	 * @return The element that was removed
+	 */
 	T pop_front() {
 		return pop(0);
 	}
 
 	/**
-	@brief Removes 'data' from the list
-
-	@param data The element that'll be removed
-	*/
+	 * @brief Removes 'data' from the list
+	 *
+	 * @param data The element that'll be removed
+	 */
 	void remove(T data) {
 		pop(find(data));
 	}
 
 	/**
-	@brief Checks if the list is full
-
-	@return True if the list is full
-	*/
+	 * @brief Checks if the list is full
+	 *
+	 * @return True if the list is full
+	 */
 	bool full() const {
 		return size_ == max_size_;
 	}
 
 	/**
-	@brief Checks if the list is empty
-
-	@return True if the list is empty
-	*/
+	 * @brief Checks if the list is empty
+	 *
+	 * @return True if the list is empty
+	 */
 	bool empty() const {
 		return size_ == 0;
 	}
 
 	/**
-	@brief Checks if the list contains an element(data)
-
-	@param data The element that'll be checked if it is contained by the list
-
-	@return True if the list contains 'data'
-	*/
+	 * @brief Checks if the list contains an element(data)
+	 *
+	 * @param data The element that'll be checked if it is contained by the list
+	 *
+	 * @return True if the list contains 'data'
+	 */
 	bool contains(const T& data) const {
 		return find(data) != size_;
 	}
 
 	/**
-	@brief Returns the position of 'data' on the list
-
-	@param data The element that'll be searched
-
-	@return The position of 'data' on the list
-	*/
+	 * @brief Returns the position of 'data' on the list
+	 *
+	 * @param data The element that'll be searched
+	 *
+	 * @return The position of 'data' on the list
+	 */
 	std::size_t find(const T& data) const {
 		for (std::size_t i = 0; i < size_; ++i) {
 			if (contents[i] == data)
@@ -213,31 +213,31 @@ public:
 	}
 
 	/**
-	@brief Size of the list
-
-	@return Size of the list
-	*/
+	 * @brief Size of the list
+	 *
+	 * @return Size of the list
+	 */
 	std::size_t size() const {
 		return size_;
 	}
 
 	/**
-	@brief Maximum size of the list
-
-	@return Maximum size of the list
-	*/
+	 * @brief Maximum size of the list
+	 *
+	 * @return Maximum size of the list
+	 */
 	std::size_t max_size() const {
 		return max_size_;
 	}
 
 	/**
-	@brief Checks if the index is valid, then returns a reference to the element
-	at the given index of the list
-
-	@param index The index on the list of the element that'll be returned
-
-	@return A reference to the element at the given index
-	*/
+	 * @brief Checks if the index is valid, then returns a reference to the
+	 * element at the given index of the list
+	 *
+	 * @param index The index on the list of the element that'll be returned
+	 *
+	 * @return A reference to the element at the given index
+	 */
 	T& at(std::size_t index) {
 		return const_cast<T&>(static_cast<const ArrayList*>(this)->at(index));
 	}
@@ -251,13 +251,14 @@ public:
 	}
 
 	/**
-	@brief Overloads the operator '[]'
-	@details Returns a reference to the element at 'index' position of the list
-
-	@param index The index on the list of the element that'll be returned
-
-	@return A reference to the element at the given index
-	*/
+	 * @brief Overloads the operator '[]'
+	 * @details Returns a reference to the element at 'index' position of the
+	 * list
+	 *
+	 * @param index The index on the list of the element that'll be returned
+	 *
+	 * @return A reference to the element at the given index
+	 */
 	T& operator[](std::size_t index) {
 		return const_cast<T&>(
 				static_cast<const ArrayList*>(this)->operator[](index));

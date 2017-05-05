@@ -9,8 +9,8 @@ namespace structures {
 template<typename T> class AVLNode;
 
 /**
-@brief BinaryTree node implementation
-*/
+ * @brief BinaryTree node implementation
+ */
 template<typename T>
 struct Node {
 
@@ -156,12 +156,12 @@ protected:
 };
 
 /**
-@brief Unbalanced binary search tree
-
-@details This structure provides O(log(n)) operations on the best case, but as
-it is unbalanced, the operations may be O(n) on the worst case (e.g. you insert
-members in order).
-*/
+ * @brief Unbalanced binary search tree
+ *
+ * @details This structure provides O(log n) operations on the best case, but
+ * as it is unbalanced, the operations may be O(n) on the worst case (e.g. you
+ * insert members in order).
+ */
 template<typename T>
 class BinaryTree : public Tree<T, Node<T>> {};
 

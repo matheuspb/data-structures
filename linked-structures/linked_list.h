@@ -7,13 +7,13 @@
 namespace structures {
 
 /**
-@brief Implements a singly linked list
-@details A linked list, is a list where each node has a pointer to the next
-node, so, you only need a pointer to the first node (which here is head). The
-last node points to 'nullptr'.
-
-@tparam T Data type of the elements
-*/
+ * @brief Implements a singly linked list
+ * @details A linked list, is a list where each node has a pointer to the next
+ * node, so, you only need a pointer to the first node (which here is head).
+ * The last node points to 'nullptr'.
+ *
+ * @tparam T Data type of the elements
+ */
 template<typename T>
 class LinkedList {
 
@@ -22,15 +22,15 @@ public:
 	// TODO rule of five
 
 	/**
-	@brief Destructor
-	*/
+	 * @brief Destructor
+	 */
 	virtual ~LinkedList() {
 		clear();
 	}
 
 	/**
-	@brief Clears the list
-	*/
+	 * @brief Clears the list
+	 */
 	void clear() {
 		while(!empty()) {
 			pop_front();
@@ -38,30 +38,30 @@ public:
 	}
 
 	/**
-	@brief Inserts at the end of the list
-
-	@param data The element that'll be inserted
-	*/
+	 * @brief Inserts at the end of the list
+	 *
+	 * @param data The element that'll be inserted
+	 */
 	void push_back(const T& data) {
 		insert(data, size_);
 	}
 
 	/**
-	@brief Inserts at the beginning of the list
-
-	@param data The element that'll be inserted
-	*/
+	 * @brief Inserts at the beginning of the list
+	 *
+	 * @param data The element that'll be inserted
+	 */
 	void push_front(const T& data) {
 		head = new Node(data, head);
 		++size_;
 	}
 
 	/**
-	@brief Inserts at a given position of the list
-
-	@param data The element that'll be inserted
-	@param index The position where 'data' will be inserted
-	*/
+	 * @brief Inserts at a given position of the list
+	 *
+	 * @param data The element that'll be inserted
+	 * @param index The position where 'data' will be inserted
+	 */
 	void insert(const T& data, std::size_t index) {
 		if (index == 0) return push_front(data);
 		if (index > size_) throw std::out_of_range("Invalid index");
@@ -76,10 +76,10 @@ public:
 	}
 
 	/**
-	@brief Inserts the element sorted into the list
-
-	@param data The element that'll be inserted
-	*/
+	 * @brief Inserts the element sorted into the list
+	 *
+	 * @param data The element that'll be inserted
+	 */
 	void insert_sorted(const T& data) {
 		if (empty() || data <= head->data)
 			return push_front(data);
@@ -94,13 +94,12 @@ public:
 	}
 
 	/**
-	@brief Checks if the index is valid, then returns a reference to the element
-	at the given index of the list
-
-	@param index The index on the list of the element that'll be returned
-
-	@return A reference to the element at the given index
-	*/
+	 * @brief Checks if the index is valid, then returns a reference to the
+	 * element at the given index of the list
+	 * @param index The index on the list of the element that'll be returned
+	 *
+	 * @return A reference to the element at the given index
+	 */
 	T& at(std::size_t index) {
 		return const_cast<T&>(static_cast<const LinkedList*>(this)->at(index));
 	}
@@ -115,12 +114,12 @@ public:
 	}
 
 	/**
-	@brief Removes the element at the given index
-
-	@param index The index of the element that'll be removed
-
-	@return The element that was removed
-	*/
+	 * @brief Removes the element at the given index
+	 *
+	 * @param index The index of the element that'll be removed
+	 *
+	 * @return The element that was removed
+	 */
 	T pop(std::size_t index) {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		if (index == 0) return pop_front();
@@ -140,19 +139,19 @@ public:
 	}
 
 	/**
-	@brief Removes the element at the end of the list
-
-	@return The removed element
-	*/
+	 * @brief Removes the element at the end of the list
+	 *
+	 * @return The removed element
+	 */
 	T pop_back() {
 		return pop(size_ - 1);
 	}
 
 	/**
-	@brief Removes the element at the beginning of the list
-
-	@return The removed element
-	*/
+	 * @brief Removes the element at the beginning of the list
+	 *
+	 * @return The removed element
+	 */
 	T pop_front() {
 		if (empty()) throw std::out_of_range("List is empty");
 		T removed = head->data;
@@ -164,10 +163,10 @@ public:
 	}
 
 	/**
-	@brief Removes 'data' from the list
-
-	@param data The element that'll be removed
-	*/
+	 * @brief Removes 'data' from the list
+	 *
+	 * @param data The element that'll be removed
+	 */
 	void remove(const T& data) {
 		if (head->data == data) {
 			pop_front();
@@ -188,32 +187,33 @@ public:
 	}
 
 	/**
-	@brief Checks if the list is empty
-
-	@return True if the list is empty
-	*/
+	 * @brief Checks if the list is empty
+	 *
+	 * @return True if the list is empty
+	 */
 	bool empty() const {
 		return size_ == 0;
 	}
 
 	/**
-	@brief Checks if the list contains an element(data)
-
-	@param data The element that'll be checked if it is contained by the list
-
-	@return True if the list contains 'data'
-	*/
+	 * @brief Checks if the list contains an element(data)
+	 *
+	 * @param data The element that'll be checked if it is contained by the
+	 * list
+	 *
+	 * @return True if the list contains 'data'
+	 */
 	bool contains(const T& data) const {
 		return find(data) != size_;
 	}
 
 	/**
-	@brief Returns the position of 'data' on the list
-
-	@param data The element that'll be searched
-
-	@return The index of 'data' on the list
-	*/
+	 * @brief Returns the position of 'data' on the list
+	 *
+	 * @param data The element that'll be searched
+	 *
+	 * @return The index of 'data' on the list
+	 */
 	std::size_t find(const T& data) const {
 		std::size_t index = 0;
 		for (Node* it = head; it != nullptr; it = it->next) {
@@ -225,10 +225,10 @@ public:
 	}
 
 	/**
-	@brief Size of the list
-
-	@return Size of the list
-	*/
+	 * @brief Size of the list
+	 *
+	 * @return Size of the list
+	 */
 	std::size_t size() const {
 		return size_;
 	}
