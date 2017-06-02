@@ -2,8 +2,9 @@
 #define HASH_TABLE_H
 
 #include <functional>
-#include "../linked-structures/linked_list.h"
-#include "../array-structures/array_list.h"
+
+#include <linked_list.h>
+#include <array_list.h>
 
 namespace structures {
 

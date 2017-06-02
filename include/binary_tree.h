@@ -2,7 +2,8 @@
 #define STRUCTURES_BINARY_TREE_H
 
 #include <iostream>
-#include "tree.h"
+
+#include <tree.h>
 
 namespace structures {
 

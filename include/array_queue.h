@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include "array_list.h"
+#include <array_list.h>
 
 namespace structures {
 
@@ -17,12 +17,10 @@ namespace structures {
  * @tparam T Data type of the elements
  */
 template<typename T>
-class ArrayQueue : private ArrayList<T> {
+class ArrayQueue : private ArrayList<T>, public Queue<T> {
 
 public:
 
-	using ArrayList<T>::clear;
-	using ArrayList<T>::size;
 	using ArrayList<T>::max_size;
 	using ArrayList<T>::empty;
 	using ArrayList<T>::full;
@@ -63,16 +61,37 @@ public:
 	}
 
 	/**
+	 * @brief Returns a reference to the first element of the queue
+	 *
+	 * @return A reference to the first element of the queue
+	 */
+	const T& front() const {
+		try {
+			return this->at(0);
+		} catch (const std::out_of_range& e) {
+			throw std::out_of_range("Queue is empty");
+		}
+	}
+
+	/**
 	 * @brief Returns a reference to the last element of the queue
 	 *
 	 * @return A reference to the last element of the queue
 	 */
 	const T& back() const {
-		if (empty()) {
-			throw std::out_of_range("Queue is empty");
-		} else {
+		try {
 			return this->at(this->size() - 1);
+		} catch (const std::out_of_range& e) {
+			throw std::out_of_range("Queue is empty");
 		}
+	}
+
+	void clear() {
+		ArrayList<T>::clear();
+	}
+
+	std::size_t size() const {
+		return ArrayList<T>::size();
 	}
 
 };

@@ -1,25 +1,27 @@
 # data-structures
 
+[![Build Status](https://travis-ci.org/matheuspb/data-structures.svg?branch=master)](https://travis-ci.org/matheuspb/data-structures)
+
 Data structures implemented for my data structures course (INE5408) at UFSC.
 
-* [Array structures](array-structures):
-	* [Stack](array-structures/array_stack.h)
-	* [Queue](array-structures/array_queue.h)
-	* [List](array-structures/array_list.h)
-* [Linked structures](linked-structures):
-	* [List](linked-structures/linked_list.h)
-	* [Stack](linked-structures/linked_stack.h)
-	* [Queue](linked-structures/linked_queue.h)
-	* [Doubly linked list](linked-structures/doubly_linked_list.h)
-	* [Circular list](linked-structures/circular_list.h)
-	* [Doubly circular list](linked-structures/doubly_circular_list.h)
-* [Tree structures](tree-structures):
-	* [Binary search tree](tree-structures/binary_tree.h)
-	* [AVL tree](tree-structures/avl_tree.h)
-	* [Red-Black tree](tree-structures/rb_tree.h)
-* [Other structures](other-structures):
-	* [Hash table](other-structures/hash_table.h)
-	* [Heap](other-structures/heap.h)
+* Array structures:
+	* [Stack](include/array_stack.h)
+	* [Queue](include/array_queue.h)
+	* [List](include/array_list.h)
+* Linked structures:
+	* [List](include/linked_list.h)
+	* [Stack](include/linked_stack.h)
+	* [Queue](include/linked_queue.h)
+	* [Doubly linked list](include/doubly_linked_list.h)
+	* [Circular list](include/circular_list.h)
+	* [Doubly circular list](include/doubly_circular_list.h)
+* Tree structures:
+	* [Binary search tree](include/binary_tree.h)
+	* [AVL tree](include/avl_tree.h)
+	* [Red-Black tree](include/rb_tree.h)
+* Other structures:
+	* [Hash table](include/hash_table.h)
+	* [Heap](include/heap.h)
 
 [Floyd algorithm complexity analysis](floyd.tex)
 
