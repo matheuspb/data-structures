@@ -1,6 +1,8 @@
 #ifndef STACK_TEST_H
 #define STACK_TEST_H
 
+#include <abstract.h>
+
 void test_stack(structures::Stack<int>* stack) {
 	for (int i = 0; i < SIZE; i++) {
 		stack->push(i);

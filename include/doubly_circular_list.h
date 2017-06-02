@@ -198,6 +198,11 @@ public:
 	 * @param index The index on the list of the element that'll be returned
 	 */
 	T& at(std::size_t index) {
+		return const_cast<T&>(
+				static_cast<const DoublyCircularList*>(this)->at(index));
+	}
+
+	const T& at(std::size_t index) const {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		auto it = head;
 		for (std::size_t i = 0; i < index; ++i) {

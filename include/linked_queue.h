@@ -17,13 +17,11 @@ namespace structures {
  * @tparam T This is the data type of the elements of the queue.
  */
 template<typename T>
-class LinkedQueue : private DoublyCircularList<T> {
+class LinkedQueue : private DoublyCircularList<T>, public Queue<T> {
 
 public:
 
-	using DoublyCircularList<T>::clear;
 	using DoublyCircularList<T>::empty;
-	using DoublyCircularList<T>::size;
 
 	LinkedQueue(): DoublyCircularList<T>{} {}
 
@@ -55,10 +53,10 @@ public:
 	 * @return A reference to the first element.
 	 */
 	const T& front() const {
-		if (empty()) {
-			throw std::out_of_range("Queue is empty");
-		} else {
+		try {
 			return this->at(0);
+		} catch (const std::out_of_range& e) {
+			throw std::out_of_range("Queue is empty");
 		}
 	}
 
@@ -68,11 +66,19 @@ public:
 	 * @return A reference to the last element.
 	 */
 	const T& back() const {
-		if (empty()) {
-			throw std::out_of_range("Queue is empty");
-		} else {
+		try {
 			return this->at(this->size() - 1);
+		} catch (const std::out_of_range& e) {
+			throw std::out_of_range("Queue is empty");
 		}
+	}
+
+	void clear() {
+		DoublyCircularList<T>::clear();
+	}
+
+	std::size_t size() const {
+		return DoublyCircularList<T>::size();
 	}
 
 };

@@ -23,8 +23,8 @@ public:
 	virtual T dequeue() = 0;
 	virtual const T& front() const = 0;
 	virtual const T& back() const = 0;
-	virtual void clear() const = 0;
-	virtual std::size_t size() = 0;
+	virtual void clear() = 0;
+	virtual std::size_t size() const = 0;
 
 };
 
