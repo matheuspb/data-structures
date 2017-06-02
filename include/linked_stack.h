@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include "linked_list.h"
+#include <linked_list.h>
 
 namespace structures {
 
@@ -17,13 +17,11 @@ namespace structures {
  * @tparam T This is the data type of the elements of the stack.
  */
 template<typename T>
-class LinkedStack : private LinkedList<T> {
+class LinkedStack : private LinkedList<T>, public Stack<T> {
 
 public:
 
-	using LinkedList<T>::clear;
 	using LinkedList<T>::empty;
-	using LinkedList<T>::size;
 
 	/**
 	 * @brief Adds 'data' to the top of the stack
@@ -54,6 +52,14 @@ public:
 	 */
 	const T& top() const {
 		return this->at(0);
+	}
+
+	void clear() {
+		LinkedList<T>::clear();
+	}
+
+	std::size_t size() const {
+		return LinkedList<T>::size();
 	}
 
 };

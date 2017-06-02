@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <algorithm>
-#include "binary_tree.h"
+
+#include <binary_tree.h>
 
 namespace structures {
 

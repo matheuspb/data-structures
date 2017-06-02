@@ -4,7 +4,8 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include "array_list.h"
+#include <abstract.h>
+#include <array_list.h>
 
 namespace structures {
 
@@ -17,12 +18,10 @@ namespace structures {
  * @tparam T Data type of the elements
  */
 template<typename T>
-class ArrayStack : private ArrayList<T> {
+class ArrayStack : private ArrayList<T>, public Stack<T> {
 
 public:
 
-	using ArrayList<T>::clear;
-	using ArrayList<T>::size;
 	using ArrayList<T>::max_size;
 	using ArrayList<T>::empty;
 	using ArrayList<T>::full;
@@ -73,6 +72,14 @@ public:
 		} else {
 			return this->at(this->size() - 1);
 		}
+	}
+
+	void clear() {
+		ArrayList<T>::clear();
+	}
+
+	std::size_t size() const {
+		return ArrayList<T>::size();
 	}
 
 };

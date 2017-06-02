@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include "array_list.h"
+#include <array_list.h>
 
 namespace structures {
 

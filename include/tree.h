@@ -1,7 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include "../array-structures/array_list.h"
+#include <array_list.h>
 
 namespace structures {
 

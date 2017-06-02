@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <memory>
 
+#define DEFAULT_MAX 10
+
 namespace structures {
 
 /**
@@ -14,7 +16,9 @@ namespace structures {
  */
 template<typename T>
 class ArrayList {
+
 public:
+
 	/**
 	 * @brief Default constructor
 	 */
@@ -283,7 +287,6 @@ private:
 	std::size_t size_{0u};
 	std::size_t max_size_{DEFAULT_MAX};
 
-	static const auto DEFAULT_MAX{10u};
 };
 
 }  // namespace structures
