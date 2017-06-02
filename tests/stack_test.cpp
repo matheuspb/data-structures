@@ -1,6 +1,5 @@
-#ifndef STACK_TEST_H
-#define STACK_TEST_H
-
+#include <assert.h>
+#include <tests.h>
 #include <abstract.h>
 
 void test_stack(structures::Stack<int>* stack) {
@@ -23,5 +22,3 @@ void test_stack(structures::Stack<int>* stack) {
 		assert(stack->pop() == i);
 	}
 }
-
-#endif

@@ -1,6 +1,8 @@
 #ifndef STRUCTURES_ABSTRACT_H
 #define STRUCTURES_ABSTRACT_H
 
+#include <cstdint>
+
 namespace structures {
 
 template<typename T>

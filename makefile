@@ -3,7 +3,7 @@ CPPFLAGS = -std=c++11 -I include -Werror -Wall -Wextra -pedantic
 
 all: tests/main
 
-tests/main: $(tests/main.cpp)
+tests/main: $(wildcard tests/*.cpp)
 
 test: tests/main
 	@./tests/main

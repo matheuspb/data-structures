@@ -1,5 +1,6 @@
-#ifndef QUEUE_TEST_H
-#define QUEUE_TEST_H
+#include <assert.h>
+#include <tests.h>
+#include <abstract.h>
 
 void test_queue(structures::Queue<int>* queue) {
 	for (int i = 0; i < SIZE; i++) {
@@ -22,5 +23,3 @@ void test_queue(structures::Queue<int>* queue) {
 		assert(queue->dequeue() == i);
 	}
 }
-
-#endif

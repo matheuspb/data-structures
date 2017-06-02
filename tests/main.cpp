@@ -1,17 +1,12 @@
 #include <iostream>
-#include <assert.h>
 
-#define SIZE 100
-
-#include <abstract.h>
+#include <tests.h>
 
 #include <array_stack.h>
 #include <linked_stack.h>
-#include "stack_test.h"
 
 #include <array_queue.h>
 #include <linked_queue.h>
-#include "queue_test.h"
 
 int main() {
 	{
