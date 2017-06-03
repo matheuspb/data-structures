@@ -13,7 +13,7 @@ namespace structures {
  * @tparam T Data type of the elements.
  */
 template<typename T>
-class DoublyLinkedList {
+class DoublyLinkedList : public List<T> {
 public:
 	/**
 	 * @brief Default constructor
@@ -103,7 +103,7 @@ public:
 	 *
 	 * @return The element that was removed
 	 */
-	T pop(std::size_t index) {
+	T erase(std::size_t index) {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		if (index == 0) return pop_front();
 		Node* it = head;
@@ -126,7 +126,7 @@ public:
 	 * @return The removed element
 	 */
 	T pop_back() {
-		return pop(size_ - 1);
+		return erase(size_ - 1);
 	}
 
 	/**
@@ -186,7 +186,7 @@ public:
 	 * @return True if the list contains 'data'
 	 */
 	bool contains(const T& data) const {
-		for (Node* it = head; it->next != nullptr; it = it->next) {
+		for (Node* it = head; it != nullptr; it = it->next) {
 			if (it->data == data) return true;
 		}
 		return false;

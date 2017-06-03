@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <stdexcept>
 
+#include <abstract.h>
+
 namespace structures {
 
 /**
@@ -15,7 +17,7 @@ namespace structures {
  * @tparam T Data type of the elements
  */
 template<typename T>
-class LinkedList {
+class LinkedList : public List<T> {
 
 public:
 
@@ -120,7 +122,7 @@ public:
 	 *
 	 * @return The element that was removed
 	 */
-	T pop(std::size_t index) {
+	T erase(std::size_t index) {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		if (index == 0) return pop_front();
 
@@ -144,7 +146,7 @@ public:
 	 * @return The removed element
 	 */
 	T pop_back() {
-		return pop(size_ - 1);
+		return erase(size_ - 1);
 	}
 
 	/**
