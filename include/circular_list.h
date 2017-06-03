@@ -15,7 +15,7 @@ namespace structures {
  * @tparam T Data type of the elements
  */
 template<typename T>
-class CircularList {
+class CircularList : public List<T> {
 public:
 	/**
 	 * @brief Default constructor
@@ -93,30 +93,13 @@ public:
 	}
 
 	/**
-	 * @brief Checks if the index is valid, then returns a reference to the
-	 * element at the given index of the list
-	 *
-	 * @param index The index on the list of the element that'll be returned
-	 *
-	 * @return A reference to the element at the given index
-	 */
-	T& at(std::size_t index) {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
-		Node* it = head->next;
-		for (std::size_t i = 0; i < index; ++i) {
-			it = it->next;
-		}
-		return it->data;
-	}
-
-	/**
 	 * @brief Removes the element at the given index
 	 *
 	 * @param index The index of the element that'll be removed
 	 *
 	 * @return The element that was removed
 	 */
-	T pop(std::size_t index) {
+	T erase(std::size_t index) {
 		if (index >= size_) throw std::out_of_range("Index out of bounds");
 		Node* it = head;
 		for (std::size_t i = 0; i < index; ++i) {
@@ -136,7 +119,7 @@ public:
 	 * @return The removed element
 	 */
 	T pop_back() {
-		return pop(size_ - 1);
+		return erase(size_ - 1);
 	}
 
 	/**
@@ -145,7 +128,7 @@ public:
 	 * @return The removed element
 	 */
 	T pop_front() {
-		return pop(0);
+		return erase(0);
 	}
 
 	/**
@@ -205,6 +188,28 @@ public:
 			++index;
 		}
 		return index;
+	}
+
+	/**
+	 * @brief Returns a reference to the element at a given index
+	 *
+	 * @details If index is out of the list's bounds, it throws an
+	 * std::out_of_range exception
+	 *
+	 * @param index The index on the list of the element that'll be returned
+	 */
+	T& at(std::size_t index) {
+		return const_cast<T&>(
+				static_cast<const CircularList*>(this)->at(index));
+	}
+
+	const T& at(std::size_t index) const {
+		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		Node* it = head->next;
+		for (std::size_t i = 0; i < index; ++i) {
+			it = it->next;
+		}
+		return it->data;
 	}
 
 	/**

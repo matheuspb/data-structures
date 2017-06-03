@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <memory>
 
+#include <abstract.h>
+
 #define DEFAULT_MAX 10
 
 namespace structures {
@@ -15,7 +17,7 @@ namespace structures {
  * @tparam T Data type of the elements
  */
 template<typename T>
-class ArrayList {
+class ArrayList : public List<T> {
 
 public:
 
@@ -78,7 +80,7 @@ public:
 	 *
 	 * @param data The element that'll be added
 	 */
-	void push_back(T data) {
+	void push_back(const T& data) {
 		insert(data, size_);
 	}
 
@@ -87,7 +89,7 @@ public:
 	 *
 	 * @param data The element that'll be added
 	 */
-	void push_front(T data) {
+	void push_front(const T& data) {
 		insert(data, 0);
 	}
 
@@ -97,7 +99,7 @@ public:
 	 * @param data The element that'll be inserted
 	 * @param index The position where 'data' will be inserted
 	 */
-	void insert(T data, std::size_t index) {
+	void insert(const T& data, std::size_t index) {
 		if (full()) {
 			throw std::out_of_range("List is full");
 		} else if (index > size_) {
@@ -116,7 +118,7 @@ public:
 	 *
 	 * @param data The element that'll be inserted
 	 */
-	void insert_sorted(T data) {
+	void insert_sorted(const T& data) {
 		std::size_t i = 0;
 		while (i < size_ && data >= contents[i])
 			i++;
@@ -130,7 +132,7 @@ public:
 	 *
 	 * @return The element that was removed
 	 */
-	T pop(std::size_t index) {
+	T erase(std::size_t index) {
 		if (empty()) {
 			throw std::out_of_range("List is empty");
 		} else if (index >= size_) {
@@ -151,7 +153,7 @@ public:
 	 * @return The element that was removed
 	 */
 	T pop_back() {
-		return pop(size_ - 1);
+		return erase(size_ - 1);
 	}
 
 	/**
@@ -160,7 +162,7 @@ public:
 	 * @return The element that was removed
 	 */
 	T pop_front() {
-		return pop(0);
+		return erase(0);
 	}
 
 	/**
@@ -168,8 +170,8 @@ public:
 	 *
 	 * @param data The element that'll be removed
 	 */
-	void remove(T data) {
-		pop(find(data));
+	void remove(const T& data) {
+		erase(find(data));
 	}
 
 	/**

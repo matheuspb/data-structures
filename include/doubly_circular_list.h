@@ -3,6 +3,8 @@
 
 #include <stdexcept>
 
+#include <abstract.h>
+
 namespace structures {
 
 /**
@@ -10,7 +12,7 @@ namespace structures {
  * @tparam T Data type of the elements
  */
 template<typename T>
-class DoublyCircularList {
+class DoublyCircularList : public List<T>{
 public:
 	/**
 	 * @brief Default constructor
@@ -109,7 +111,7 @@ public:
 	 *
 	 * @return The element that was removed
 	 */
-	T pop(std::size_t index) {
+	T erase(std::size_t index) {
 		if (index >= size_) throw std::out_of_range(
 				"Index out of bounds (pop())");
 		auto oldHead = head;
@@ -183,7 +185,10 @@ public:
 	 * @return True if the list contains 'data'
 	 */
 	bool contains(const T& data) const {
-		for (auto it = head; it->next != head; it = it->next) {
+		if (head->data == data)
+			return true;
+
+		for (auto it = head->next; it != head; it = it->next) {
 			if (it->data == data) return true;
 		}
 		return false;
@@ -217,10 +222,13 @@ public:
 	 * @param data The element that'll be searched
 	 */
 	std::size_t find(const T& data) const {
-		std::size_t index = 1;
+		if (size_ == 0)
+			return 0;
+
 		if (head->data == data)
 			return 0;
 
+		std::size_t index = 1;
 		for (auto it = head->next; it != head; it = it->next) {
 			if (it->data == data)
 				break;
