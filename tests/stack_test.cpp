@@ -21,4 +21,9 @@ void test_stack(structures::Stack<int>* stack) {
 	for (int i = SIZE - 1; i >= 0; i--) {
 		assert(stack->pop() == i);
 	}
+
+	// test for memory leaks
+	for (int i = 0; i < SIZE; i++) {
+		stack->push(i);
+	}
 }

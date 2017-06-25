@@ -185,6 +185,9 @@ public:
 	 * @return True if the list contains 'data'
 	 */
 	bool contains(const T& data) const {
+		if (empty())
+			return false;
+
 		if (head->data == data)
 			return true;
 

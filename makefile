@@ -1,15 +1,15 @@
 .PHONY = test clean debug
-CXXFLAGS = -std=c++11 -I include -Werror -Wall -Wextra -pedantic
+CPPFLAGS = -std=c++11 -I include -Werror -Wall -Wextra -pedantic
 
 all: tests/main
 
 tests/main: $(wildcard tests/*.cpp)
 
-debug: CXXFLAGS += -g
+debug: CPPFLAGS += -g
 debug: all
 
-test: tests/main
-	@./tests/main
+test: debug
+	valgrind ./tests/main
 
 clean:
 	rm tests/main

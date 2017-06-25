@@ -50,4 +50,9 @@ void test_list(structures::List<int>* list) {
 
 	list->clear();
 	assert(list->size() == 0);
+
+	// test for memory leaks
+	for (int i = 0; i < SIZE; i++) {
+		list->push_back(i);
+	}
 }

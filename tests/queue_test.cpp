@@ -22,4 +22,9 @@ void test_queue(structures::Queue<int>* queue) {
 	for (int i = 0; i < SIZE; i++) {
 		assert(queue->dequeue() == i);
 	}
+
+	// test for memory leaks
+	for (int i = 0; i < SIZE; i++) {
+		queue->enqueue(i);
+	}
 }
