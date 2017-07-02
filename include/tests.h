@@ -11,8 +11,7 @@
 
 namespace tests {
 
-	template<typename S, typename std::enable_if<
-			std::is_base_of<structures::Stack<int>, S>::value, int>::type = 0>
+	template<typename S>
 	void test_stack() {
 		S stack;
 
@@ -41,8 +40,7 @@ namespace tests {
 		}
 	}
 
-	template<typename Q, typename std::enable_if<
-			std::is_base_of<structures::Queue<int>, Q>::value, int>::type = 0>
+	template<typename Q>
 	void test_queue() {
 		Q queue;
 
@@ -72,8 +70,7 @@ namespace tests {
 		}
 	}
 
-	template<typename L, typename std::enable_if<
-			std::is_base_of<structures::List<int>, L>::value, int>::type = 0>
+	template<typename L>
 	void test_list() {
 		L list;
 
@@ -128,6 +125,21 @@ namespace tests {
 			list.push_back(i);
 		}
 	}
+
+	template<typename T, typename
+		std::enable_if<std::is_base_of<structures::Stack<int>, T>::value,
+		int>::type = 0> void test_structure() { test_stack<T>(); }
+
+	template<typename T, typename
+		std::enable_if<std::is_base_of<structures::Queue<int>, T>::value,
+		int>::type = 0> void test_structure() { test_queue<T>(); }
+
+	template<typename T, typename
+		std::enable_if<
+			std::is_base_of<structures::List<int>, T>::value &&
+			!std::is_base_of<structures::Stack<int>, T>::value &&
+			!std::is_base_of<structures::Queue<int>, T>::value,
+		int>::type = 0> void test_structure() { test_list<T>(); }
 
 }  // namespace tests
 

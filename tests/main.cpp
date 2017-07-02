@@ -17,47 +17,46 @@
 int main() {
 	std::cout << "testing ArrayStack          ... ";
 	std::cout.flush();
-	tests::test_stack<structures::ArrayStack<int>>();
+	tests::test_structure<structures::ArrayStack<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing LinkedStack         ... ";
 	std::cout.flush();
-	tests::test_stack<structures::LinkedStack<int>>();
+	tests::test_structure<structures::LinkedStack<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing ArrayQueue          ... ";
 	std::cout.flush();
-	tests::test_queue<structures::ArrayQueue<int>>();
+	tests::test_structure<structures::ArrayQueue<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing LinkedQueue         ... ";
 	std::cout.flush();
-	tests::test_queue<structures::LinkedQueue<int>>();
+	tests::test_structure<structures::LinkedQueue<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing ArrayList           ... ";
 	std::cout.flush();
-	tests::test_list<structures::ArrayList<int>>();
+	tests::test_structure<structures::ArrayList<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing LinkedList          ... ";
 	std::cout.flush();
-	tests::test_list<structures::LinkedList<int>>();
+	tests::test_structure<structures::LinkedList<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing DoublyLinkedList    ... ";
 	std::cout.flush();
-	tests::test_list<structures::DoublyLinkedList<int>>();
+	tests::test_structure<structures::DoublyLinkedList<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing CircularList        ... ";
 	std::cout.flush();
-	tests::test_list<structures::CircularList<int>>();
+	tests::test_structure<structures::CircularList<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing DoublyCircularList  ... ";
 	std::cout.flush();
-	tests::test_list<structures::DoublyCircularList<int>>();
+	tests::test_structure<structures::DoublyCircularList<int>>();
 	std::cout << "OK" << std::endl;
 }
-
