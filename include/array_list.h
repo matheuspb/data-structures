@@ -7,7 +7,7 @@
 
 #include <abstract.h>
 
-#define DEFAULT_MAX 10
+#define DEFAULT_MAX 1000 // TODO implement variable sized ArrayList
 
 namespace structures {
 

@@ -15,76 +15,49 @@
 #include <doubly_circular_list.h>
 
 int main() {
-	{
-		structures::ArrayStack<int> as{SIZE};
-		std::cout << "testing ArrayStack          ... ";
-		std::cout.flush();
-		test_stack(&as);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing ArrayStack          ... ";
+	std::cout.flush();
+	tests::test_stack<structures::ArrayStack<int>>();
+	std::cout << "OK" << std::endl;
 
-	{
-		structures::LinkedStack<int> ls{};
-		std::cout << "testing LinkedStack         ... ";
-		std::cout.flush();
-		test_stack(&ls);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing LinkedStack         ... ";
+	std::cout.flush();
+	tests::test_stack<structures::LinkedStack<int>>();
+	std::cout << "OK" << std::endl;
 
-	{
-		structures::ArrayQueue<int> aq{SIZE};
-		std::cout << "testing ArrayQueue          ... ";
-		std::cout.flush();
-		test_queue(&aq);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing ArrayQueue          ... ";
+	std::cout.flush();
+	tests::test_queue<structures::ArrayQueue<int>>();
+	std::cout << "OK" << std::endl;
 
-	{
-		structures::LinkedQueue<int> lq{};
-		std::cout << "testing LinkedQueue         ... ";
-		std::cout.flush();
-		test_queue(&lq);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing LinkedQueue         ... ";
+	std::cout.flush();
+	tests::test_queue<structures::LinkedQueue<int>>();
+	std::cout << "OK" << std::endl;
 
-	{
-		structures::ArrayList<int> al{SIZE};
-		std::cout << "testing ArrayList           ... ";
-		std::cout.flush();
-		test_list(&al);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing ArrayList           ... ";
+	std::cout.flush();
+	tests::test_list<structures::ArrayList<int>>();
+	std::cout << "OK" << std::endl;
 
-	{
-		structures::LinkedList<int> ll;
-		std::cout << "testing LinkedList          ... ";
-		std::cout.flush();
-		test_list(&ll);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing LinkedList          ... ";
+	std::cout.flush();
+	tests::test_list<structures::LinkedList<int>>();
+	std::cout << "OK" << std::endl;
 
-	{
-		structures::DoublyLinkedList<int> dll;
-		std::cout << "testing DoublyLinkedList    ... ";
-		std::cout.flush();
-			test_list(&dll);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing DoublyLinkedList    ... ";
+	std::cout.flush();
+	tests::test_list<structures::DoublyLinkedList<int>>();
+	std::cout << "OK" << std::endl;
 
-	{
-		structures::CircularList<int> cl;
-		std::cout << "testing CircularList        ... ";
-		std::cout.flush();
-		test_list(&cl);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing CircularList        ... ";
+	std::cout.flush();
+	tests::test_list<structures::CircularList<int>>();
+	std::cout << "OK" << std::endl;
 
-	{
-		structures::DoublyCircularList<int> dcl;
-		std::cout << "testing DoublyCircularList  ... ";
-		std::cout.flush();
-		test_list(&dcl);
-		std::cout << "OK" << std::endl;
-	}
+	std::cout << "testing DoublyCircularList  ... ";
+	std::cout.flush();
+	tests::test_list<structures::DoublyCircularList<int>>();
+	std::cout << "OK" << std::endl;
 }
 
