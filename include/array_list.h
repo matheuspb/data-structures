@@ -7,8 +7,6 @@
 
 #include <abstract.h>
 
-#define DEFAULT_MAX 1000 // TODO implement variable sized ArrayList
-
 namespace structures {
 
 /**
@@ -27,7 +25,7 @@ public:
 	ArrayList() = default;
 
 	ArrayList(const ArrayList<T>& other):
-		contents{copy_array(other.contents, other.max_size_)},
+		contents{copy_array(other.contents, other.size_, other.max_size_)},
 		size_{other.size_},
 		max_size_{other.max_size_}
 	{}
@@ -100,9 +98,7 @@ public:
 	 * @param index The position where 'data' will be inserted
 	 */
 	void insert(const T& data, std::size_t index) {
-		if (full()) {
-			throw std::out_of_range("List is full");
-		} else if (index > size_) {
+		if (index > size_) {
 			throw std::out_of_range("Index out of bounds");
 		} else {
 			for (std::size_t i = size_; i > index; i--) {
@@ -110,6 +106,9 @@ public:
 			}
 			contents[index] = data;
 			size_++;
+
+			if (max_size_ == size_)
+				expand(2);
 		}
 	}
 
@@ -144,6 +143,9 @@ public:
 			}
 			size_--;
 			return deleted;
+
+			if (max_size_ / 4 > size_)
+				expand(0.5);
 		}
 	}
 
@@ -172,15 +174,6 @@ public:
 	 */
 	void remove(const T& data) {
 		erase(find(data));
-	}
-
-	/**
-	 * @brief Checks if the list is full
-	 *
-	 * @return True if the list is full
-	 */
-	bool full() const {
-		return size_ == max_size_;
 	}
 
 	/**
@@ -228,15 +221,6 @@ public:
 	}
 
 	/**
-	 * @brief Maximum size of the list
-	 *
-	 * @return Maximum size of the list
-	 */
-	std::size_t max_size() const {
-		return max_size_;
-	}
-
-	/**
 	 * @brief Checks if the index is valid, then returns a reference to the
 	 * element at the given index of the list
 	 *
@@ -276,18 +260,25 @@ public:
 
 private:
 
+	void expand(float ratio) {
+		contents = copy_array(contents, size_, size_ * ratio);
+		max_size_ = size_ * ratio;
+	}
+
 	static std::unique_ptr<T[]> copy_array(const std::unique_ptr<T[]>& original,
-			std::size_t size) {
-		std::unique_ptr<T[]> copy{new T[size]};
+			std::size_t size, std::size_t new_size) {
+		std::unique_ptr<T[]> copy{new T[new_size]};
 		for (std::size_t i = 0; i < size; i++) {
 			copy[i] = original[i];
 		}
 		return copy;
 	}
 
-	std::unique_ptr<T[]> contents{new T[DEFAULT_MAX]};
+	const static std::size_t starting_size{8};
+
+	std::unique_ptr<T[]> contents{new T[starting_size]};
 	std::size_t size_{0u};
-	std::size_t max_size_{DEFAULT_MAX};
+	std::size_t max_size_{starting_size};
 
 };
 

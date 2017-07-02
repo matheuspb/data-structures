@@ -15,6 +15,7 @@
 #include <doubly_circular_list.h>
 
 int main() {
+
 	std::cout << "testing ArrayStack          ... ";
 	std::cout.flush();
 	tests::test_structure<structures::ArrayStack<int>>();
@@ -59,4 +60,5 @@ int main() {
 	std::cout.flush();
 	tests::test_structure<structures::DoublyCircularList<int>>();
 	std::cout << "OK" << std::endl;
+
 }

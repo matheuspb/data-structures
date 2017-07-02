@@ -22,9 +22,7 @@ class ArrayStack : private ArrayList<T>, public Stack<T> {
 
 public:
 
-	using ArrayList<T>::max_size;
 	using ArrayList<T>::empty;
-	using ArrayList<T>::full;
 
 	ArrayStack(): ArrayList<T>{} {}
 
@@ -41,11 +39,7 @@ public:
 	 * @param data The element that'll be added to the stack
 	 */
 	void push(const T& data) {
-		if (this->full()) {
-			throw std::out_of_range("Stack is full");
-		} else {
-			ArrayList<T>::push_back(data);
-		}
+		ArrayList<T>::push_back(data);
 	}
 
 	/**

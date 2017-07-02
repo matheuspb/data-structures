@@ -21,9 +21,7 @@ class ArrayQueue : private ArrayList<T>, public Queue<T> {
 
 public:
 
-	using ArrayList<T>::max_size;
 	using ArrayList<T>::empty;
-	using ArrayList<T>::full;
 
 	ArrayQueue(): ArrayList<T>{} {}
 
@@ -40,11 +38,7 @@ public:
 	 * @param data The element that'll be added to the queue
 	 */
 	void enqueue(const T& data) {
-		if (full()) {
-			throw std::out_of_range("Queue is full");
-		} else {
-			ArrayList<T>::push_back(data);
-		}
+		ArrayList<T>::push_back(data);
 	}
 
 	/**

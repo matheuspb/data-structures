@@ -7,7 +7,7 @@
 #include <initializer_list>
 #include <type_traits>
 
-#define SIZE 1000
+#define SIZE 5000
 
 namespace tests {
 
