@@ -64,7 +64,7 @@ public:
 	/**
 	 * @brief Destroys the list
 	 */
-	~ArrayList() = default;
+	virtual ~ArrayList() = default;
 
 	/**
 	 * @brief Clears the contents of the list

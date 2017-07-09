@@ -14,7 +14,7 @@ namespace structures {
  * @tparam N Class of the nodes of the tree
  */
 template<typename T, typename N>
-class Tree {
+class Tree : public Set<T> {
 
 public:
 
@@ -28,13 +28,15 @@ public:
 	/**
 	 * @brief Inserts 'data' into the tree
 	 */
-	void insert(const T& data) {
+	bool insert(const T& data) {
 		if (root) {
-			N::insert(root, data);
+			if (!N::insert(root, data))
+				return false;
 		} else {
 			root = new N(data);
 		}
 		++size_;
+		return true;
 	}
 
 	/**
@@ -80,11 +82,9 @@ public:
 		return root ? root->contains(data) : false;
 	}
 
-	/**
-	 * @brief Returns true if the tree is empty
-	 */
-	bool empty() const {
-		return size_ == 0;
+	void clear() {
+		while (size_ > 0)
+			remove(root->data);
 	}
 
 	/**
@@ -92,6 +92,10 @@ public:
 	 */
 	std::size_t size() const {
 		return size_;
+	}
+
+	List<T>* items() const {
+		return new ArrayList<T>(pre_order());
 	}
 
 	/**

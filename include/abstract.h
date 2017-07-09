@@ -34,6 +34,7 @@ template<typename T>
 class List {
 
 public:
+	virtual ~List() = 0;
 	virtual void clear() = 0;
 
 	virtual void push_front(const T&) = 0;
@@ -51,6 +52,22 @@ public:
 
 	virtual T& at(std::size_t index) = 0;
 	virtual const T& at(std::size_t index) const = 0;
+
+};
+
+template<typename T> List<T>::~List() {}
+
+template<typename T>
+class Set {
+
+public:
+	virtual bool insert(const T&) = 0;
+	virtual bool remove(const T&) = 0;
+	virtual bool contains(const T&) const = 0;
+
+	virtual void clear() = 0;
+	virtual std::size_t size() const = 0;
+	virtual List<T>* items() const = 0;
 
 };
 

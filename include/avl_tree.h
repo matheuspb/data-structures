@@ -29,6 +29,8 @@ public:
 	static AVLNode<T>* insert(AVLNode<T>* node, const T& data_) {
 		auto new_node = Node<T>::insert(node, data_);
 
+		if (new_node == nullptr) return nullptr;
+
 		AVLNode<T>* new_avl_node = new AVLNode<T>(data_, new_node->parent);
 
 		if (new_avl_node->parent->right == new_node) {

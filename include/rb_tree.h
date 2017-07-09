@@ -36,6 +36,8 @@ public:
 	static RBNode<T>* insert(RBNode<T>* node, const T& data_) {
 		auto new_node = Node<T>::insert(node, data_);
 
+		if (new_node == nullptr) return nullptr;
+
 		RBNode<T>* new_rb_node = new RBNode<T>(data_, new_node->parent, red);
 
 		if (new_rb_node->parent->right == new_node) {
@@ -53,8 +55,9 @@ public:
 	static RBNode<T>* remove(RBNode<T>* node, const T& data_) {
 		auto to_delete = (RBNode<T>*) node->find_node_to_delete(data_);
 		if (to_delete) {
+			auto p = to_delete->parent;
 			del_and_update(to_delete);
-			return (RBNode<T>*) to_delete->parent;
+			return (RBNode<T>*) p;
 		} else {
 			return nullptr;
 		}

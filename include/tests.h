@@ -126,6 +126,45 @@ namespace tests {
 		}
 	}
 
+	template<typename S>
+	void test_set() {
+		S set;
+
+		for (double i = 0; i < SIZE; i++) {
+			assert(set.insert(i));
+			assert(!set.insert(i));
+			assert(set.contains(i));
+		}
+
+		assert(set.size() == SIZE);
+
+		for (double i = 0; i < SIZE; i++) {
+			assert(set.remove(i));
+			assert(!set.remove(i));
+			assert(!set.contains(i));
+		}
+
+		for (double i = 0; i < SIZE; i++) {
+			assert(set.insert(i));
+		}
+
+		auto items = set.items();
+		set.clear();
+		assert(set.size() == 0);
+
+		for (double i = 0; i < SIZE; i++) {
+			assert(items->contains(i));
+			assert(!set.contains(i));
+		}
+
+		delete items;
+
+		// test for memory leaks
+		for (double i = 0; i < SIZE; i++) {
+			assert(set.insert(i));
+		}
+	}
+
 	template<typename T, typename
 		std::enable_if<std::is_base_of<structures::Stack<int>, T>::value,
 		int>::type = 0> void test_structure() { test_stack<T>(); }
@@ -140,6 +179,10 @@ namespace tests {
 			!std::is_base_of<structures::Stack<int>, T>::value &&
 			!std::is_base_of<structures::Queue<int>, T>::value,
 		int>::type = 0> void test_structure() { test_list<T>(); }
+
+	template<typename T, typename
+		std::enable_if<std::is_base_of<structures::Set<double>, T>::value,
+		int>::type = 0> void test_structure() { test_set<T>(); }
 
 }  // namespace tests
 

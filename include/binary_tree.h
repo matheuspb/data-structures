@@ -36,7 +36,7 @@ struct Node {
 				node->left = new Node(data_, node);
 				return node->left;
 			}
-		} else {
+		} else if (data_ > node->data) {
 			// insert right
 			if (node->right) {
 				return insert(node->right, data_);
@@ -44,6 +44,8 @@ struct Node {
 				node->right = new Node(data_, node);
 				return node->right;
 			}
+		} else {
+			return nullptr;
 		}
 	}
 
@@ -67,8 +69,9 @@ struct Node {
 				node->left = nullptr;
 				node->right = nullptr;
 
+				auto parent = node->parent;
 				delete node;
-				return node->parent;
+				return parent;
 			}
 		} else {
 			auto n = data_ < node->data ? node->left : node->right;

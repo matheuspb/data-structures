@@ -22,7 +22,7 @@ namespace structures {
  * @tparam Hash Class that implements the hash function
  */
 template <typename T, typename Hash = std::hash<T>>
-class HashTable {
+class HashTable : public Set<T> {
 
 public:
 
@@ -97,10 +97,10 @@ public:
 		try {
 			auto& bucket = buckets[hash(data)];
 			auto i = bucket.find(data);
-			bucket.pop(i);
+			bucket.erase(i);
 			_size--;
 
-			if (_size <= buckets_size / 4) {
+			if (_size <= buckets_size / 4 && buckets_size > starting_size) {
 				std::size_t new_size = buckets_size / 2;
 				if (new_size >= starting_size)
 					resize_table(new_size);
@@ -119,8 +119,9 @@ public:
 		return buckets[hash(data)].contains(data);
 	}
 
-	bool empty() const {
-		return _size == 0;
+	void clear() {
+		HashTable<T> ht;
+		*this = std::move(ht);
 	}
 
 	std::size_t size() const {
@@ -130,12 +131,12 @@ public:
 	/**
 	 * @brief Returns a list of the items that are on the table
 	 */
-	ArrayList<T> items() const {
-		ArrayList<T> al{_size};
+	List<T>* items() const {
+		auto al = new ArrayList<T>(_size);
 
 		for (std::size_t i = 0; i < buckets_size; i++) {
 			for (std::size_t j = 0; j < buckets[i].size(); j++) {
-				al.push_back(buckets[i].at(j));
+				al->push_back(buckets[i].at(j));
 			}
 		}
 
@@ -157,9 +158,11 @@ private:
 		HashTable new_ht{new_size};
 
 		auto list = items();
-		for (std::size_t i = 0; i < list.size(); i++) {
-			new_ht.insert(list[i]);
+		for (std::size_t i = 0; i < list->size(); i++) {
+			new_ht.insert(list->at(i));
 		}
+
+		delete list;
 
 		*this = std::move(new_ht);
 	}
