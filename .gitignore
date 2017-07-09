@@ -1,4 +1,6 @@
 tests/main
 
+vgcore.*
+
 *latex*
 *html*
