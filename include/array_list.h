@@ -2,8 +2,8 @@
 #define STRUCTURES_ARRAY_LIST_H
 
 #include <cstdint>
-#include <stdexcept>
 #include <memory>
+#include <stdexcept>
 
 #include <abstract.h>
 
@@ -14,27 +14,23 @@ namespace structures {
  *
  * @tparam T Data type of the elements
  */
-template<typename T>
+template <typename T>
 class ArrayList : public List<T> {
-
 public:
-
 	/**
 	 * @brief Default constructor
 	 */
 	ArrayList() = default;
 
-	ArrayList(const ArrayList<T>& other):
-		contents{copy_array(other.contents, other.size_, other.max_size_)},
-		size_{other.size_},
-		max_size_{other.max_size_}
-	{}
+	ArrayList(const ArrayList<T>& other)
+		: contents{copy_array(other.contents, other.size_, other.max_size_)}
+		, size_{other.size_}
+		, max_size_{other.max_size_} {}
 
-	ArrayList(ArrayList<T>&& other):
-		contents{std::move(other.contents)},
-		size_{std::move(other.size_)},
-		max_size_{std::move(other.max_size_)}
-	{}
+	ArrayList(ArrayList<T>&& other)
+		: contents{std::move(other.contents)}
+		, size_{std::move(other.size_)}
+		, max_size_{std::move(other.max_size_)} {}
 
 	ArrayList<T>& operator=(const ArrayList<T>& other) {
 		ArrayList<T> copy{other};
@@ -57,9 +53,8 @@ public:
 	 *
 	 * @param max_size The maximum size of the list
 	 */
-	explicit ArrayList(std::size_t max_size):
-		contents{new T[max_size]},
-		max_size_{max_size} {}
+	explicit ArrayList(std::size_t max_size)
+		: contents{new T[max_size]}, max_size_{max_size} {}
 
 	/**
 	 * @brief Destroys the list
@@ -69,27 +64,21 @@ public:
 	/**
 	 * @brief Clears the contents of the list
 	 */
-	void clear() {
-		size_ = 0;
-	}
+	void clear() { size_ = 0; }
 
 	/**
 	 * @brief Adds 'data' to the end of the list
 	 *
 	 * @param data The element that'll be added
 	 */
-	void push_back(const T& data) {
-		insert(data, size_);
-	}
+	void push_back(const T& data) { insert(data, size_); }
 
 	/**
 	 * @brief Adds 'data' to the beginning of the list
 	 *
 	 * @param data The element that'll be added
 	 */
-	void push_front(const T& data) {
-		insert(data, 0);
-	}
+	void push_front(const T& data) { insert(data, 0); }
 
 	/**
 	 * @brief Inserts at a given position of the list
@@ -102,7 +91,7 @@ public:
 			throw std::out_of_range("Index out of bounds");
 		} else {
 			for (std::size_t i = size_; i > index; i--) {
-				contents[i] = contents[i-1];
+				contents[i] = contents[i - 1];
 			}
 			contents[index] = data;
 			size_++;
@@ -139,7 +128,7 @@ public:
 		} else {
 			T deleted = contents[index];
 			for (std::size_t i = index; i < size_ - 1; ++i) {
-				contents[i] = contents[i+1];
+				contents[i] = contents[i + 1];
 			}
 			size_--;
 			return deleted;
@@ -154,36 +143,28 @@ public:
 	 *
 	 * @return The element that was removed
 	 */
-	T pop_back() {
-		return erase(size_ - 1);
-	}
+	T pop_back() { return erase(size_ - 1); }
 
 	/**
 	 * @brief Removes the element at the beginning of the list
 	 *
 	 * @return The element that was removed
 	 */
-	T pop_front() {
-		return erase(0);
-	}
+	T pop_front() { return erase(0); }
 
 	/**
 	 * @brief Removes 'data' from the list
 	 *
 	 * @param data The element that'll be removed
 	 */
-	void remove(const T& data) {
-		erase(find(data));
-	}
+	void remove(const T& data) { erase(find(data)); }
 
 	/**
 	 * @brief Checks if the list is empty
 	 *
 	 * @return True if the list is empty
 	 */
-	bool empty() const {
-		return size_ == 0;
-	}
+	bool empty() const { return size_ == 0; }
 
 	/**
 	 * @brief Checks if the list contains an element(data)
@@ -192,9 +173,7 @@ public:
 	 *
 	 * @return True if the list contains 'data'
 	 */
-	bool contains(const T& data) const {
-		return find(data) != size_;
-	}
+	bool contains(const T& data) const { return find(data) != size_; }
 
 	/**
 	 * @brief Returns the position of 'data' on the list
@@ -216,9 +195,7 @@ public:
 	 *
 	 * @return Size of the list
 	 */
-	std::size_t size() const {
-		return size_;
-	}
+	std::size_t size() const { return size_; }
 
 	/**
 	 * @brief Checks if the index is valid, then returns a reference to the
@@ -251,22 +228,20 @@ public:
 	 */
 	T& operator[](std::size_t index) {
 		return const_cast<T&>(
-				static_cast<const ArrayList*>(this)->operator[](index));
+			static_cast<const ArrayList*>(this)->operator[](index));
 	}
 
-	const T& operator[](std::size_t index) const {
-		return contents[index];
-	}
+	const T& operator[](std::size_t index) const { return contents[index]; }
 
 private:
-
 	void expand(float ratio) {
 		contents = copy_array(contents, size_, size_ * ratio);
 		max_size_ = size_ * ratio;
 	}
 
-	static std::unique_ptr<T[]> copy_array(const std::unique_ptr<T[]>& original,
-			std::size_t size, std::size_t new_size) {
+	static std::unique_ptr<T[]> copy_array(
+		const std::unique_ptr<T[]>& original, std::size_t size,
+		std::size_t new_size) {
 		std::unique_ptr<T[]> copy{new T[new_size]};
 		for (std::size_t i = 0; i < size; i++) {
 			copy[i] = original[i];
@@ -279,7 +254,6 @@ private:
 	std::unique_ptr<T[]> contents{new T[starting_size]};
 	std::size_t size_{0u};
 	std::size_t max_size_{starting_size};
-
 };
 
 }  // namespace structures

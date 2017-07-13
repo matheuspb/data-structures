@@ -13,17 +13,13 @@ namespace structures {
  * @tparam T Data type of the elements
  * @tparam N Class of the nodes of the tree
  */
-template<typename T, typename N>
+template <typename T, typename N>
 class Tree : public Set<T> {
-
 public:
-
 	/**
 	 * @brief Destructor
 	 */
-	~Tree() {
-		delete root;
-	}
+	~Tree() { delete root; }
 
 	/**
 	 * @brief Inserts 'data' into the tree
@@ -52,10 +48,10 @@ public:
 					N* n;
 					if (root->right) {
 						n = (N*) root->right;
-						root->right = nullptr; // Avoids recursive deletion
+						root->right = nullptr;  // Avoids recursive deletion
 					} else {
 						n = (N*) root->left;
-						root->left = nullptr; // Avoids recursive deletion
+						root->left = nullptr;  // Avoids recursive deletion
 					}
 
 					delete root;
@@ -90,13 +86,9 @@ public:
 	/**
 	 * @brief Returns the size of the tree
 	 */
-	std::size_t size() const {
-		return size_;
-	}
+	std::size_t size() const { return size_; }
 
-	List<T>* items() const {
-		return new ArrayList<T>(pre_order());
-	}
+	List<T>* items() const { return new ArrayList<T>(pre_order()); }
 
 	/**
 	 * @brief Returns a pre-ordered list of the tree
@@ -144,10 +136,8 @@ public:
 	}
 
 protected:
-
 	N* root{nullptr};
 	std::size_t size_{0u};
-
 };
 
 }  // namespace structures

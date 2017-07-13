@@ -16,23 +16,19 @@ namespace structures {
  *
  * @tparam T This is the data type of the elements of the queue.
  */
-template<typename T>
+template <typename T>
 class LinkedQueue : private DoublyCircularList<T>, public Queue<T> {
-
 public:
-
 	using DoublyCircularList<T>::empty;
 
-	LinkedQueue(): DoublyCircularList<T>{} {}
+	LinkedQueue() : DoublyCircularList<T>{} {}
 
 	/**
 	 * @brief Adds 'data' to the end of the queue
 	 *
 	 * @param data The element that'll be added to the queue
 	 */
-	void enqueue(const T& data) {
-		DoublyCircularList<T>::push_back(data);
-	}
+	void enqueue(const T& data) { DoublyCircularList<T>::push_back(data); }
 
 	/**
 	 * @brief Removes the element at the beginning of the queue
@@ -73,14 +69,9 @@ public:
 		}
 	}
 
-	void clear() {
-		DoublyCircularList<T>::clear();
-	}
+	void clear() { DoublyCircularList<T>::clear(); }
 
-	std::size_t size() const {
-		return DoublyCircularList<T>::size();
-	}
-
+	std::size_t size() const { return DoublyCircularList<T>::size(); }
 };
 
 }  // namespace structures

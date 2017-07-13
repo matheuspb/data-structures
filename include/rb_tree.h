@@ -1,42 +1,34 @@
 #ifndef STRUCTURES_RB_TREE_H
 #define STRUCTURES_RB_TREE_H
 
-#include <cassert>
-#include "binary_tree.h"
 #include "avl_tree.h"
+#include "binary_tree.h"
+#include <cassert>
 
 namespace structures {
 
 /**
  * @brief RBTree node implementation
  */
-template<typename T>
+template <typename T>
 class RBNode : public Node<T> {
-
-	template<typename U> friend class RBTree;
+	template <typename U>
+	friend class RBTree;
 
 private:
-
-	typedef enum {
-		red,
-		black
-	} Color;
+	typedef enum { red, black } Color;
 
 public:
+	explicit RBNode(const T& data_) : Node<T>{data_} {}
 
-	explicit RBNode(const T& data_):
-		Node<T>{data_}
-	{}
-
-	RBNode(const T& data_, Node<T>* parent_, Color c):
-		Node<T>{data_, parent_},
-		color{c}
-	{}
+	RBNode(const T& data_, Node<T>* parent_, Color c)
+		: Node<T>{data_, parent_}, color{c} {}
 
 	static RBNode<T>* insert(RBNode<T>* node, const T& data_) {
 		auto new_node = Node<T>::insert(node, data_);
 
-		if (new_node == nullptr) return nullptr;
+		if (new_node == nullptr)
+			return nullptr;
 
 		RBNode<T>* new_rb_node = new RBNode<T>(data_, new_node->parent, red);
 
@@ -74,16 +66,13 @@ public:
 	}
 
 private:
-
 	static void recolor(RBNode<T>* n) {
 		if (n) {
 			n->color = n->color == red ? black : red;
 		}
 	}
 
-	static Color node_color(RBNode<T>* n) {
-		return n ? n->color : black;
-	}
+	static Color node_color(RBNode<T>* n) { return n ? n->color : black; }
 
 	static RBNode<T>* grandparent(RBNode<T>* n) {
 		assert(n->parent->parent != nullptr);
@@ -102,9 +91,7 @@ private:
 		return sibling((RBNode*) n->parent);
 	}
 
-	static bool left_child(Node<T>* n) {
-		return n == n->parent->left;
-	}
+	static bool left_child(Node<T>* n) { return n == n->parent->left; }
 
 	static void update_ins(RBNode<T>* x) {
 		if (x->parent == nullptr) {
@@ -144,7 +131,7 @@ private:
 				double_black_case((RBNode<T>*) n->parent);
 			} else if (node_color(s) == black) {
 				if (node_color((RBNode<T>*) s->left) == black &&
-						node_color((RBNode<T>*) s->right) == black) {
+					node_color((RBNode<T>*) s->right) == black) {
 					black_nephews_case(s);
 				} else {
 					double_black_case(n);
@@ -185,7 +172,7 @@ private:
 	}
 
 	static void double_black_case(RBNode<T>* n) {
-		if (n->parent == nullptr) // root node
+		if (n->parent == nullptr)  // root node
 			return;
 
 		auto s = sibling(n);
@@ -195,7 +182,7 @@ private:
 		}
 
 		if (node_color((RBNode<T>*) s->left) == black &&
-				node_color((RBNode<T>*) s->right) == black) {
+			node_color((RBNode<T>*) s->right) == black) {
 			return black_nephews_case(s);
 		}
 
@@ -209,8 +196,9 @@ private:
 			((RBNode<T>*) s->parent)->color = black;
 
 			AVLNode<T>::simpleRight(s->parent);
-			std::swap(((RBNode<T>*) s->parent)->color,
-					((RBNode<T>*) s->parent->right)->color);
+			std::swap(
+				((RBNode<T>*) s->parent)->color,
+				((RBNode<T>*) s->parent->right)->color);
 		} else {
 			if (node_color((RBNode<T>*) s->left) == red) {
 				AVLNode<T>::simpleRight(s);
@@ -221,13 +209,13 @@ private:
 			((RBNode<T>*) s->parent)->color = black;
 
 			AVLNode<T>::simpleLeft(s->parent);
-			std::swap(((RBNode<T>*) s->parent)->color,
-					((RBNode<T>*) s->parent->left)->color);
+			std::swap(
+				((RBNode<T>*) s->parent)->color,
+				((RBNode<T>*) s->parent->left)->color);
 		}
 	}
 
 	Color color{black};
-
 };
 
 /**
@@ -241,11 +229,9 @@ private:
  * The balancing of the tree is not perfect, but it is good enough to allow it
  * to guarantee searching in O(log n) time.
  */
-template<typename T>
+template <typename T>
 class RBTree : public Tree<T, RBNode<T>> {
-
 public:
-
 	bool remove(const T& data) {
 		bool r = Tree<T, RBNode<T>>::remove(data);
 		if (this->root) {
@@ -253,9 +239,7 @@ public:
 		}
 		return r;
 	}
-
 };
-
 }
 
 #endif

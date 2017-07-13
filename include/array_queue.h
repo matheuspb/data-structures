@@ -16,30 +16,26 @@ namespace structures {
  *
  * @tparam T Data type of the elements
  */
-template<typename T>
+template <typename T>
 class ArrayQueue : private ArrayList<T>, public Queue<T> {
-
 public:
-
 	using ArrayList<T>::empty;
 
-	ArrayQueue(): ArrayList<T>{} {}
+	ArrayQueue() : ArrayList<T>{} {}
 
 	/**
 	 * @brief Constructor with a given maximum size of the queue
 	 *
 	 * @param max Maximum size of the queue
 	 */
-	explicit ArrayQueue(std::size_t max): ArrayList<T>{max} {}
+	explicit ArrayQueue(std::size_t max) : ArrayList<T>{max} {}
 
 	/**
 	 * @brief Adds 'data' to the end of the queue
 
 	 * @param data The element that'll be added to the queue
 	 */
-	void enqueue(const T& data) {
-		ArrayList<T>::push_back(data);
-	}
+	void enqueue(const T& data) { ArrayList<T>::push_back(data); }
 
 	/**
 	 * @brief Removes the element at the beginning of the queue
@@ -80,14 +76,9 @@ public:
 		}
 	}
 
-	void clear() {
-		ArrayList<T>::clear();
-	}
+	void clear() { ArrayList<T>::clear(); }
 
-	std::size_t size() const {
-		return ArrayList<T>::size();
-	}
-
+	std::size_t size() const { return ArrayList<T>::size(); }
 };
 
 }  // namespace structures

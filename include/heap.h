@@ -22,9 +22,7 @@ namespace structures {
  */
 template <typename T, typename Comparator = std::less<T>>
 class Heap {
-
 public:
-
 	Heap() = default;
 
 	/**
@@ -35,9 +33,9 @@ public:
 
 		auto i = v.size() - 1;
 
-		while(comp(v[(i-1)/2], v[i]) && i > 0) {
-			std::swap(v[i], v[(i-1)/2]);
-			i = (i-1)/2;
+		while (comp(v[(i - 1) / 2], v[i]) && i > 0) {
+			std::swap(v[i], v[(i - 1) / 2]);
+			i = (i - 1) / 2;
 		}
 	}
 
@@ -59,23 +57,16 @@ public:
 	/**
 	 * @brief const ref to the top element of the Heap
 	 */
-	const T& top() const {
-		return v[0];
-	}
+	const T& top() const { return v[0]; }
 
-	std::size_t size() const {
-		return v.size();
-	}
+	std::size_t size() const { return v.size(); }
 
-	bool empty() const {
-		return v.empty();
-	}
+	bool empty() const { return v.empty(); }
 
 private:
-
 	void heapify(std::size_t i) {
-		auto left_node  = 2*i + 1;
-		auto right_node = 2*i + 2;
+		auto left_node = 2 * i + 1;
+		auto right_node = 2 * i + 2;
 
 		std::size_t larger;
 
@@ -95,9 +86,7 @@ private:
 
 	std::vector<T> v;
 	Comparator comp;
-
 };
-
 }
 
 #endif

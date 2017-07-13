@@ -11,8 +11,8 @@ namespace structures {
  * @brief Implementation of a doubly linked list
  * @tparam T Data type of the elements
  */
-template<typename T>
-class DoublyCircularList : public List<T>{
+template <typename T>
+class DoublyCircularList : public List<T> {
 public:
 	/**
 	 * @brief Default constructor
@@ -22,15 +22,13 @@ public:
 	/**
 	 * @brief Destructor
 	 */
-	~DoublyCircularList() {
-		clear();
-	}
+	~DoublyCircularList() { clear(); }
 
 	/**
 	 * @brief Clears all the elements on the list
 	 */
 	void clear() {
-		while(!empty()) {
+		while (!empty()) {
 			pop_back();
 		}
 	}
@@ -112,8 +110,8 @@ public:
 	 * @return The element that was removed
 	 */
 	T erase(std::size_t index) {
-		if (index >= size_) throw std::out_of_range(
-				"Index out of bounds (pop())");
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds (pop())");
 		auto oldHead = head;
 		for (std::size_t i = 0; i < index + 1; ++i) {
 			head = head->next;
@@ -129,7 +127,8 @@ public:
 	 * @return The removed element
 	 */
 	T pop_back() {
-		if (empty()) throw std::out_of_range("List is empty (pop_back())");
+		if (empty())
+			throw std::out_of_range("List is empty (pop_back())");
 		auto toDelete = head->prev;
 		head->prev = toDelete->prev;
 		toDelete->prev->next = head;
@@ -145,7 +144,8 @@ public:
 	 * @return The removed element
 	 */
 	T pop_front() {
-		if (empty()) throw std::out_of_range("List is empty (pop_front())");
+		if (empty())
+			throw std::out_of_range("List is empty (pop_front())");
 		head = head->next;
 		return pop_back();
 	}
@@ -172,9 +172,7 @@ public:
 	 *
 	 * @return True if the list is empty
 	 */
-	bool empty() const {
-		return size_ == 0;
-	}
+	bool empty() const { return size_ == 0; }
 
 	/**
 	 * @brief Checks if the list contains an element(data)
@@ -192,7 +190,8 @@ public:
 			return true;
 
 		for (auto it = head->next; it != head; it = it->next) {
-			if (it->data == data) return true;
+			if (it->data == data)
+				return true;
 		}
 		return false;
 	}
@@ -207,11 +206,12 @@ public:
 	 */
 	T& at(std::size_t index) {
 		return const_cast<T&>(
-				static_cast<const DoublyCircularList*>(this)->at(index));
+			static_cast<const DoublyCircularList*>(this)->at(index));
 	}
 
 	const T& at(std::size_t index) const {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds");
 		auto it = head;
 		for (std::size_t i = 0; i < index; ++i) {
 			it = it->next;
@@ -243,16 +243,14 @@ public:
 	/**
 	 * @brief Returns the size of the list
 	 */
-	std::size_t size() const {
-		return size_;
-	}
+	std::size_t size() const { return size_; }
 
 private:
 	struct Node {
-		explicit Node(const T& data): data{data} {}
-		Node(const T& data, Node* next): data{data}, next{next} {}
-		Node(const T& data, Node* prev, Node* next):
-			data{data}, prev{prev}, next{next} {}
+		explicit Node(const T& data) : data{data} {}
+		Node(const T& data, Node* next) : data{data}, next{next} {}
+		Node(const T& data, Node* prev, Node* next)
+			: data{data}, prev{prev}, next{next} {}
 
 		T data;
 		Node* prev{nullptr};
@@ -266,4 +264,3 @@ private:
 }  // namespace structures
 
 #endif
-

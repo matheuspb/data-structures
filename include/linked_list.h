@@ -16,25 +16,21 @@ namespace structures {
  *
  * @tparam T Data type of the elements
  */
-template<typename T>
+template <typename T>
 class LinkedList : public List<T> {
-
 public:
-
 	// TODO rule of five
 
 	/**
 	 * @brief Destructor
 	 */
-	virtual ~LinkedList() {
-		clear();
-	}
+	virtual ~LinkedList() { clear(); }
 
 	/**
 	 * @brief Clears the list
 	 */
 	void clear() {
-		while(!empty()) {
+		while (!empty()) {
 			pop_front();
 		}
 	}
@@ -44,9 +40,7 @@ public:
 	 *
 	 * @param data The element that'll be inserted
 	 */
-	void push_back(const T& data) {
-		insert(data, size_);
-	}
+	void push_back(const T& data) { insert(data, size_); }
 
 	/**
 	 * @brief Inserts at the beginning of the list
@@ -65,8 +59,10 @@ public:
 	 * @param index The position where 'data' will be inserted
 	 */
 	void insert(const T& data, std::size_t index) {
-		if (index == 0) return push_front(data);
-		if (index > size_) throw std::out_of_range("Invalid index");
+		if (index == 0)
+			return push_front(data);
+		if (index > size_)
+			throw std::out_of_range("Invalid index");
 
 		Node* it = head;
 		for (std::size_t i = 0; i < index - 1; ++i) {
@@ -107,7 +103,8 @@ public:
 	}
 
 	const T& at(std::size_t index) const {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds");
 		Node* it = head;
 		for (std::size_t i = 0; i < index; i++) {
 			it = it->next;
@@ -123,8 +120,10 @@ public:
 	 * @return The element that was removed
 	 */
 	T erase(std::size_t index) {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
-		if (index == 0) return pop_front();
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds");
+		if (index == 0)
+			return pop_front();
 
 		Node* it = head;
 		for (std::size_t i = 0; i < index - 1; ++i) {
@@ -145,9 +144,7 @@ public:
 	 *
 	 * @return The removed element
 	 */
-	T pop_back() {
-		return erase(size_ - 1);
-	}
+	T pop_back() { return erase(size_ - 1); }
 
 	/**
 	 * @brief Removes the element at the beginning of the list
@@ -155,7 +152,8 @@ public:
 	 * @return The removed element
 	 */
 	T pop_front() {
-		if (empty()) throw std::out_of_range("List is empty");
+		if (empty())
+			throw std::out_of_range("List is empty");
 		T removed = head->data;
 		Node* old_head = head;
 		head = head->next;
@@ -193,9 +191,7 @@ public:
 	 *
 	 * @return True if the list is empty
 	 */
-	bool empty() const {
-		return size_ == 0;
-	}
+	bool empty() const { return size_ == 0; }
 
 	/**
 	 * @brief Checks if the list contains an element(data)
@@ -205,9 +201,7 @@ public:
 	 *
 	 * @return True if the list contains 'data'
 	 */
-	bool contains(const T& data) const {
-		return find(data) != size_;
-	}
+	bool contains(const T& data) const { return find(data) != size_; }
 
 	/**
 	 * @brief Returns the position of 'data' on the list
@@ -231,21 +225,15 @@ public:
 	 *
 	 * @return Size of the list
 	 */
-	std::size_t size() const {
-		return size_;
-	}
-
+	std::size_t size() const { return size_; }
 
 private:
-
 	struct Node {
-
-		explicit Node(const T& data): data{data} {}
-		Node(const T& data, Node* next): data{data}, next{next} {}
+		explicit Node(const T& data) : data{data} {}
+		Node(const T& data, Node* next) : data{data}, next{next} {}
 
 		T data;
 		Node* next{nullptr};
-
 	};
 
 	Node* head{nullptr};
@@ -255,4 +243,3 @@ private:
 }  // namespace structures
 
 #endif
-

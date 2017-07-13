@@ -14,7 +14,7 @@ namespace structures {
  *
  * @tparam T Data type of the elements
  */
-template<typename T>
+template <typename T>
 class CircularList : public List<T> {
 public:
 	/**
@@ -38,7 +38,7 @@ public:
 	 * @brief Clears the list
 	 */
 	void clear() {
-		while(!empty())
+		while (!empty())
 			pop_front();
 	}
 
@@ -47,18 +47,14 @@ public:
 	 *
 	 * @param data The element that'll be inserted
 	 */
-	void push_back(const T& data) {
-		insert(data, size_);
-	}
+	void push_back(const T& data) { insert(data, size_); }
 
 	/**
 	 * @brief Inserts at the beginning of the list
 	 *
 	 * @param data The element that'll be inserted
 	 */
-	void push_front(const T& data) {
-		insert(data, 0);
-	}
+	void push_front(const T& data) { insert(data, 0); }
 
 	/**
 	 * @brief Inserts at a given position of the list
@@ -67,7 +63,8 @@ public:
 	 * @param index The position where 'data' will be inserted
 	 */
 	void insert(const T& data, std::size_t index) {
-		if (index > size_) throw std::out_of_range("Invalid index");
+		if (index > size_)
+			throw std::out_of_range("Invalid index");
 		Node* it = head;
 		for (std::size_t i = 0; i < index; ++i) {
 			it = it->next;
@@ -100,7 +97,8 @@ public:
 	 * @return The element that was removed
 	 */
 	T erase(std::size_t index) {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds");
 		Node* it = head;
 		for (std::size_t i = 0; i < index; ++i) {
 			it = it->next;
@@ -118,18 +116,14 @@ public:
 	 *
 	 * @return The removed element
 	 */
-	T pop_back() {
-		return erase(size_ - 1);
-	}
+	T pop_back() { return erase(size_ - 1); }
 
 	/**
 	 * @brief Removes the element at the beginning of the list
 	 *
 	 * @return The removed element
 	 */
-	T pop_front() {
-		return erase(0);
-	}
+	T pop_front() { return erase(0); }
 
 	/**
 	 * @brief Removes 'data' from the list
@@ -153,9 +147,7 @@ public:
 	 *
 	 * @return True if the list is empty
 	 */
-	bool empty() const {
-		return size_ == 0;
-	}
+	bool empty() const { return size_ == 0; }
 
 	/**
 	 * @brief Checks if the list contains an element(data)
@@ -200,11 +192,12 @@ public:
 	 */
 	T& at(std::size_t index) {
 		return const_cast<T&>(
-				static_cast<const CircularList*>(this)->at(index));
+			static_cast<const CircularList*>(this)->at(index));
 	}
 
 	const T& at(std::size_t index) const {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds");
 		Node* it = head->next;
 		for (std::size_t i = 0; i < index; ++i) {
 			it = it->next;
@@ -217,20 +210,16 @@ public:
 	 *
 	 * @return Size of the list
 	 */
-	std::size_t size() const {
-		return size_;
-	}
+	std::size_t size() const { return size_; }
 
 private:
 	struct Node {
-
 		Node() = default;
-		explicit Node(const T& data): data{data} {}
-		Node(const T& data, Node* next): data{data}, next{next} {}
+		explicit Node(const T& data) : data{data} {}
+		Node(const T& data, Node* next) : data{data}, next{next} {}
 
 		T data{};
 		Node* next{nullptr};
-
 	};
 
 	Node* head;

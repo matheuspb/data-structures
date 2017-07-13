@@ -7,20 +7,17 @@
 
 namespace structures {
 
-template<typename T> class AVLNode;
+template <typename T>
+class AVLNode;
 
 /**
  * @brief BinaryTree node implementation
  */
-template<typename T>
+template <typename T>
 struct Node {
+	explicit Node(const T& data_) : data{data_} {}
 
-	explicit Node(const T& data_):
-		data{data_} {}
-
-	Node(const T& data_, Node* parent_):
-		data{data_},
-		parent{parent_} {}
+	Node(const T& data_, Node* parent_) : data{data_}, parent{parent_} {}
 
 	virtual ~Node() {
 		delete left;
@@ -140,7 +137,6 @@ struct Node {
 	Node* right{nullptr};
 
 protected:
-
 	Node<T>* find_node_to_delete(const T& data_) {
 		if (data == data_) {
 			if (right && left) {
@@ -156,7 +152,6 @@ protected:
 				return right ? right->find_node_to_delete(data_) : nullptr;
 		}
 	}
-
 };
 
 /**
@@ -166,7 +161,7 @@ protected:
  * as it is unbalanced, the operations may be O(n) on the worst case (e.g. you
  * insert members in order).
  */
-template<typename T>
+template <typename T>
 class BinaryTree : public Tree<T, Node<T>> {};
 
 }  // namespace structures

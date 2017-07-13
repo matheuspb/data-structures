@@ -16,11 +16,9 @@ namespace structures {
  *
  * @tparam T This is the data type of the elements of the stack.
  */
-template<typename T>
+template <typename T>
 class LinkedStack : private LinkedList<T>, public Stack<T> {
-
 public:
-
 	using LinkedList<T>::empty;
 
 	/**
@@ -28,9 +26,7 @@ public:
 	 *
 	 * @param data The element that'll be added to the stack
 	 */
-	void push(const T& data) {
-		LinkedList<T>::push_front(data);
-	}
+	void push(const T& data) { LinkedList<T>::push_front(data); }
 
 	/**
 	 * @brief Removes the element at the top of the stack
@@ -50,18 +46,11 @@ public:
 	 *
 	 * @return A reference to the top element of the stack
 	 */
-	const T& top() const {
-		return this->at(0);
-	}
+	const T& top() const { return this->at(0); }
 
-	void clear() {
-		LinkedList<T>::clear();
-	}
+	void clear() { LinkedList<T>::clear(); }
 
-	std::size_t size() const {
-		return LinkedList<T>::size();
-	}
-
+	std::size_t size() const { return LinkedList<T>::size(); }
 };
 
 }  // namespace structures

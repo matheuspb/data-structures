@@ -3,8 +3,8 @@
 
 #include <functional>
 
-#include <linked_list.h>
 #include <array_list.h>
+#include <linked_list.h>
 
 namespace structures {
 
@@ -23,25 +23,20 @@ namespace structures {
  */
 template <typename T, typename Hash = std::hash<T>>
 class HashTable : public Set<T> {
-
 public:
-
 	HashTable() = default;
 
-	HashTable(const HashTable<T>& other):
-		HashTable(other.buckets_size)
-	{
+	HashTable(const HashTable<T>& other) : HashTable(other.buckets_size) {
 		auto list = other.items();
 		for (std::size_t i = 0; i < list.size(); i++) {
 			insert(list[i]);
 		}
 	}
 
-	HashTable(HashTable<T>&& other):
-		buckets{std::move(other.buckets)},
-		buckets_size{std::move(other.buckets_size)},
-		_size{std::move(other._size)}
-	{}
+	HashTable(HashTable<T>&& other)
+		: buckets{std::move(other.buckets)}
+		, buckets_size{std::move(other.buckets_size)}
+		, _size{std::move(other._size)} {}
 
 	HashTable<T>& operator=(const HashTable<T>& other) {
 		HashTable<T> copy{other};
@@ -124,9 +119,7 @@ public:
 		*this = std::move(ht);
 	}
 
-	std::size_t size() const {
-		return _size;
-	}
+	std::size_t size() const { return _size; }
 
 	/**
 	 * @brief Returns a list of the items that are on the table
@@ -144,15 +137,11 @@ public:
 	}
 
 private:
+	explicit HashTable(std::size_t buckets_size_)
+		: buckets{new LinkedList<T>[buckets_size_]}
+		, buckets_size{buckets_size_} {}
 
-	explicit HashTable(std::size_t buckets_size_):
-		buckets{new LinkedList<T>[buckets_size_]},
-		buckets_size{buckets_size_}
-	{}
-
-	std::size_t hash(const T& data) const {
-		return hashf(data) % buckets_size;
-	}
+	std::size_t hash(const T& data) const { return hashf(data) % buckets_size; }
 
 	void resize_table(std::size_t new_size) {
 		HashTable new_ht{new_size};
@@ -169,14 +158,14 @@ private:
 
 	const static std::size_t starting_size{8};
 
-	std::unique_ptr<LinkedList<T>[]> buckets{new LinkedList<T>[starting_size]};
+	std::unique_ptr<LinkedList<T>[]> buckets {
+		new LinkedList<T>[starting_size]
+	};
 	std::size_t buckets_size{starting_size};
 	std::size_t _size{0};
 
 	Hash hashf{};
-
 };
-
 }
 
 #endif

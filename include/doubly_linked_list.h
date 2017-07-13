@@ -12,7 +12,7 @@ namespace structures {
  *
  * @tparam T Data type of the elements.
  */
-template<typename T>
+template <typename T>
 class DoublyLinkedList : public List<T> {
 public:
 	/**
@@ -23,9 +23,7 @@ public:
 	/**
 	 * @brief Destructor
 	 */
-	~DoublyLinkedList() {
-		clear();
-	}
+	~DoublyLinkedList() { clear(); }
 
 	/**
 	 * @brief Clears all the elements on the list
@@ -41,9 +39,7 @@ public:
 	 *
 	 * @param data The element that'll be inserted
 	 */
-	void push_back(const T& data) {
-		insert(data, size_);
-	}
+	void push_back(const T& data) { insert(data, size_); }
 
 	/**
 	 * @brief Inserts at the beginning of the list
@@ -64,8 +60,10 @@ public:
 	 * @param index The position where 'data' will be inserted
 	 */
 	void insert(const T& data, std::size_t index) {
-		if (index == 0) return push_front(data);
-		if (index > size_) throw std::out_of_range("Invalid index");
+		if (index == 0)
+			return push_front(data);
+		if (index > size_)
+			throw std::out_of_range("Invalid index");
 		Node* it = head;
 		for (std::size_t i = 0; i < index - 1; ++i) {
 			it = it->next;
@@ -104,8 +102,10 @@ public:
 	 * @return The element that was removed
 	 */
 	T erase(std::size_t index) {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
-		if (index == 0) return pop_front();
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds");
+		if (index == 0)
+			return pop_front();
 		Node* it = head;
 		for (std::size_t i = 0; i < index - 1; ++i) {
 			it = it->next;
@@ -125,9 +125,7 @@ public:
 	 *
 	 * @return The removed element
 	 */
-	T pop_back() {
-		return erase(size_ - 1);
-	}
+	T pop_back() { return erase(size_ - 1); }
 
 	/**
 	 * @brief Removes the element at the beginning of the list
@@ -135,7 +133,8 @@ public:
 	 * @return The removed element
 	 */
 	T pop_front() {
-		if (empty()) throw std::out_of_range("List is empty");
+		if (empty())
+			throw std::out_of_range("List is empty");
 		Node* toDelete = head;
 		head = head->next;
 		if (head != nullptr)
@@ -173,9 +172,7 @@ public:
 	 *
 	 * @return True if the list is empty
 	 */
-	bool empty() const {
-		return size_ == 0;
-	}
+	bool empty() const { return size_ == 0; }
 
 	/**
 	 * @brief Checks if the list contains an element(data)
@@ -187,7 +184,8 @@ public:
 	 */
 	bool contains(const T& data) const {
 		for (Node* it = head; it != nullptr; it = it->next) {
-			if (it->data == data) return true;
+			if (it->data == data)
+				return true;
 		}
 		return false;
 	}
@@ -200,7 +198,8 @@ public:
 	 * @param index The index on the list of the element that'll be returned
 	 */
 	T& at(std::size_t index) {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds");
 		Node* it = head;
 		for (std::size_t i = 0; i < index; ++i) {
 			it = it->next;
@@ -212,7 +211,8 @@ public:
 	 * @brief const version of 'at()'
 	 */
 	const T& at(std::size_t index) const {
-		if (index >= size_) throw std::out_of_range("Index out of bounds");
+		if (index >= size_)
+			throw std::out_of_range("Index out of bounds");
 		Node* it = head;
 		for (std::size_t i = 0; i < index; ++i) {
 			it = it->next;
@@ -238,16 +238,14 @@ public:
 	/**
 	 * @brief Returns the size of the list
 	 */
-	std::size_t size() const {
-		return size_;
-	}
+	std::size_t size() const { return size_; }
 
 private:
 	struct Node {
-		explicit Node(const T& data): data{data} {}
-		Node(const T& data, Node* next): data{data}, next{next} {}
-		Node(const T& data, Node* prev, Node* next):
-			data{data}, prev{prev}, next{next} {}
+		explicit Node(const T& data) : data{data} {}
+		Node(const T& data, Node* next) : data{data}, next{next} {}
+		Node(const T& data, Node* prev, Node* next)
+			: data{data}, prev{prev}, next{next} {}
 
 		T data;
 		Node* prev{nullptr};
@@ -261,4 +259,3 @@ private:
 }  // namespace structures
 
 #endif
-

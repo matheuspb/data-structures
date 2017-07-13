@@ -1,35 +1,34 @@
 #ifndef STRUCTURES_AVL_TREE_H
 #define STRUCTURES_AVL_TREE_H
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 #include <binary_tree.h>
 
 namespace structures {
 
-template<typename T> class RBNode;
+template <typename T>
+class RBNode;
 
 /**
  * @brief AVLTree node implementation
  */
-template<typename T>
+template <typename T>
 class AVLNode : public Node<T> {
-
-	template<typename U> friend class RBNode;
+	template <typename U>
+	friend class RBNode;
 
 public:
+	explicit AVLNode(const T& data_) : Node<T>{data_} {}
 
-	explicit AVLNode(const T& data_):
-		Node<T>{data_} {}
-
-	AVLNode(const T& data_, Node<T>* parent_):
-		Node<T>{data_, parent_} {}
+	AVLNode(const T& data_, Node<T>* parent_) : Node<T>{data_, parent_} {}
 
 	static AVLNode<T>* insert(AVLNode<T>* node, const T& data_) {
 		auto new_node = Node<T>::insert(node, data_);
 
-		if (new_node == nullptr) return nullptr;
+		if (new_node == nullptr)
+			return nullptr;
 
 		AVLNode<T>* new_avl_node = new AVLNode<T>(data_, new_node->parent);
 
@@ -53,7 +52,6 @@ public:
 	}
 
 private:
-
 	static void updateHeight(AVLNode<T>* n) {
 		if (n) {
 			int rh = n->right ? ((AVLNode<T>*) n->right)->height : 0;
@@ -63,7 +61,8 @@ private:
 	}
 
 	static void update(AVLNode<T>* n) {
-		if (n == nullptr) return;
+		if (n == nullptr)
+			return;
 
 		updateHeight(n);
 
@@ -143,7 +142,6 @@ private:
 	}
 
 	std::size_t height{1u};
-
 };
 
 /**
@@ -152,7 +150,7 @@ private:
  * @details This tree provides O(log n) operations on all cases, because it
  * rotates as necessary to keep itself balanced.
  */
-template<typename T>
+template <typename T>
 class AVLTree : public Tree<T, AVLNode<T>> {};
 
 }  // namespace structures

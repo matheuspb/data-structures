@@ -17,30 +17,26 @@ namespace structures {
  *
  * @tparam T Data type of the elements
  */
-template<typename T>
+template <typename T>
 class ArrayStack : private ArrayList<T>, public Stack<T> {
-
 public:
-
 	using ArrayList<T>::empty;
 
-	ArrayStack(): ArrayList<T>{} {}
+	ArrayStack() : ArrayList<T>{} {}
 
 	/**
 	 * @brief Constructor with a given maximum size of the stack
 	 *
 	 * @param max Maximum size of the stack
 	 */
-	explicit ArrayStack(std::size_t max): ArrayList<T>{max} {}
+	explicit ArrayStack(std::size_t max) : ArrayList<T>{max} {}
 
 	/**
 	 * @brief Adds 'data' to the top of the stack
 	 *
 	 * @param data The element that'll be added to the stack
 	 */
-	void push(const T& data) {
-		ArrayList<T>::push_back(data);
-	}
+	void push(const T& data) { ArrayList<T>::push_back(data); }
 
 	/**
 	 * @brief Removes the element at the top of the stack
@@ -68,14 +64,9 @@ public:
 		}
 	}
 
-	void clear() {
-		ArrayList<T>::clear();
-	}
+	void clear() { ArrayList<T>::clear(); }
 
-	std::size_t size() const {
-		return ArrayList<T>::size();
-	}
-
+	std::size_t size() const { return ArrayList<T>::size(); }
 };
 
 }  // namespace structures
