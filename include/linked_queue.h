@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include "doubly_circular_list.h"
+#include <doubly_circular_list.h>
 
 namespace structures {
 

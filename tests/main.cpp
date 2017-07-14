@@ -2,21 +2,19 @@
 
 #include <tests.h>
 
-#include <array_stack.h>
-#include <linked_stack.h>
-
-#include <array_queue.h>
-#include <linked_queue.h>
-
 #include <array_list.h>
+#include <array_queue.h>
+#include <array_stack.h>
+#include <avl_tree.h>
+#include <binary_tree.h>
 #include <circular_list.h>
 #include <doubly_circular_list.h>
 #include <doubly_linked_list.h>
-#include <linked_list.h>
-
-#include <avl_tree.h>
-#include <binary_tree.h>
 #include <hash_table.h>
+#include <heap.h>
+#include <linked_list.h>
+#include <linked_queue.h>
+#include <linked_stack.h>
 #include <rb_tree.h>
 
 int main() {
@@ -83,5 +81,10 @@ int main() {
 	std::cout << "testing RBTree              ... ";
 	std::cout.flush();
 	tests::test_structure<structures::RBTree<double>>();
+	std::cout << "OK" << std::endl;
+
+	std::cout << "testing Heap                ... ";
+	std::cout.flush();
+	tests::test_structure<structures::Heap<int>>();
 	std::cout << "OK" << std::endl;
 }

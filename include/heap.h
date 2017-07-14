@@ -21,7 +21,7 @@ namespace structures {
  * @tparam Comparator Type providing a strict weak ordering function
  */
 template <typename T, typename Comparator = std::less<T>>
-class Heap {
+class Heap : public PriorityQueue<T> {
 public:
 	Heap() = default;
 
@@ -61,8 +61,6 @@ public:
 
 	std::size_t size() const { return v.size(); }
 
-	bool empty() const { return v.empty(); }
-
 private:
 	void heapify(std::size_t i) {
 		auto left_node = 2 * i + 1;
@@ -74,11 +72,13 @@ private:
 			larger = left_node;
 		} else if (right_node < v.size() && left_node >= v.size()) {
 			larger = right_node;
-		} else {
+		} else if (left_node < v.size() && right_node < v.size()) {
 			larger = comp(v[right_node], v[left_node]) ? left_node : right_node;
+		} else {
+			return;
 		}
 
-		if (larger < v.size() && comp(v[i], v[larger])) {
+		if (comp(v[i], v[larger])) {
 			std::swap(v[i], v[larger]);
 			heapify(larger);
 		}

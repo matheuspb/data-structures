@@ -1,8 +1,8 @@
 #ifndef STRUCTURES_RB_TREE_H
 #define STRUCTURES_RB_TREE_H
 
-#include "avl_tree.h"
-#include "binary_tree.h"
+#include <avl_tree.h>
+#include <binary_tree.h>
 #include <cassert>
 
 namespace structures {

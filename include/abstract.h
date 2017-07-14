@@ -63,6 +63,15 @@ public:
 	virtual std::size_t size() const = 0;
 	virtual List<T>* items() const = 0;
 };
+
+template <typename T>
+class PriorityQueue {
+public:
+	virtual void push(const T& data) = 0;
+	virtual T pop() = 0;
+	virtual const T& top() const = 0;
+	virtual std::size_t size() const = 0;
+};
 }
 
 #endif
