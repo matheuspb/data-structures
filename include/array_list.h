@@ -235,8 +235,8 @@ public:
 
 private:
 	void expand(float ratio) {
-		contents = copy_array(contents, size_, size_ * ratio);
-		max_size_ = size_ * ratio;
+		contents = copy_array(contents, size_, max_size_ * ratio);
+		max_size_ *= ratio;
 	}
 
 	static std::unique_ptr<T[]> copy_array(

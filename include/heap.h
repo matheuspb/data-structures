@@ -1,7 +1,7 @@
 #ifndef HEAP_H
 #define HEAP_H
 
-#include <vector>
+#include <array_list.h>
 
 namespace structures {
 
@@ -29,12 +29,12 @@ public:
 	 * @brief Inserts an element into the Heap
 	 */
 	void push(const T& data) {
-		v.push_back(data);
+		list.push_back(data);
 
-		auto i = v.size() - 1;
+		auto i = list.size() - 1;
 
-		while (comp(v[(i - 1) / 2], v[i]) && i > 0) {
-			std::swap(v[i], v[(i - 1) / 2]);
+		while (i > 0 && comp(list[(i - 1) / 2], list[i])) {
+			std::swap(list[i], list[(i - 1) / 2]);
 			i = (i - 1) / 2;
 		}
 	}
@@ -45,9 +45,9 @@ public:
 	 * @return The removed element
 	 */
 	T pop() {
-		std::swap(v[0], v[v.size() - 1]);
-		auto out = v[v.size() - 1];
-		v.pop_back();
+		std::swap(list[0], list[list.size() - 1]);
+		auto out = list[list.size() - 1];
+		list.pop_back();
 
 		heapify(0);
 
@@ -57,9 +57,9 @@ public:
 	/**
 	 * @brief const ref to the top element of the Heap
 	 */
-	const T& top() const { return v[0]; }
+	const T& top() const { return list[0]; }
 
-	std::size_t size() const { return v.size(); }
+	std::size_t size() const { return list.size(); }
 
 private:
 	void heapify(std::size_t i) {
@@ -68,23 +68,24 @@ private:
 
 		std::size_t larger;
 
-		if (left_node < v.size() && right_node >= v.size()) {
+		if (left_node < list.size() && right_node >= list.size()) {
 			larger = left_node;
-		} else if (right_node < v.size() && left_node >= v.size()) {
+		} else if (right_node < list.size() && left_node >= list.size()) {
 			larger = right_node;
-		} else if (left_node < v.size() && right_node < v.size()) {
-			larger = comp(v[right_node], v[left_node]) ? left_node : right_node;
+		} else if (left_node < list.size() && right_node < list.size()) {
+			larger = comp(list[right_node], list[left_node]) ? left_node :
+															   right_node;
 		} else {
 			return;
 		}
 
-		if (comp(v[i], v[larger])) {
-			std::swap(v[i], v[larger]);
+		if (comp(list[i], list[larger])) {
+			std::swap(list[i], list[larger]);
 			heapify(larger);
 		}
 	}
 
-	std::vector<T> v;
+	ArrayList<T> list;
 	Comparator comp;
 };
 }
