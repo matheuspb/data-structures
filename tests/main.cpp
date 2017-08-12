@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <tests.h>
+#include "tests.h"
 
 #include <array_list.h>
 #include <array_queue.h>
