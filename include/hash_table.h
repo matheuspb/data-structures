@@ -124,16 +124,16 @@ public:
 	/**
 	 * @brief Returns a list of the items that are on the table
 	 */
-	List<T>* items() const {
-		auto al = new ArrayList<T>(_size);
+	ArrayList<T> items() const {
+		ArrayList<T> al{_size};
 
 		for (std::size_t i = 0; i < buckets_size; i++) {
 			for (std::size_t j = 0; j < buckets[i].size(); j++) {
-				al->push_back(buckets[i].at(j));
+				al.push_back(buckets[i].at(j));
 			}
 		}
 
-		return al;
+		return std::move(al);
 	}
 
 private:
@@ -147,11 +147,9 @@ private:
 		HashTable new_ht{new_size};
 
 		auto list = items();
-		for (std::size_t i = 0; i < list->size(); i++) {
-			new_ht.insert(list->at(i));
+		for (std::size_t i = 0; i < list.size(); i++) {
+			new_ht.insert(list.at(i));
 		}
-
-		delete list;
 
 		*this = std::move(new_ht);
 	}

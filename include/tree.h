@@ -88,7 +88,7 @@ public:
 	 */
 	std::size_t size() const { return size_; }
 
-	List<T>* items() const { return new ArrayList<T>(pre_order()); }
+	ArrayList<T> items() const { return std::move(ArrayList<T>{pre_order()}); }
 
 	/**
 	 * @brief Returns a pre-ordered list of the tree

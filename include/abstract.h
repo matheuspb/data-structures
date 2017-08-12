@@ -3,6 +3,8 @@
 
 #include <cstdint>
 
+#include <array_list.h>
+
 namespace structures {
 
 template <typename T>
@@ -61,7 +63,7 @@ public:
 
 	virtual void clear() = 0;
 	virtual std::size_t size() const = 0;
-	virtual List<T>* items() const = 0;
+	virtual ArrayList<T> items() const = 0;
 };
 
 template <typename T>

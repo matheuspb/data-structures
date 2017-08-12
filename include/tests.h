@@ -153,11 +153,9 @@ void test_set() {
 	assert(set.size() == 0);
 
 	for (double i = 0; i < SIZE; i++) {
-		assert(items->contains(i));
+		assert(items.contains(i));
 		assert(!set.contains(i));
 	}
-
-	delete items;
 
 	// test for memory leaks
 	for (double i = 0; i < SIZE; i++) {

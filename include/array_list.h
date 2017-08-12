@@ -9,6 +9,9 @@
 
 namespace structures {
 
+template <typename T>
+class List;
+
 /**
  * @brief Implements a list(data structure), using arrays
  *
