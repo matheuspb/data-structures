@@ -8,20 +8,37 @@
 namespace structures {
 
 /**
- * @brief Implementation of a doubly linked list
+ * @brief Implementation of a doubly linked circular list
  * @tparam T Data type of the elements
  */
 template <typename T>
 class DoublyCircularList : public List<T> {
 public:
-	/**
-	 * @brief Default constructor
-	 */
 	DoublyCircularList() = default;
 
-	/**
-	 * @brief Destructor
-	 */
+	DoublyCircularList(const DoublyCircularList<T>& other)
+		: head{copy_list(other.head)}, size_{other.size_} {}
+
+	DoublyCircularList(DoublyCircularList<T>&& other)
+		: head{other.head}, size_{other.size_} {
+		other.head = nullptr;
+		other.size_ = 0;
+	}
+
+	DoublyCircularList<T>& operator=(const DoublyCircularList<T>& other) {
+		DoublyCircularList<T> copy{other};
+		std::swap(head, copy.head);
+		std::swap(size_, copy.size_);
+		return *this;
+	}
+
+	DoublyCircularList<T>& operator=(DoublyCircularList<T>&& other) {
+		DoublyCircularList<T> copy{std::move(other)};
+		std::swap(head, copy.head);
+		std::swap(size_, copy.size_);
+		return *this;
+	}
+
 	~DoublyCircularList() { clear(); }
 
 	/**
@@ -256,6 +273,21 @@ private:
 		Node* prev{nullptr};
 		Node* next{nullptr};
 	};
+
+	static Node* copy_list(const Node* other_head) {
+		DoublyCircularList<T> copy;
+		copy.push_back(other_head->data);
+
+		for (auto it = other_head->next; it != other_head; it = it->next) {
+			copy.push_back(it->data);
+		}
+
+		auto p = copy.head;
+		copy.head = nullptr;
+		copy.size_ = 0;
+
+		return p;
+	}
 
 	Node* head{nullptr};
 	std::size_t size_{0u};
