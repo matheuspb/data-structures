@@ -20,9 +20,6 @@ class List;
 template <typename T>
 class ArrayList : public List<T> {
 public:
-	/**
-	 * @brief Default constructor
-	 */
 	ArrayList() = default;
 
 	ArrayList(const ArrayList<T>& other)
@@ -33,7 +30,10 @@ public:
 	ArrayList(ArrayList<T>&& other)
 		: contents{std::move(other.contents)}
 		, size_{std::move(other.size_)}
-		, max_size_{std::move(other.max_size_)} {}
+		, max_size_{std::move(other.max_size_)} {
+		other.size_ = 0;
+		other.max_size_ = 0;
+	}
 
 	ArrayList<T>& operator=(const ArrayList<T>& other) {
 		ArrayList<T> copy{other};
@@ -51,6 +51,8 @@ public:
 		return *this;
 	}
 
+	virtual ~ArrayList() = default;
+
 	/**
 	 * @brief Constructor with a given maximum size
 	 *
@@ -58,11 +60,6 @@ public:
 	 */
 	explicit ArrayList(std::size_t max_size)
 		: contents{new T[max_size]}, max_size_{max_size} {}
-
-	/**
-	 * @brief Destroys the list
-	 */
-	virtual ~ArrayList() = default;
 
 	/**
 	 * @brief Clears the contents of the list
