@@ -80,12 +80,15 @@ void test_list() {
 		assert(list.find(i) == 0);
 	}
 
+	L other = list;
+
 	list.insert(SIZE, SIZE / 2);
 	assert(list.at(SIZE / 2) == SIZE);
 	assert(list.size() == SIZE);
 	assert(list.erase(SIZE / 2) == SIZE);
 
 	for (int i = 0; i < SIZE - 1; i++) {
+		assert(other.contains(i));
 		assert(list.pop_back() == i);
 		assert(!list.contains(i));
 		assert(list.find(i) == list.size());
@@ -101,28 +104,30 @@ void test_list() {
 
 	assert(list.size() == SIZE);
 
+	other = std::move(list);
+
 	for (int i = 0; i < SIZE; i++) {
-		assert(list.at(list.find(i)) == i);
+		assert(other.at(other.find(i)) == i);
 	}
 
 	for (int i = 0; i < SIZE; i++) {
-		assert(list.pop_front() == i);
-		assert(!list.contains(i));
-		assert(list.find(i) == list.size());
+		assert(other.pop_front() == i);
+		assert(!other.contains(i));
+		assert(other.find(i) == other.size());
 	}
 
-	assert(list.size() == 0);
+	assert(other.size() == 0);
 
 	for (int i = 0; i < SIZE; i++) {
-		list.push_back(i);
+		other.push_back(i);
 	}
 
-	list.clear();
-	assert(list.size() == 0);
+	other.clear();
+	assert(other.size() == 0);
 
 	// test for memory leaks
 	for (int i = 0; i < SIZE; i++) {
-		list.push_back(i);
+		other.push_back(i);
 	}
 }
 
