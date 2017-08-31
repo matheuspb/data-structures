@@ -54,6 +54,8 @@ public:
 		return out;
 	}
 
+	void clear() { list.clear(); }
+
 	/**
 	 * @brief const ref to the top element of the Heap
 	 */

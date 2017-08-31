@@ -22,6 +22,8 @@ void test_stack() {
 	assert(stack.size() == SIZE);
 	assert(stack.top() == SIZE - 1);
 
+	S copy = stack;
+
 	stack.clear();
 
 	assert(stack.size() == 0);
@@ -32,12 +34,15 @@ void test_stack() {
 
 	for (int i = SIZE - 1; i >= 0; i--) {
 		assert(stack.pop() == i);
+		assert(copy.pop() == i);
 	}
 
 	// test for memory leaks
 	for (int i = 0; i < SIZE; i++) {
 		stack.push(i);
 	}
+
+	copy = std::move(stack);
 }
 
 template <typename Q>
@@ -52,6 +57,8 @@ void test_queue() {
 	assert(queue.front() == 0);
 	assert(queue.back() == SIZE - 1);
 
+	Q copy = queue;
+
 	queue.clear();
 
 	assert(queue.size() == 0);
@@ -62,12 +69,15 @@ void test_queue() {
 
 	for (int i = 0; i < SIZE; i++) {
 		assert(queue.dequeue() == i);
+		assert(copy.dequeue() == i);
 	}
 
 	// test for memory leaks
 	for (int i = 0; i < SIZE; i++) {
 		queue.enqueue(i);
 	}
+
+	copy = std::move(queue);
 }
 
 template <typename L>
@@ -181,14 +191,20 @@ void test_prio_queue() {
 	assert(pq.size() == 9);
 	assert(pq.top() == 9);
 
+	Q copy = pq;
+
+	pq.clear();
+
 	for (int i = 9; i >= 1; i--) {
-		assert(pq.pop() == i);
+		assert(copy.pop() == i);
 	}
 
 	// test for memory leaks
 	for (int i : v) {
 		pq.push(i);
 	}
+
+	copy = std::move(pq);
 }
 
 template <
