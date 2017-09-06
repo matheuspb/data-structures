@@ -7,13 +7,13 @@
 #include <type_traits>
 #include <vector>
 
-#define SIZE 5000
+#define SIZE 500
 
 namespace tests {
 
 template <typename S>
 void test_stack() {
-	S stack;
+	S stack, copy;
 
 	for (int i = 0; i < SIZE; i++) {
 		stack.push(i);
@@ -21,6 +21,8 @@ void test_stack() {
 
 	assert(stack.size() == SIZE);
 	assert(stack.top() == SIZE - 1);
+
+	copy = stack;
 
 	stack.clear();
 
@@ -32,17 +34,20 @@ void test_stack() {
 
 	for (int i = SIZE - 1; i >= 0; i--) {
 		assert(stack.pop() == i);
+		assert(copy.pop() == i);
 	}
 
 	// test for memory leaks
 	for (int i = 0; i < SIZE; i++) {
 		stack.push(i);
 	}
+
+	copy = std::move(stack);
 }
 
 template <typename Q>
 void test_queue() {
-	Q queue;
+	Q queue, copy;
 
 	for (int i = 0; i < SIZE; i++) {
 		queue.enqueue(i);
@@ -51,6 +56,8 @@ void test_queue() {
 	assert(queue.size() == SIZE);
 	assert(queue.front() == 0);
 	assert(queue.back() == SIZE - 1);
+
+	copy = queue;
 
 	queue.clear();
 
@@ -62,17 +69,20 @@ void test_queue() {
 
 	for (int i = 0; i < SIZE; i++) {
 		assert(queue.dequeue() == i);
+		assert(copy.dequeue() == i);
 	}
 
 	// test for memory leaks
 	for (int i = 0; i < SIZE; i++) {
 		queue.enqueue(i);
 	}
+
+	copy = std::move(queue);
 }
 
 template <typename L>
 void test_list() {
-	L list;
+	L list, other;
 
 	for (int i = 0; i < SIZE - 1; i++) {
 		list.push_front(i);
@@ -80,12 +90,15 @@ void test_list() {
 		assert(list.find(i) == 0);
 	}
 
+	other = list;
+
 	list.insert(SIZE, SIZE / 2);
 	assert(list.at(SIZE / 2) == SIZE);
 	assert(list.size() == SIZE);
 	assert(list.erase(SIZE / 2) == SIZE);
 
 	for (int i = 0; i < SIZE - 1; i++) {
+		assert(other.contains(i));
 		assert(list.pop_back() == i);
 		assert(!list.contains(i));
 		assert(list.find(i) == list.size());
@@ -101,34 +114,36 @@ void test_list() {
 
 	assert(list.size() == SIZE);
 
+	other = std::move(list);
+
 	for (int i = 0; i < SIZE; i++) {
-		assert(list.at(list.find(i)) == i);
+		assert(other.at(other.find(i)) == i);
 	}
 
 	for (int i = 0; i < SIZE; i++) {
-		assert(list.pop_front() == i);
-		assert(!list.contains(i));
-		assert(list.find(i) == list.size());
+		assert(other.pop_front() == i);
+		assert(!other.contains(i));
+		assert(other.find(i) == other.size());
 	}
 
-	assert(list.size() == 0);
+	assert(other.size() == 0);
 
 	for (int i = 0; i < SIZE; i++) {
-		list.push_back(i);
+		other.push_back(i);
 	}
 
-	list.clear();
-	assert(list.size() == 0);
+	other.clear();
+	assert(other.size() == 0);
 
 	// test for memory leaks
 	for (int i = 0; i < SIZE; i++) {
-		list.push_back(i);
+		other.push_back(i);
 	}
 }
 
 template <typename S>
 void test_set() {
-	S set;
+	S set, other;
 
 	for (double i = 0; i < SIZE; i++) {
 		assert(set.insert(i));
@@ -138,34 +153,39 @@ void test_set() {
 
 	assert(set.size() == SIZE);
 
+	other = set;
+
 	for (double i = 0; i < SIZE; i++) {
 		assert(set.remove(i));
 		assert(!set.remove(i));
 		assert(!set.contains(i));
+		assert(other.contains(i));
 	}
 
 	for (double i = 0; i < SIZE; i++) {
 		assert(set.insert(i));
 	}
 
-	auto items = set.items();
-	set.clear();
-	assert(set.size() == 0);
+	other = std::move(set);
+
+	auto items = other.items();
+	other.clear();
+	assert(other.size() == 0);
 
 	for (double i = 0; i < SIZE; i++) {
 		assert(items.contains(i));
-		assert(!set.contains(i));
+		assert(!other.contains(i));
 	}
 
 	// test for memory leaks
 	for (double i = 0; i < SIZE; i++) {
-		assert(set.insert(i));
+		assert(other.insert(i));
 	}
 }
 
 template <typename Q>
 void test_prio_queue() {
-	Q pq;
+	Q pq, copy;
 
 	std::vector<int> v = {4, 5, 3, 2, 8, 9, 1, 7, 6};
 
@@ -176,14 +196,20 @@ void test_prio_queue() {
 	assert(pq.size() == 9);
 	assert(pq.top() == 9);
 
+	copy = pq;
+
+	pq.clear();
+
 	for (int i = 9; i >= 1; i--) {
-		assert(pq.pop() == i);
+		assert(copy.pop() == i);
 	}
 
 	// test for memory leaks
 	for (int i : v) {
 		pq.push(i);
 	}
+
+	copy = std::move(pq);
 }
 
 template <

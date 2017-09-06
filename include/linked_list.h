@@ -19,11 +19,30 @@ namespace structures {
 template <typename T>
 class LinkedList : public List<T> {
 public:
-	// TODO rule of five
+	LinkedList() = default;
 
-	/**
-	 * @brief Destructor
-	 */
+	LinkedList(const LinkedList<T>& other)
+		: head{copy_list(other.head)}, size_{other.size_} {}
+
+	LinkedList(LinkedList<T>&& other) : head{other.head}, size_{other.size_} {
+		other.head = nullptr;
+		other.size_ = 0;
+	}
+
+	LinkedList<T>& operator=(const LinkedList<T>& other) {
+		LinkedList<T> copy{other};
+		std::swap(head, copy.head);
+		std::swap(size_, copy.size_);
+		return *this;
+	}
+
+	LinkedList<T>& operator=(LinkedList<T>&& other) {
+		LinkedList<T> copy{std::move(other)};
+		std::swap(head, copy.head);
+		std::swap(size_, copy.size_);
+		return *this;
+	}
+
 	virtual ~LinkedList() { clear(); }
 
 	/**
@@ -235,6 +254,20 @@ private:
 		T data;
 		Node* next{nullptr};
 	};
+
+	static Node* copy_list(const Node* other_head) {
+		auto new_tail = new Node(other_head->data);
+		auto new_head = new_tail;
+		auto it = other_head->next;
+
+		while (it != nullptr) {
+			new_tail->next = new Node(it->data);
+			new_tail = new_tail->next;
+			it = it->next;
+		}
+
+		return new_head;
+	}
 
 	Node* head{nullptr};
 	std::size_t size_{0u};

@@ -7,9 +7,7 @@
 #include <array_stack.h>
 #include <avl_tree.h>
 #include <binary_tree.h>
-#include <circular_list.h>
 #include <doubly_circular_list.h>
-#include <doubly_linked_list.h>
 #include <hash_table.h>
 #include <heap.h>
 #include <linked_list.h>
@@ -46,16 +44,6 @@ int main() {
 	std::cout << "testing LinkedList          ... ";
 	std::cout.flush();
 	tests::test_structure<structures::LinkedList<int>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing DoublyLinkedList    ... ";
-	std::cout.flush();
-	tests::test_structure<structures::DoublyLinkedList<int>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing CircularList        ... ";
-	std::cout.flush();
-	tests::test_structure<structures::CircularList<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing DoublyCircularList  ... ";
