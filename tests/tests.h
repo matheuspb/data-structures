@@ -13,7 +13,7 @@ namespace tests {
 
 template <typename S>
 void test_stack() {
-	S stack;
+	S stack, copy;
 
 	for (int i = 0; i < SIZE; i++) {
 		stack.push(i);
@@ -22,7 +22,7 @@ void test_stack() {
 	assert(stack.size() == SIZE);
 	assert(stack.top() == SIZE - 1);
 
-	S copy = stack;
+	copy = stack;
 
 	stack.clear();
 
@@ -47,7 +47,7 @@ void test_stack() {
 
 template <typename Q>
 void test_queue() {
-	Q queue;
+	Q queue, copy;
 
 	for (int i = 0; i < SIZE; i++) {
 		queue.enqueue(i);
@@ -57,7 +57,7 @@ void test_queue() {
 	assert(queue.front() == 0);
 	assert(queue.back() == SIZE - 1);
 
-	Q copy = queue;
+	copy = queue;
 
 	queue.clear();
 
@@ -82,7 +82,7 @@ void test_queue() {
 
 template <typename L>
 void test_list() {
-	L list;
+	L list, other;
 
 	for (int i = 0; i < SIZE - 1; i++) {
 		list.push_front(i);
@@ -90,7 +90,7 @@ void test_list() {
 		assert(list.find(i) == 0);
 	}
 
-	L other = list;
+	other = list;
 
 	list.insert(SIZE, SIZE / 2);
 	assert(list.at(SIZE / 2) == SIZE);
@@ -143,7 +143,7 @@ void test_list() {
 
 template <typename S>
 void test_set() {
-	S set;
+	S set, other;
 
 	for (double i = 0; i < SIZE; i++) {
 		assert(set.insert(i));
@@ -153,7 +153,7 @@ void test_set() {
 
 	assert(set.size() == SIZE);
 
-	S other = set;
+	other = set;
 
 	for (double i = 0; i < SIZE; i++) {
 		assert(set.remove(i));
@@ -185,7 +185,7 @@ void test_set() {
 
 template <typename Q>
 void test_prio_queue() {
-	Q pq;
+	Q pq, copy;
 
 	std::vector<int> v = {4, 5, 3, 2, 8, 9, 1, 7, 6};
 
@@ -196,7 +196,7 @@ void test_prio_queue() {
 	assert(pq.size() == 9);
 	assert(pq.top() == 9);
 
-	Q copy = pq;
+	copy = pq;
 
 	pq.clear();
 
