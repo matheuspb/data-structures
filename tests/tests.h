@@ -7,7 +7,7 @@
 #include <type_traits>
 #include <vector>
 
-#define SIZE 5000
+#define SIZE 500
 
 namespace tests {
 
@@ -153,28 +153,33 @@ void test_set() {
 
 	assert(set.size() == SIZE);
 
+	S other = set;
+
 	for (double i = 0; i < SIZE; i++) {
 		assert(set.remove(i));
 		assert(!set.remove(i));
 		assert(!set.contains(i));
+		assert(other.contains(i));
 	}
 
 	for (double i = 0; i < SIZE; i++) {
 		assert(set.insert(i));
 	}
 
-	auto items = set.items();
-	set.clear();
-	assert(set.size() == 0);
+	other = std::move(set);
+
+	auto items = other.items();
+	other.clear();
+	assert(other.size() == 0);
 
 	for (double i = 0; i < SIZE; i++) {
 		assert(items.contains(i));
-		assert(!set.contains(i));
+		assert(!other.contains(i));
 	}
 
 	// test for memory leaks
 	for (double i = 0; i < SIZE; i++) {
-		assert(set.insert(i));
+		assert(other.insert(i));
 	}
 }
 

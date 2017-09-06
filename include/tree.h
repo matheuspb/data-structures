@@ -16,6 +16,34 @@ namespace structures {
 template <typename T, typename N>
 class Tree : public Set<T> {
 public:
+	Tree() = default;
+
+	Tree(const Tree<T, N>& other) {
+		auto list = other.items();
+		for (std::size_t i = 0; i < list.size(); i++) {
+			insert(list[i]);
+		}
+	}
+
+	Tree(Tree<T, N>&& other) : root{other.root}, size_{other.size_} {
+		other.root = nullptr;
+		other.size_ = 0;
+	}
+
+	Tree<T, N>& operator=(const Tree<T, N>& other) {
+		Tree copy{other};
+		std::swap(root, copy.root);
+		std::swap(size_, copy.size_);
+		return *this;
+	}
+
+	Tree<T, N>& operator=(Tree<T, N>&& other) {
+		Tree copy{std::move(other)};
+		std::swap(root, copy.root);
+		std::swap(size_, copy.size_);
+		return *this;
+	}
+
 	/**
 	 * @brief Destructor
 	 */
