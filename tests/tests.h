@@ -7,7 +7,7 @@
 #include <type_traits>
 #include <vector>
 
-#define SIZE 500
+#define SIZE 10000
 
 namespace tests {
 

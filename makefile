@@ -1,4 +1,4 @@
-.PHONY = test clean debug
+.PHONY = debug test bench clean
 CPPFLAGS = -std=c++11 -I include -Werror -Wall -Wextra -pedantic -O
 
 all: tests/main
@@ -10,6 +10,9 @@ debug: all
 
 test: debug
 	valgrind ./tests/main
+
+bench: all
+	sh -c "time ./tests/main"
 
 clean:
 	rm tests/main
