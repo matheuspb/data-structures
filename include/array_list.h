@@ -131,10 +131,11 @@ public:
 				contents[i] = contents[i + 1];
 			}
 			size_--;
-			return deleted;
 
 			if (max_size_ / 4 > size_)
 				expand(0.5);
+
+			return deleted;
 		}
 	}
 
