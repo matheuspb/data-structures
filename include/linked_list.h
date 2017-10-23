@@ -252,6 +252,23 @@ public:
 	 */
 	std::size_t size() const { return size_; }
 
+	T& front() { return head->data; }
+	const T& front() const { return head->data; }
+	T& back() {
+		Node* it = head;
+		for (std::size_t i = 1; i < size_; ++i) {
+			it = it->next;
+		}
+		return it->data;
+	}
+	const T& back() const {
+		Node* it = head;
+		for (std::size_t i = 1; i < size_; ++i) {
+			it = it->next;
+		}
+		return it->data;
+	}
+
 private:
 	struct Node {
 		explicit Node(const T& data) : data{data} {}

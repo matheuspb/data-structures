@@ -234,6 +234,11 @@ public:
 
 	const T& operator[](std::size_t index) const { return contents[index]; }
 
+	T& front() { return contents[0]; }
+	const T& front() const { return contents[0]; }
+	T& back() { return contents[size_ - 1]; }
+	const T& back() const { return contents[size_ - 1]; }
+
 private:
 	void expand(float ratio) {
 		contents = copy_array(contents, size_, max_size_ * ratio);

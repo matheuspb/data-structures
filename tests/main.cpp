@@ -3,52 +3,50 @@
 #include "tests.h"
 
 #include <array_list.h>
-#include <array_queue.h>
-#include <array_stack.h>
+#include <queue.h>
+#include <stack.h>
 #include <avl_tree.h>
 #include <binary_tree.h>
 #include <doubly_circular_list.h>
 #include <hash_table.h>
 #include <heap.h>
 #include <linked_list.h>
-#include <linked_queue.h>
-#include <linked_stack.h>
 #include <rb_tree.h>
 
 int main() {
-	std::cout << "testing ArrayStack          ... ";
+	std::cout << "testing Stack<ArrayList<T>> ... ";
 	std::cout.flush();
-	tests::test_structure<structures::ArrayStack<int>>();
+	tests::test_stack<structures::Stack<int, structures::ArrayList<int>>>();
 	std::cout << "OK" << std::endl;
 
-	std::cout << "testing LinkedStack         ... ";
+	std::cout << "testing Stack<LinkedList<T>>... ";
 	std::cout.flush();
-	tests::test_structure<structures::LinkedStack<int>>();
+	tests::test_stack<structures::Stack<int, structures::LinkedList<int>>>();
 	std::cout << "OK" << std::endl;
 
-	std::cout << "testing ArrayQueue          ... ";
+	std::cout << "testing Queue<ArrayList<T>> ... ";
 	std::cout.flush();
-	tests::test_structure<structures::ArrayQueue<int>>();
+	tests::test_queue<structures::Queue<int, structures::ArrayList<int>>>();
 	std::cout << "OK" << std::endl;
 
-	std::cout << "testing LinkedQueue         ... ";
+	std::cout << "testing Queue<LinkedList<T>>... ";
 	std::cout.flush();
-	tests::test_structure<structures::LinkedQueue<int>>();
+	tests::test_queue<structures::Queue<int, structures::LinkedList<int>>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing ArrayList           ... ";
 	std::cout.flush();
-	tests::test_structure<structures::ArrayList<int>>();
+	tests::test_list<structures::ArrayList<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing LinkedList          ... ";
 	std::cout.flush();
-	tests::test_structure<structures::LinkedList<int>>();
+	tests::test_list<structures::LinkedList<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing DoublyCircularList  ... ";
 	std::cout.flush();
-	tests::test_structure<structures::DoublyCircularList<int>>();
+	tests::test_list<structures::DoublyCircularList<int>>();
 	std::cout << "OK" << std::endl;
 
 	std::cout << "testing HashTable           ... ";
