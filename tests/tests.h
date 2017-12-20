@@ -1,10 +1,8 @@
 #ifndef TESTS_H
 #define TESTS_H
 
-#include <abstract.h>
 #include <assert.h>
 #include <initializer_list>
-#include <type_traits>
 #include <vector>
 
 #define SIZE 10000
@@ -50,7 +48,7 @@ void test_queue() {
 	Q queue, copy;
 
 	for (int i = 0; i < SIZE; i++) {
-		queue.enqueue(i);
+		queue.push(i);
 	}
 
 	assert(queue.size() == SIZE);
@@ -64,17 +62,17 @@ void test_queue() {
 	assert(queue.size() == 0);
 
 	for (int i = 0; i < SIZE; i++) {
-		queue.enqueue(i);
+		queue.push(i);
 	}
 
 	for (int i = 0; i < SIZE; i++) {
-		assert(queue.dequeue() == i);
-		assert(copy.dequeue() == i);
+		assert(queue.pop() == i);
+		assert(copy.pop() == i);
 	}
 
 	// test for memory leaks
 	for (int i = 0; i < SIZE; i++) {
-		queue.enqueue(i);
+		queue.push(i);
 	}
 
 	copy = std::move(queue);
@@ -210,50 +208,6 @@ void test_prio_queue() {
 	}
 
 	copy = std::move(pq);
-}
-
-template <
-	typename T,
-	typename std::enable_if<
-		std::is_base_of<structures::Stack<int>, T>::value, int>::type = 0>
-void test_structure() {
-	test_stack<T>();
-}
-
-template <
-	typename T,
-	typename std::enable_if<
-		std::is_base_of<structures::Queue<int>, T>::value, int>::type = 0>
-void test_structure() {
-	test_queue<T>();
-}
-
-template <
-	typename T,
-	typename std::enable_if<
-		std::is_base_of<structures::List<int>, T>::value &&
-			!std::is_base_of<structures::Stack<int>, T>::value &&
-			!std::is_base_of<structures::Queue<int>, T>::value,
-		int>::type = 0>
-void test_structure() {
-	test_list<T>();
-}
-
-template <
-	typename T,
-	typename std::enable_if<
-		std::is_base_of<structures::Set<double>, T>::value, int>::type = 0>
-void test_structure() {
-	test_set<T>();
-}
-
-template <
-	typename T,
-	typename std::enable_if<
-		std::is_base_of<structures::PriorityQueue<int>, T>::value, int>::type =
-		0>
-void test_structure() {
-	test_prio_queue<T>();
 }
 
 }  // namespace tests

@@ -4,15 +4,12 @@
 
 Data structures implemented for my data structures course (INE5408) at UFSC.
 
-* Array structures:
-	* [Stack](include/array_stack.h)
-	* [Queue](include/array_queue.h)
-	* [List](include/array_list.h)
-* Linked structures:
-	* [Linked List](include/linked_list.h)
+* Linear structures:
+	* [Stack](include/stack.h)
+	* [Queue](include/queue.h)
+	* [Array list](include/array_list.h)
+	* [Linked list](include/linked_list.h)
 	* [Doubly circular list](include/doubly_circular_list.h)
-	* [Stack](include/linked_stack.h)
-	* [Queue](include/linked_queue.h)
 * Tree structures:
 	* [Binary search tree](include/binary_tree.h)
 	* [AVL tree](include/avl_tree.h)

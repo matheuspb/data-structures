@@ -5,13 +5,9 @@
 #include <memory>
 #include <stdexcept>
 
-#include <abstract.h>
 #include "utils.h"
 
 namespace structures {
-
-template <typename T>
-class List;
 
 /**
  * @brief Implements a list(data structure), using arrays
@@ -19,7 +15,7 @@ class List;
  * @tparam T Data type of the elements
  */
 template <typename T>
-class ArrayList : public List<T> {
+class ArrayList {
 public:
 	ArrayList() = default;
 
@@ -234,6 +230,14 @@ public:
 	}
 
 	const T& operator[](std::size_t index) const { return contents[index]; }
+
+	T& front() { return contents[0]; }
+
+	const T& front() const { return contents[0]; }
+
+	T& back() { return contents[size_ - 1]; }
+
+	const T& back() const { return contents[size_ - 1]; }
 
 private:
 	void expand(float ratio) {

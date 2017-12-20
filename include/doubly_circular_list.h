@@ -3,8 +3,6 @@
 
 #include <stdexcept>
 
-#include <abstract.h>
-
 namespace structures {
 
 /**
@@ -12,7 +10,7 @@ namespace structures {
  * @tparam T Data type of the elements
  */
 template <typename T>
-class DoublyCircularList : public List<T> {
+class DoublyCircularList {
 public:
 	DoublyCircularList() = default;
 
@@ -261,6 +259,14 @@ public:
 	 * @brief Returns the size of the list
 	 */
 	std::size_t size() const { return size_; }
+
+	T& front() { return head->data; }
+
+	const T& front() const { return head->data; }
+
+	T& back() { return head->prev->data; }
+
+	const T& back() const { return head->prev->data; }
 
 private:
 	struct Node {

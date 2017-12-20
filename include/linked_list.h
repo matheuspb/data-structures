@@ -4,8 +4,6 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include <abstract.h>
-
 namespace structures {
 
 /**
@@ -17,7 +15,7 @@ namespace structures {
  * @tparam T Data type of the elements
  */
 template <typename T>
-class LinkedList : public List<T> {
+class LinkedList {
 public:
 	LinkedList() = default;
 
@@ -251,6 +249,26 @@ public:
 	 * @return Size of the list
 	 */
 	std::size_t size() const { return size_; }
+
+	T& front() { return head->data; }
+
+	const T& front() const { return head->data; }
+
+	T& back() {
+		Node* it = head;
+		for (std::size_t i = 1; i < size_; ++i) {
+			it = it->next;
+		}
+		return it->data;
+	}
+
+	const T& back() const {
+		Node* it = head;
+		for (std::size_t i = 1; i < size_; ++i) {
+			it = it->next;
+		}
+		return it->data;
+	}
 
 private:
 	struct Node {
