@@ -21,7 +21,7 @@ namespace structures {
  * @tparam Comparator Type providing a strict weak ordering function
  */
 template <typename T, typename Comparator = std::less<T>>
-class Heap : public PriorityQueue<T> {
+class Heap {
 public:
 	Heap() = default;
 
@@ -90,6 +90,6 @@ private:
 	ArrayList<T> list;
 	Comparator comp;
 };
-}
+}  // namespace structures
 
 #endif

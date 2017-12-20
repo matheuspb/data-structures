@@ -5,12 +5,7 @@
 #include <memory>
 #include <stdexcept>
 
-#include <abstract.h>
-
 namespace structures {
-
-template <typename T>
-class List;
 
 /**
  * @brief Implements a list(data structure), using arrays
@@ -18,7 +13,7 @@ class List;
  * @tparam T Data type of the elements
  */
 template <typename T>
-class ArrayList : public List<T> {
+class ArrayList {
 public:
 	ArrayList() = default;
 

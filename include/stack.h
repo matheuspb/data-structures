@@ -1,8 +1,8 @@
 #ifndef STRUCTURES_STACK_H
 #define STRUCTURES_STACK_H
 
-#include <cstdint>
 #include "array_list.h"
+#include <cstdint>
 
 namespace structures {
 
@@ -20,6 +20,6 @@ private:
 	Container cont;
 };
 
-}
+}  // namespace structures
 
 #endif

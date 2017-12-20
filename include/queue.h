@@ -3,11 +3,11 @@
 
 #include <cstdint>
 
-#include <array_list.h>
+#include <doubly_circular_list.h>
 
 namespace structures {
 
-template <typename T, typename Container = ArrayList<T>>
+template <typename T, typename Container = DoublyCircularList<T>>
 class Queue {
 public:
 	void push(const T& data) { return cont.push_back(data); }
@@ -23,6 +23,6 @@ private:
 	Container cont;
 };
 
-}
+}  // namespace structures
 
 #endif

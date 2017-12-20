@@ -1,10 +1,8 @@
 #ifndef TESTS_H
 #define TESTS_H
 
-#include <abstract.h>
 #include <assert.h>
 #include <initializer_list>
-#include <type_traits>
 #include <vector>
 
 #define SIZE 10000
@@ -210,23 +208,6 @@ void test_prio_queue() {
 	}
 
 	copy = std::move(pq);
-}
-
-template <
-	typename T,
-	typename std::enable_if<
-		std::is_base_of<structures::Set<double>, T>::value, int>::type = 0>
-void test_structure() {
-	test_set<T>();
-}
-
-template <
-	typename T,
-	typename std::enable_if<
-		std::is_base_of<structures::PriorityQueue<int>, T>::value, int>::type =
-		0>
-void test_structure() {
-	test_prio_queue<T>();
 }
 
 }  // namespace tests

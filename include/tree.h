@@ -14,7 +14,7 @@ namespace structures {
  * @tparam N Class of the nodes of the tree
  */
 template <typename T, typename N>
-class Tree : public Set<T> {
+class Tree {
 public:
 	Tree() = default;
 

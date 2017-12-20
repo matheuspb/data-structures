@@ -240,6 +240,6 @@ public:
 		return r;
 	}
 };
-}
+}  // namespace structures
 
 #endif

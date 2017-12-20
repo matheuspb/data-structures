@@ -22,7 +22,7 @@ namespace structures {
  * @tparam Hash Class that implements the hash function
  */
 template <typename T, typename Hash = std::hash<T>>
-class HashTable : public Set<T> {
+class HashTable {
 public:
 	HashTable() = default;
 
@@ -164,6 +164,6 @@ private:
 
 	Hash hashf{};
 };
-}
+}  // namespace structures
 
 #endif
