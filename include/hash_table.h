@@ -5,6 +5,7 @@
 
 #include <array_list.h>
 #include <linked_list.h>
+#include "utils.h"
 
 namespace structures {
 
@@ -156,9 +157,7 @@ private:
 
 	const static std::size_t starting_size{8};
 
-	std::unique_ptr<LinkedList<T>[]> buckets {
-		new LinkedList<T>[starting_size]
-	};
+	std::unique_ptr<LinkedList<T>[]> buckets = make_unique<LinkedList<T>[]>(starting_size);
 	std::size_t buckets_size{starting_size};
 	std::size_t _size{0};
 

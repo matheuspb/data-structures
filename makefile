@@ -5,6 +5,10 @@ all: tests/main
 
 tests/main: $(wildcard tests/*.cpp)
 
+floyd.pdf: floyd.tex
+	pdflatex floyd.tex -o floyd.pdf
+	rm floyd.aux floyd.log
+
 debug: CPPFLAGS += -g
 debug: all
 

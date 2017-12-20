@@ -252,7 +252,7 @@ private:
 
 	const static std::size_t starting_size{8};
 
-	std::unique_ptr<T[]> contents{new T[starting_size]};
+	std::unique_ptr<T[]> contents = make_unique<T[]>(starting_size);
 	std::size_t size_{0u};
 	std::size_t max_size_{starting_size};
 };
