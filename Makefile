@@ -5,10 +5,6 @@ all: tests/main
 
 tests/main: $(wildcard tests/*.cpp)
 
-floyd.pdf: floyd.tex
-	pdflatex floyd.tex -o floyd.pdf
-	rm floyd.aux floyd.log
-
 debug: CPPFLAGS += -g
 debug: all
 
@@ -18,5 +14,13 @@ test: debug
 bench: all
 	sh -c "time ./tests/main"
 
+docs: Doxyfile $(wildcard include/*.h tests/*.cpp tests/*.h)
+	doxygen Doxyfile
+
+floyd.pdf: floyd.tex
+	pdflatex floyd.tex -o floyd.pdf
+	rm floyd.aux floyd.log
+
 clean:
-	rm tests/main
+	@rm -f tests/main floyd.pdf
+	@rm -rf docs/
