@@ -3,9 +3,9 @@
 
 #include <functional>
 
+#include "utils.h"
 #include <array_list.h>
 #include <linked_list.h>
-#include "utils.h"
 
 namespace structures {
 
@@ -96,7 +96,7 @@ public:
 			bucket.erase(i);
 			_size--;
 
-			if (_size <= buckets_size / 4 && buckets_size > starting_size) {
+			if (_size <= buckets_size / 4) {
 				std::size_t new_size = buckets_size / 2;
 				if (new_size >= starting_size)
 					resize_table(new_size);
@@ -157,7 +157,8 @@ private:
 
 	const static std::size_t starting_size{8};
 
-	std::unique_ptr<LinkedList<T>[]> buckets = make_unique<LinkedList<T>[]>(starting_size);
+	std::unique_ptr<LinkedList<T>[]> buckets =
+		make_unique<LinkedList<T>[]>(starting_size);
 	std::size_t buckets_size{starting_size};
 	std::size_t _size{0};
 

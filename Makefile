@@ -3,15 +3,15 @@ CPPFLAGS = -std=c++11 -I include -Werror -Wall -Wextra -pedantic -O
 
 all: tests/main
 
-tests/main: $(wildcard tests/*.cpp)
+tests/main: tests/main.cpp
 
 debug: CPPFLAGS += -g
-debug: all
+debug: tests/main
 
 test: debug
 	valgrind ./tests/main
 
-bench: all
+bench: tests/main
 	sh -c "time ./tests/main"
 
 docs: Doxyfile $(wildcard include/*.h tests/*.cpp tests/*.h)
@@ -19,8 +19,7 @@ docs: Doxyfile $(wildcard include/*.h tests/*.cpp tests/*.h)
 
 floyd.pdf: floyd.tex
 	pdflatex floyd.tex -o floyd.pdf
-	rm floyd.aux floyd.log
 
 clean:
-	@rm -f tests/main floyd.pdf
+	@rm -f tests/main floyd.aux floyd.log floyd.pdf
 	@rm -rf docs/
