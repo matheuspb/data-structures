@@ -21,6 +21,6 @@ typename std::enable_if<std::is_array<T>::value, std::unique_ptr<T>>::
 #else
 using std::make_unique;
 #endif
-}
+}  // namespace structures
 
 #endif

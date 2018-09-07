@@ -6,8 +6,8 @@
 
 namespace structures {
 
-template <typename T, typename Container = ArrayList<T>>
-class Stack {
+template <typename T, typename Container>
+class StackWrapper {
 public:
 	void push(const T& data) { return cont.push_back(data); }
 	T pop() { return cont.pop_back(); }
@@ -19,6 +19,9 @@ public:
 private:
 	Container cont;
 };
+
+template <typename T>
+class Stack : public StackWrapper<T, ArrayList<T>> {};
 
 }  // namespace structures
 

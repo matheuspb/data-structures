@@ -21,9 +21,9 @@ namespace structures {
  * @tparam Comparator Type providing a strict weak ordering function
  */
 template <typename T, typename Comparator = std::less<T>>
-class Heap {
+class HeapWrapper {
 public:
-	Heap() = default;
+	HeapWrapper() = default;
 
 	/**
 	 * @brief Inserts an element into the Heap
@@ -90,6 +90,10 @@ private:
 	ArrayList<T> list;
 	Comparator comp;
 };
+
+template <typename T>
+class Heap : public HeapWrapper<T> {};
+
 }  // namespace structures
 
 #endif

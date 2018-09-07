@@ -7,8 +7,8 @@
 
 namespace structures {
 
-template <typename T, typename Container = DoublyCircularList<T>>
-class Queue {
+template <typename T, typename Container>
+class QueueWrapper {
 public:
 	void push(const T& data) { return cont.push_back(data); }
 	T pop() { return cont.pop_front(); }
@@ -22,6 +22,9 @@ public:
 private:
 	Container cont;
 };
+
+template <typename T>
+class Queue : public QueueWrapper<T, DoublyCircularList<T>> {};
 
 }  // namespace structures
 

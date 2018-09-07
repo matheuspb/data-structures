@@ -23,39 +23,40 @@ namespace structures {
  * @tparam Hash Class that implements the hash function
  */
 template <typename T, typename Hash = std::hash<T>>
-class HashTable {
+class HashTableWrapper {
 public:
-	HashTable() = default;
+	HashTableWrapper() = default;
 
-	HashTable(const HashTable<T>& other) : HashTable(other.buckets_size) {
+	HashTableWrapper(const HashTableWrapper<T>& other)
+		: HashTableWrapper(other.buckets_size) {
 		auto list = other.items();
 		for (std::size_t i = 0; i < list.size(); i++) {
 			insert(list[i]);
 		}
 	}
 
-	HashTable(HashTable<T>&& other)
+	HashTableWrapper(HashTableWrapper<T>&& other)
 		: buckets{std::move(other.buckets)}
 		, buckets_size{std::move(other.buckets_size)}
 		, _size{std::move(other._size)} {}
 
-	HashTable<T>& operator=(const HashTable<T>& other) {
-		HashTable<T> copy{other};
+	HashTableWrapper<T>& operator=(const HashTableWrapper<T>& other) {
+		HashTableWrapper<T> copy{other};
 		std::swap(buckets_size, copy.buckets_size);
 		std::swap(buckets, copy.buckets);
 		std::swap(_size, copy._size);
 		return *this;
 	}
 
-	HashTable<T>& operator=(HashTable<T>&& other) {
-		HashTable<T> copy{std::move(other)};
+	HashTableWrapper<T>& operator=(HashTableWrapper<T>&& other) {
+		HashTableWrapper<T> copy{std::move(other)};
 		std::swap(buckets_size, copy.buckets_size);
 		std::swap(buckets, copy.buckets);
 		std::swap(_size, copy._size);
 		return *this;
 	}
 
-	~HashTable() = default;
+	~HashTableWrapper() = default;
 
 	/**
 	 * @brief Inserts `data` into the table
@@ -116,7 +117,7 @@ public:
 	}
 
 	void clear() {
-		HashTable<T> ht;
+		HashTableWrapper<T> ht;
 		*this = std::move(ht);
 	}
 
@@ -138,14 +139,14 @@ public:
 	}
 
 private:
-	explicit HashTable(std::size_t buckets_size_)
+	explicit HashTableWrapper(std::size_t buckets_size_)
 		: buckets{new LinkedList<T>[buckets_size_]}
 		, buckets_size{buckets_size_} {}
 
 	std::size_t hash(const T& data) const { return hashf(data) % buckets_size; }
 
 	void resize_table(std::size_t new_size) {
-		HashTable new_ht{new_size};
+		HashTableWrapper new_ht{new_size};
 
 		auto list = items();
 		for (std::size_t i = 0; i < list.size(); i++) {
@@ -164,6 +165,10 @@ private:
 
 	Hash hashf{};
 };
+
+template <typename T>
+class HashTable : public HashTableWrapper<T> {};
+
 }  // namespace structures
 
 #endif

@@ -3,84 +3,21 @@
 
 #include <assert.h>
 #include <initializer_list>
+#include <type_traits>
 #include <vector>
+
+#include "test_traits.h"
+#include <heap.h>
+#include <queue.h>
+#include <stack.h>
 
 #define SIZE 10000
 
 namespace tests {
 
-template <typename S>
-void test_stack() {
-	S stack, copy;
-
-	for (int i = 0; i < SIZE; i++) {
-		stack.push(i);
-	}
-
-	assert(stack.size() == SIZE);
-	assert(stack.top() == SIZE - 1);
-
-	copy = stack;
-
-	stack.clear();
-
-	assert(stack.size() == 0);
-
-	for (int i = 0; i < SIZE; i++) {
-		stack.push(i);
-	}
-
-	for (int i = SIZE - 1; i >= 0; i--) {
-		assert(stack.pop() == i);
-		assert(copy.pop() == i);
-	}
-
-	// test for memory leaks
-	for (int i = 0; i < SIZE; i++) {
-		stack.push(i);
-	}
-
-	copy = std::move(stack);
-}
-
-template <typename Q>
-void test_queue() {
-	Q queue, copy;
-
-	for (int i = 0; i < SIZE; i++) {
-		queue.push(i);
-	}
-
-	assert(queue.size() == SIZE);
-	assert(queue.front() == 0);
-	assert(queue.back() == SIZE - 1);
-
-	copy = queue;
-
-	queue.clear();
-
-	assert(queue.size() == 0);
-
-	for (int i = 0; i < SIZE; i++) {
-		queue.push(i);
-	}
-
-	for (int i = 0; i < SIZE; i++) {
-		assert(queue.pop() == i);
-		assert(copy.pop() == i);
-	}
-
-	// test for memory leaks
-	for (int i = 0; i < SIZE; i++) {
-		queue.push(i);
-	}
-
-	copy = std::move(queue);
-}
-
-template <typename L>
-void test_list() {
-	L list, other;
+template <template <typename> class L>
+typename std::enable_if_t<traits::is_list<L>::value> test_structure_wrapper() {
+	L<int> list, other;
 
 	for (int i = 0; i < SIZE - 1; i++) {
 		list.push_front(i);
@@ -139,9 +76,9 @@ void test_list() {
 	}
 }
 
-template <typename S>
-void test_set() {
-	S set, other;
+template <template <typename> class S>
+typename std::enable_if_t<traits::is_set<S>::value> test_structure_wrapper() {
+	S<double> set, other;
 
 	for (double i = 0; i < SIZE; i++) {
 		assert(set.insert(i));
@@ -181,9 +118,83 @@ void test_set() {
 	}
 }
 
-template <typename Q>
-void test_prio_queue() {
-	Q pq, copy;
+template <template <typename> class S>
+void test_structure() {
+	test_structure_wrapper<S>();
+}
+
+template <>
+void test_structure<structures::Stack>() {
+	structures::Stack<int> stack, copy;
+
+	for (int i = 0; i < SIZE; i++) {
+		stack.push(i);
+	}
+
+	assert(stack.size() == SIZE);
+	assert(stack.top() == SIZE - 1);
+
+	copy = stack;
+
+	stack.clear();
+
+	assert(stack.size() == 0);
+
+	for (int i = 0; i < SIZE; i++) {
+		stack.push(i);
+	}
+
+	for (int i = SIZE - 1; i >= 0; i--) {
+		assert(stack.pop() == i);
+		assert(copy.pop() == i);
+	}
+
+	// test for memory leaks
+	for (int i = 0; i < SIZE; i++) {
+		stack.push(i);
+	}
+
+	copy = std::move(stack);
+}
+
+template <>
+void test_structure<structures::Queue>() {
+	structures::Queue<int> queue, copy;
+
+	for (int i = 0; i < SIZE; i++) {
+		queue.push(i);
+	}
+
+	assert(queue.size() == SIZE);
+	assert(queue.front() == 0);
+	assert(queue.back() == SIZE - 1);
+
+	copy = queue;
+
+	queue.clear();
+
+	assert(queue.size() == 0);
+
+	for (int i = 0; i < SIZE; i++) {
+		queue.push(i);
+	}
+
+	for (int i = 0; i < SIZE; i++) {
+		assert(queue.pop() == i);
+		assert(copy.pop() == i);
+	}
+
+	// test for memory leaks
+	for (int i = 0; i < SIZE; i++) {
+		queue.push(i);
+	}
+
+	copy = std::move(queue);
+}
+
+template <>
+void test_structure<structures::Heap>() {
+	structures::Heap<int> pq, copy;
 
 	std::vector<int> v = {4, 5, 3, 2, 8, 9, 1, 7, 6};
 
