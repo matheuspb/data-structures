@@ -1,6 +1,6 @@
 # data-structures
 
-[![Build Status](https://travis-ci.org/matheuspb/data-structures.svg?branch=master)](https://travis-ci.org/matheuspb/data-structures)
+[![Build Status](https://travis-ci.org/matheuspb/data-structures.svg?branch=test_traits)](https://travis-ci.org/matheuspb/data-structures)
 
 Data structures implemented for my data structures course (INE5408) at UFSC.
 
