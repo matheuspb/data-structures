@@ -3,10 +3,10 @@
 
 #include <functional>
 
-#include <utils.h>
 #include <array_list.h>
 #include <linked_list.h>
 #include <traits.h>
+#include <utils.h>
 
 namespace structures {
 

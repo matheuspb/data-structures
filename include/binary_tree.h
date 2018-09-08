@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include <tree.h>
 #include <traits.h>
+#include <tree.h>
 
 namespace structures {
 
