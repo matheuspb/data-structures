@@ -3,6 +3,8 @@
 
 #include <stdexcept>
 
+#include <traits.h>
+
 namespace structures {
 
 /**
@@ -300,5 +302,14 @@ private:
 };
 
 }  // namespace structures
+
+/* list trait */
+template <>
+const bool traits::is_list<structures::DoublyCircularList>::value = true;
+
+/* name trait */
+template <>
+const std::string traits::type<structures::DoublyCircularList>::name =
+	"DoublyCircularList";
 
 #endif

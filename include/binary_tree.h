@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <tree.h>
+#include <traits.h>
 
 namespace structures {
 
@@ -165,5 +166,13 @@ template <typename T>
 class BinaryTree : public Tree<T, Node<T>> {};
 
 }  // namespace structures
+
+/* set trait */
+template <>
+const bool traits::is_set<structures::BinaryTree>::value = true;
+
+/* name trait */
+template <>
+const std::string traits::type<structures::BinaryTree>::name = "BinaryTree";
 
 #endif

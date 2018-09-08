@@ -1,8 +1,10 @@
 #ifndef STRUCTURES_STACK_H
 #define STRUCTURES_STACK_H
 
-#include "array_list.h"
 #include <cstdint>
+
+#include <array_list.h>
+#include <traits.h>
 
 namespace structures {
 
@@ -24,5 +26,9 @@ template <typename T>
 class Stack : public StackWrapper<T, ArrayList<T>> {};
 
 }  // namespace structures
+
+/* name trait */
+template <>
+const std::string traits::type<structures::Stack>::name = "Stack";
 
 #endif

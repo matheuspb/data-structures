@@ -2,6 +2,7 @@
 #define HEAP_H
 
 #include <array_list.h>
+#include <traits.h>
 
 namespace structures {
 
@@ -95,5 +96,9 @@ template <typename T>
 class Heap : public HeapWrapper<T> {};
 
 }  // namespace structures
+
+/* name trait */
+template <>
+const std::string traits::type<structures::Heap>::name = "Heap";
 
 #endif

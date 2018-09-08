@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <binary_tree.h>
+#include <traits.h>
 
 namespace structures {
 
@@ -154,5 +155,13 @@ template <typename T>
 class AVLTree : public Tree<T, AVLNode<T>> {};
 
 }  // namespace structures
+
+/* set trait */
+template <>
+const bool traits::is_set<structures::AVLTree>::value = true;
+
+/* name trait */
+template <>
+const std::string traits::type<structures::AVLTree>::name = "AVLTree";
 
 #endif

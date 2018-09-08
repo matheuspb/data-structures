@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include <doubly_circular_list.h>
+#include <traits.h>
 
 namespace structures {
 
@@ -27,5 +28,9 @@ template <typename T>
 class Queue : public QueueWrapper<T, DoublyCircularList<T>> {};
 
 }  // namespace structures
+
+/* name trait */
+template <>
+const std::string traits::type<structures::Queue>::name = "Queue";
 
 #endif

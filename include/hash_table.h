@@ -3,9 +3,10 @@
 
 #include <functional>
 
-#include "utils.h"
+#include <utils.h>
 #include <array_list.h>
 #include <linked_list.h>
+#include <traits.h>
 
 namespace structures {
 
@@ -170,5 +171,13 @@ template <typename T>
 class HashTable : public HashTableWrapper<T> {};
 
 }  // namespace structures
+
+/* set trait */
+template <>
+const bool traits::is_set<structures::HashTable>::value = true;
+
+/* name trait */
+template <>
+const std::string traits::type<structures::HashTable>::name = "HashTable";
 
 #endif

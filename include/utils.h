@@ -3,8 +3,6 @@
 
 #include <memory>
 
-namespace structures {
-
 #if __cplusplus < 201402L
 template <typename T, typename... Args>
 typename std::enable_if<not std::is_array<T>::value, std::unique_ptr<T>>::
@@ -21,6 +19,5 @@ typename std::enable_if<std::is_array<T>::value, std::unique_ptr<T>>::
 #else
 using std::make_unique;
 #endif
-}  // namespace structures
 
 #endif

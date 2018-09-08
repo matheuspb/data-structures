@@ -4,12 +4,13 @@
 #include <assert.h>
 #include <initializer_list>
 #include <type_traits>
+#include <typeinfo>
 #include <vector>
 
-#include "test_traits.h"
 #include <heap.h>
 #include <queue.h>
 #include <stack.h>
+#include <traits.h>
 
 #define SIZE 10000
 
@@ -219,6 +220,16 @@ void test_structure<structures::Heap>() {
 	}
 
 	copy = std::move(pq);
+}
+
+template <template <typename> class S, template <typename> class... Rest>
+void test_structures() {
+	std::cout << "testing " << traits::type<S>::name << "... ";
+	std::cout.flush();
+	test_structure<S>();
+	std::cout << "OK" << std::endl;
+	if constexpr (sizeof...(Rest) != 0)
+		test_structures<Rest...>();
 }
 
 }  // namespace tests
