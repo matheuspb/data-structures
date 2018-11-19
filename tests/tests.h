@@ -5,8 +5,6 @@
 #include <initializer_list>
 #include <vector>
 
-#define SIZE 10000
-
 namespace tests {
 
 template <typename S>

@@ -1,5 +1,8 @@
 .PHONY = debug test bench clean
-CPPFLAGS = -std=c++11 -I include -Werror -Wall -Wextra -pedantic -O
+SIZE = 10000
+CPPFLAGS = -std=c++11 -O
+CPPFLAGS += -Werror -Wall -Wextra -pedantic
+CPPFLAGS += -I include -D SIZE=$(SIZE)
 
 all: tests/main
 
