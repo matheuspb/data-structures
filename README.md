@@ -23,3 +23,8 @@ Data structures implemented for my data structures course (INE5408) at UFSC.
 Documentations for all classes can be generated using
 [doxygen](http://www.stack.nl/~dimitri/doxygen/). All classes use the C++11
 standard.
+
+Note: if someone is interested in the solutions that I handed in the course,
+one should look back at commit 07d4884ee465d0666608ae7283801c292582d417 and
+those header files should work fine. If you have any problems using them, feel
+free to contact me at telegram.me/matheuspb.
