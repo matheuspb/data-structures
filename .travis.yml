@@ -4,6 +4,7 @@ compiler:
   - clang
   - gcc
 
+dist: xenial
 addons:
   apt:
     packages:
