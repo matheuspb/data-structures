@@ -4,11 +4,12 @@
 #include <cstdint>
 
 #include <doubly_circular_list.h>
+#include <traits.h>
 
 namespace structures {
 
-template <typename T, typename Container = DoublyCircularList<T>>
-class Queue {
+template <typename T, typename Container>
+class QueueWrapper {
 public:
 	void push(const T& data) { return cont.push_back(data); }
 	T pop() { return cont.pop_front(); }
@@ -23,6 +24,13 @@ private:
 	Container cont;
 };
 
+template <typename T>
+class Queue : public QueueWrapper<T, DoublyCircularList<T>> {};
+
 }  // namespace structures
+
+/* name trait */
+template <>
+const std::string traits::type<structures::Queue>::name = "Queue";
 
 #endif

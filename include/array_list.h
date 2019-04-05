@@ -5,7 +5,8 @@
 #include <memory>
 #include <stdexcept>
 
-#include "utils.h"
+#include <traits.h>
+#include <utils.h>
 
 namespace structures {
 
@@ -263,5 +264,13 @@ private:
 };
 
 }  // namespace structures
+
+/* list trait */
+template <>
+const bool traits::is_list<structures::ArrayList>::value = true;
+
+/* name trait */
+template <>
+const std::string traits::type<structures::ArrayList>::name = "ArrayList";
 
 #endif

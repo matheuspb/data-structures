@@ -14,53 +14,9 @@
 #include <stack.h>
 
 int main() {
-	std::cout << "testing ArrayList           ... ";
-	std::cout.flush();
-	tests::test_list<structures::ArrayList<int>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing LinkedList          ... ";
-	std::cout.flush();
-	tests::test_list<structures::LinkedList<int>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing DoublyCircularList  ... ";
-	std::cout.flush();
-	tests::test_list<structures::DoublyCircularList<int>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing Stack               ... ";
-	std::cout.flush();
-	tests::test_stack<structures::Stack<int>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing Queue               ... ";
-	std::cout.flush();
-	tests::test_queue<structures::Queue<int>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing BinaryTree          ... ";
-	std::cout.flush();
-	tests::test_set<structures::BinaryTree<double>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing AVLTree             ... ";
-	std::cout.flush();
-	tests::test_set<structures::AVLTree<double>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing RBTree              ... ";
-	std::cout.flush();
-	tests::test_set<structures::RBTree<double>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing HashTable           ... ";
-	std::cout.flush();
-	tests::test_set<structures::HashTable<double>>();
-	std::cout << "OK" << std::endl;
-
-	std::cout << "testing Heap                ... ";
-	std::cout.flush();
-	tests::test_prio_queue<structures::Heap<int>>();
-	std::cout << "OK" << std::endl;
+	tests::test_structures<
+		structures::ArrayList, structures::LinkedList,
+		structures::DoublyCircularList, structures::Stack, structures::Queue,
+		structures::BinaryTree, structures::AVLTree, structures::RBTree,
+		structures::HashTable, structures::Heap>();
 }

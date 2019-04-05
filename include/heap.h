@@ -2,6 +2,7 @@
 #define HEAP_H
 
 #include <array_list.h>
+#include <traits.h>
 
 namespace structures {
 
@@ -21,9 +22,9 @@ namespace structures {
  * @tparam Comparator Type providing a strict weak ordering function
  */
 template <typename T, typename Comparator = std::less<T>>
-class Heap {
+class HeapWrapper {
 public:
-	Heap() = default;
+	HeapWrapper() = default;
 
 	/**
 	 * @brief Inserts an element into the Heap
@@ -90,6 +91,14 @@ private:
 	ArrayList<T> list;
 	Comparator comp;
 };
+
+template <typename T>
+class Heap : public HeapWrapper<T> {};
+
 }  // namespace structures
+
+/* name trait */
+template <>
+const std::string traits::type<structures::Heap>::name = "Heap";
 
 #endif

@@ -1,9 +1,11 @@
 #ifndef STRUCTURES_RB_TREE_H
 #define STRUCTURES_RB_TREE_H
 
+#include <cassert>
+
 #include <avl_tree.h>
 #include <binary_tree.h>
-#include <cassert>
+#include <traits.h>
 
 namespace structures {
 
@@ -240,6 +242,15 @@ public:
 		return r;
 	}
 };
+
 }  // namespace structures
+
+/* set trait */
+template <>
+const bool traits::is_set<structures::RBTree>::value = true;
+
+/* name trait */
+template <>
+const std::string traits::type<structures::RBTree>::name = "RBTree";
 
 #endif

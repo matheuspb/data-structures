@@ -1,6 +1,6 @@
 .PHONY = debug test bench clean
 SIZE = 10000
-CPPFLAGS = -std=c++11 -O
+CPPFLAGS = -std=c++17 -O
 CPPFLAGS += -Werror -Wall -Wextra -pedantic
 CPPFLAGS += -I include -D SIZE=$(SIZE)
 
