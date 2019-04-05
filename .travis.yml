@@ -2,12 +2,11 @@ language: cpp
 
 compiler:
   - clang
-  - gcc
 
 dist: xenial
 addons:
   apt:
     packages:
-    - valgrind
+      - valgrind
 
 script: make test
